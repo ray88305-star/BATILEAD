@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BatiLead Pro | Marketplace BTP Côte d'Ivoire & Passerelle GeniusPay</title>
+  <meta name="description" content="Plateforme d'achat de leads qualifiés BTP en Côte d'Ivoire. Passerelle de paiement officielle GeniusPay Mobile Money (Wave, Orange Money, MTN, Moov)." />
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- Supabase JS Client v2 (Full-Stack Cloud Database) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-[#FBFBFC] text-slate-800 min-h-screen font-sans antialiased flex flex-col selection:bg-amber-100 selection:text-amber-900">
+  <div id="app" class="flex flex-col min-h-screen">
+    
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-900 text-slate-200 text-xs py-2.5 px-4 border-b border-slate-800">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span><strong>Passerelle GeniusPay CI :</strong> Paiement réel Mobile Money (Wave, Orange, MTN, Moov)</span>
+        </div>
+        <div class="flex items-center gap-5 text-slate-300 text-[11px]">
+          <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Clé API Sandbox connectée</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="file-down" class="w-3.5 h-3.5 text-amber-400"></i> Fiche client téléchargeable</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-blue-400"></i> Garantie 48h</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="app.navigateTo('marketplace')">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white shadow-md shadow-amber-500/20 font-bold shrink-0">
+            <i data-lucide="hammer" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight">BatiLead<span class="text-amber-600">.pro</span></span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60">🇨🇮 Côte d'Ivoire</span>
+            </div>
+            <p class="text-[11px] text-slate-500 font-medium leading-none mt-0.5">Marché des Chantiers BTP & GeniusPay Mobile Money</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60 text-xs font-semibold">
+          <button id="nav-tab-marketplace" class="soft-tab active" onclick="app.navigateTo('marketplace')">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span>Opportunités</span>
+            <span id="nav-count-available" class="soft-pill bg-white text-slate-700 shadow-sm">0</span>
+          </button>
+          <button id="nav-tab-crm" class="soft-tab" onclick="app.navigateTo('crm')">
+            <i data-lucide="folder-check" class="w-3.5 h-3.5"></i>
+            <span>Mes Chantiers Débloqués</span>
+            <span id="nav-count-purchased" class="soft-pill bg-amber-100 text-amber-900">0</span>
+          </button>
+          <button id="nav-tab-admin" class="soft-tab hidden" onclick="app.navigateTo('admin')">
+            <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-purple-600"></i>
+            <span>Espace Super-Admin</span>
+          </button>
+        </nav>
+
+        <!-- Right User Actions -->
+        <div class="flex items-center gap-3">
+          <div id="auth-header-container"></div>
+          <button class="md:hidden p-2.5 rounded-2xl border border-slate-200 text-slate-700 hover:bg-slate-50 shrink-0" onclick="app.toggleMobileMenu()">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-4 space-y-2 text-sm font-medium">
+        <button class="w-full flex items-center gap-2.5 p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-semibold" onclick="app.navigateTo('marketplace'); app.toggleMobileMenu()">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-amber-600"></i> Catalogue des Chantiers
+        </button>
+        <button class="w-full flex items-center gap-2.5 p-3 rounded-xl hover:bg-slate-50 text-slate-700 font-semibold" onclick="app.navigateTo('crm'); app.toggleMobileMenu()">
+          <i data-lucide="folder-check" class="w-4 h-4 text-emerald-600"></i> Mes Chantiers Débloqués
+        </button>
+        <button id="mobile-nav-admin" class="w-full hidden items-center gap-2.5 p-3 rounded-xl bg-purple-50 text-purple-900 font-semibold" onclick="app.navigateTo('admin'); app.toggleMobileMenu()">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-purple-600"></i> Espace Super-Admin
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
+
+      <!-- ================================================================= -->
+      <!-- VIEW 1: MARKETPLACE / OPPORTUNITÉS -->
+      <!-- ================================================================= -->
+      <section id="view-marketplace" class="view-section active space-y-8">
+        
+        <!-- VIBRANT HERO BANNER (100% Self-Contained, No Missing Images) -->
+        <div class="hero-live-banner rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm bg-white">
+          <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            
+            <!-- Left Info Content -->
+            <div class="p-6 sm:p-10 lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div class="space-y-4">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/70 text-emerald-900 text-xs font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Passerelle GeniusPay Active (Wave, Orange Money, MTN MoMo, Moov)
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900 leading-[1.2]">
+                  Accédez aux chantiers BTP en <span class="text-amber-600">Côte d'Ivoire</span>.
+                </h1>
+                
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                  Débloquez instantanément le contact direct de particuliers vérifiés à Abidjan et en régions. Paiement sécurisé via votre compte <strong>Mobile Money (Wave, Orange, MTN, Moov)</strong> géré par l'API GeniusPay.
+                </p>
+              </div>
+
+              <!-- Value Points -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
+                  <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                    <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <span>Wave / Orange / MTN</span>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
+                  <div class="w-7 h-7 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                    <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <span>Fiche Technique PDF</span>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
+                  <div class="w-7 h-7 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <span>Garantie 48h</span>
+                </div>
+              </div>
+
+              <!-- GeniusPay Status Tag -->
+              <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs text-slate-500">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                  <span>API GeniusPay : <strong class="text-slate-800 font-mono text-[11px]">sk_sandbox_kU48PX...</strong></span>
+                </div>
+                <span class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
+                  Compte ray88305@gmail.com
+                </span>
+              </div>
+            </div>
+
+            <!-- Right Visual Live Terminal (Guaranteed Solid & Premium) -->
+            <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-8 flex flex-col justify-between text-white relative overflow-hidden">
+              <div class="space-y-4 relative z-10">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Marché en Direct CI
+                  </span>
+                  <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-xl border border-slate-700 font-mono">100% FCFA</span>
+                </div>
+
+                <div class="bg-slate-800/80 backdrop-blur-md p-4 rounded-2xl border border-slate-700/80 space-y-2.5">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-400">Dernier projet validé :</span>
+                    <span class="text-emerald-400 font-bold">Il y a 12 min</span>
+                  </div>
+                  <div class="font-bold text-sm text-white">Villa duplex 5 pièces + piscine</div>
+                  <div class="flex items-center justify-between text-xs text-slate-300">
+                    <span>📍 Bingerville (Feh Kessé)</span>
+                    <span class="font-bold text-amber-400">48 000 000 FCFA</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5 text-center text-xs">
+                  <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/60">
+                    <span class="text-slate-400 block text-[10px]">Déblocage Mobile</span>
+                    <span class="font-bold text-emerald-400 text-sm">Instant 0s</span>
+                  </div>
+                  <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/60">
+                    <span class="text-slate-400 block text-[10px]">Vérification Contact</span>
+                    <span class="font-bold text-amber-400 text-sm">100% Vérifié</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800 relative z-10 flex items-center justify-between text-xs text-slate-400">
+                <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i> Transactions Cryptées SSL</span>
+                <span class="text-slate-300 font-semibold">Abidjan & CI</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section 2: Construction vs Rénovation -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-600 px-1">
+            <span class="uppercase tracking-wider">Sélectionnez votre domaine d'activité :</span>
+            <span class="text-slate-400 font-normal">Filtrez instantanément</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- All Leads Tab -->
+            <div class="category-image-card active rounded-3xl" data-category="all" onclick="app.selectCategory('all', this)">
+              <div class="p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-md shadow-amber-500/20">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="font-heading font-bold text-base text-slate-900">Tous les Chantiers</div>
+                    <div class="text-xs text-slate-500">Construction & Rénovation (CI)</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-2xl font-heading font-extrabold text-slate-900" id="count-all-leads">0</span>
+                  <span class="text-[11px] text-slate-400 block leading-none">projets</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Construction Tab -->
+            <div class="category-image-card rounded-3xl" data-category="construction" onclick="app.selectCategory('construction', this)">
+              <div class="p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                    <i data-lucide="building-2" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="font-heading font-bold text-base text-slate-900">🏗️ Construction</div>
+                    <div class="text-xs text-amber-800 font-medium">Villas, Gros œuvre, Immeubles</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-2xl font-heading font-extrabold text-amber-700" id="count-construction-leads">0</span>
+                  <span class="text-[10px] text-slate-400 block leading-none">disponibles</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rénovation Tab -->
+            <div class="category-image-card rounded-3xl" data-category="renovation" onclick="app.selectCategory('renovation', this)">
+              <div class="p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center font-bold">
+                    <i data-lucide="paint-brush" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="font-heading font-bold text-base text-slate-900">🔨 Rénovation</div>
+                    <div class="text-xs text-blue-800 font-medium">Maisons, Bureaux, Finitions</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-2xl font-heading font-extrabold text-blue-700" id="count-renovation-leads">0</span>
+                  <span class="text-[10px] text-slate-400 block leading-none">disponibles</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toolbar Count -->
+        <div class="flex items-center justify-between px-1 pt-1">
+          <div class="flex items-center gap-2">
+            <h2 class="text-base font-heading font-bold text-slate-900">Opportunités actuellement disponibles en Côte d'Ivoire</h2>
+            <span id="results-count-badge" class="font-bold text-xs text-slate-700 bg-white px-3 py-1 rounded-full border border-slate-200/80 shadow-sm">
+              0 projets
+            </span>
+          </div>
+
+          <div class="text-xs text-slate-500">
+            <span class="hidden sm:inline">Paiement : </span>
+            <span class="font-semibold text-emerald-700">GeniusPay Mobile Money (FCFA)</span>
+          </div>
+        </div>
+
+        <!-- Leads Clean Responsive Cards Grid -->
+        <div id="leads-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+
+        <!-- Empty State -->
+        <div id="leads-empty-state" class="hidden text-center py-14 px-4 bg-white rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400">
+            <i data-lucide="search-x" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-slate-800">Aucun chantier dans cette catégorie pour le moment</h3>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto">
+            Sélectionnez l'onglet « Tous les Chantiers » pour consulter l'ensemble des projets disponibles.
+          </p>
+          <button class="btn-soft-secondary text-xs" onclick="app.resetFilters()">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Afficher tous les chantiers
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ================================================================= -->
+      <!-- VIEW 2: MES CHANTIERS DÉBLOQUÉS (ESPACE ACHETEUR & TÉLÉCHARGEMENT) -->
+      <!-- ================================================================= -->
+      <section id="view-crm" class="view-section hidden space-y-6">
+        
+        <!-- Header Banner CRM -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl sm:text-2xl font-heading font-bold text-slate-900">Mes Chantiers Débloqués</h1>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                Paiements validés par GeniusPay
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">
+              Coordonnées complètes démasquées. Téléchargez la fiche technique et le reçu de chaque client en 1 clic.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2.5 shrink-0">
+            <button class="btn-soft-secondary text-xs" onclick="app.exportPurchasedLeadsCsv()">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i> Exporter mes contacts (CSV)
+            </button>
+            <button class="btn-soft-primary text-xs" onclick="app.navigateTo('marketplace')">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Débloquer un autre chantier
+            </button>
+          </div>
+        </div>
+
+        <!-- CRM Financial Metrics in FCFA -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-medium">Chantiers Débloqués</span>
+            <div id="crm-stat-total" class="text-2xl font-bold font-heading text-slate-900 mt-1">0</div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-medium">Total Investi (FCFA)</span>
+            <div id="crm-stat-invest" class="text-2xl font-bold font-heading text-blue-600 mt-1">0 FCFA</div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-medium">Devis en Cours</span>
+            <div id="crm-stat-quotes" class="text-2xl font-bold font-heading text-amber-600 mt-1">0 FCFA</div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-medium">Chantiers Conclus</span>
+            <div id="crm-stat-won" class="text-2xl font-bold font-heading text-emerald-600 mt-1">0 FCFA</div>
+          </div>
+        </div>
+
+        <!-- CRM Kanban Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="soft-crm-column rounded-3xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+              <span class="font-heading font-bold text-xs text-slate-800 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> À Contacter
+              </span>
+              <span class="soft-pill bg-slate-100 text-slate-700" id="crm-count-new">0</span>
+            </div>
+            <div id="crm-list-new" class="space-y-2.5"></div>
+          </div>
+
+          <div class="soft-crm-column rounded-3xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+              <span class="font-heading font-bold text-xs text-slate-800 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> En Discussion
+              </span>
+              <span class="soft-pill bg-slate-100 text-slate-700" id="crm-count-contacted">0</span>
+            </div>
+            <div id="crm-list-contacted" class="space-y-2.5"></div>
+          </div>
+
+          <div class="soft-crm-column rounded-3xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+              <span class="font-heading font-bold text-xs text-slate-800 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Devis Transmis
+              </span>
+              <span class="soft-pill bg-slate-100 text-slate-700" id="crm-count-quote_sent">0</span>
+            </div>
+            <div id="crm-list-quote_sent" class="space-y-2.5"></div>
+          </div>
+
+          <div class="soft-crm-column rounded-3xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+              <span class="font-heading font-bold text-xs text-slate-800 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Chantier Conclu
+              </span>
+              <span class="soft-pill bg-emerald-100 text-emerald-800" id="crm-count-won">0</span>
+            </div>
+            <div id="crm-list-won" class="space-y-2.5"></div>
+          </div>
+        </div>
+
+        <div id="crm-empty-state" class="hidden text-center py-14 px-4 bg-white rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400">
+            <i data-lucide="folder-plus" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-heading font-bold text-slate-800">Vous n'avez pas encore débloqué de chantier</h3>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto">
+            Consultez les opportunités en ligne et débloquez votre premier contact client avec GeniusPay Mobile Money.
+          </p>
+          <button class="btn-soft-primary text-xs" onclick="app.navigateTo('marketplace')">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Parcourir les opportunités
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ================================================================= -->
+      <!-- VIEW 3: ESPACE SUPER-ADMIN (ray88305@gmail.com) -->
+      <!-- ================================================================= -->
+      <section id="view-admin" class="view-section hidden space-y-8">
+        
+        <!-- Header Super-Admin -->
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6 sm:p-8 rounded-3xl shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h1 class="text-xl sm:text-2xl font-heading font-bold">Espace Super-Administrateur (ray88305)</h1>
+            </div>
+            <p class="text-xs text-slate-300">
+              Accès réservé à votre adresse email : <strong class="text-amber-400" id="admin-active-email-badge">ray88305@gmail.com</strong>
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2.5 shrink-0">
+            <button class="btn-soft-secondary bg-white/10 hover:bg-white/20 text-white border-white/20 text-xs" onclick="app.openModal('csvImportModal')">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-400"></i> Import CSV Meta
+            </button>
+            <button class="btn-soft-primary text-xs" onclick="app.openModal('addLeadModal')">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Ajouter un Nouveau Lead
+            </button>
+            <button class="btn-soft-secondary bg-white/10 hover:bg-white/20 text-white border-white/20 text-xs" onclick="app.exportFullDatabaseJson()">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i> Sauvegarder BDD
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Cards Admin in FCFA -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Chiffre d'Affaires Total</span>
+            <div id="admin-kpi-revenue" class="text-2xl font-bold font-heading text-emerald-600 mt-1">0 FCFA</div>
+            <span class="text-[10px] text-slate-400">Encaissé via GeniusPay Mobile Money</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Leads Vendus</span>
+            <div id="admin-kpi-sold" class="text-2xl font-bold font-heading text-blue-600 mt-1">0</div>
+            <span class="text-[10px] text-slate-400">Déblocages clients réussis</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Clients Inscrits</span>
+            <div id="admin-kpi-users" class="text-2xl font-bold font-heading text-purple-600 mt-1">0</div>
+            <span class="text-[10px] text-slate-400">Entreprises enregistrées</span>
+          </div>
+
+          <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm">
+            <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Leads Actifs en Ligne</span>
+            <div id="admin-kpi-available" class="text-2xl font-bold font-heading text-amber-600 mt-1">0</div>
+            <span class="text-[10px] text-slate-400">Prêts à être achetés</span>
+          </div>
+        </div>
+
+        <!-- Sub-Tabs Admin -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto text-xs font-bold">
+            <button id="admin-subtab-leads" class="soft-tab active" onclick="app.switchAdminSubTab('leads')">
+              <i data-lucide="layers" class="w-4 h-4"></i> Inventaire des Leads
+            </button>
+            <button id="admin-subtab-users" class="soft-tab" onclick="app.switchAdminSubTab('users')">
+              <i data-lucide="users" class="w-4 h-4"></i> Registre des Clients
+            </button>
+            <button id="admin-subtab-orders" class="soft-tab" onclick="app.switchAdminSubTab('orders')">
+              <i data-lucide="receipt" class="w-4 h-4"></i> Journal des Paiements GeniusPay
+            </button>
+            <button id="admin-subtab-logs" class="soft-tab" onclick="app.switchAdminSubTab('logs')">
+              <i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i> Connexions & Activités DB
+            </button>
+            <button id="admin-subtab-settings" class="soft-tab" onclick="app.switchAdminSubTab('settings')">
+              <i data-lucide="settings" class="w-4 h-4"></i> Supabase & API GeniusPay
+            </button>
+          </div>
+
+          <!-- Section 1: Inventaire des Leads -->
+          <div id="admin-view-leads" class="admin-subview bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 class="font-heading font-bold text-sm text-slate-900">Catalogue & Statuts en direct</h3>
+              <button class="text-xs text-blue-600 hover:underline font-semibold" onclick="app.resetToDefaultLeads()">
+                Réinitialiser les leads d'exemple
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50/80 text-slate-500 uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th class="py-3 px-3 rounded-l-xl">Réf</th>
+                    <th class="py-3 px-3">Domaine & Titre</th>
+                    <th class="py-3 px-3">Localisation</th>
+                    <th class="py-3 px-3">Budget Estimé</th>
+                    <th class="py-3 px-3">Fraîcheur</th>
+                    <th class="py-3 px-3">Tarif Unitaire</th>
+                    <th class="py-3 px-3">Statut</th>
+                    <th class="py-3 px-3 rounded-r-xl text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-leads-table-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 2: Registre des Clients -->
+          <div id="admin-view-users" class="admin-subview hidden bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 class="font-heading font-bold text-sm text-slate-900">Base de Données des Clients & Entreprises</h3>
+              <span class="text-xs text-slate-500 font-medium" id="admin-users-total-count">0 clients</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50/80 text-slate-500 uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th class="py-3 px-3 rounded-l-xl">ID Client</th>
+                    <th class="py-3 px-3">Entreprise / Nom</th>
+                    <th class="py-3 px-3">Email</th>
+                    <th class="py-3 px-3">Téléphone</th>
+                    <th class="py-3 px-3">Date Inscription</th>
+                    <th class="py-3 px-3">Adresse IP</th>
+                    <th class="py-3 px-3 rounded-r-xl text-right">Chantiers Achetés</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-table-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 3: Journal des Paiements GeniusPay -->
+          <div id="admin-view-orders" class="admin-subview hidden bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 class="font-heading font-bold text-sm text-slate-900">Historique des Paiements GeniusPay (Wave, Orange, MTN, Moov)</h3>
+              <button class="btn-soft-secondary text-xs" onclick="app.exportOrdersCsv()">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Comptable (CSV)
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50/80 text-slate-500 uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th class="py-3 px-3 rounded-l-xl">N° Facture</th>
+                    <th class="py-3 px-3">Date & Heure</th>
+                    <th class="py-3 px-3">Acheteur</th>
+                    <th class="py-3 px-3">Chantier Débloqué</th>
+                    <th class="py-3 px-3">Montant Encaissé</th>
+                    <th class="py-3 px-3">Opérateur / Moyen</th>
+                    <th class="py-3 px-3 rounded-r-xl text-right">Dossier</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-table-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 4: Journal des Connexions & Activités en Direct -->
+          <div id="admin-view-logs" class="admin-subview hidden bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+              <div>
+                <h3 class="font-heading font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Traçabilité Complète des Connexions & Activités (Supabase DB)
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Chaque connexion IP, consultation, clic et achat est directement stocké en base de données.
+                </p>
+              </div>
+              <span id="admin-logs-total-count" class="text-xs font-mono font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-xl">0 événements</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50/80 text-slate-500 uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th class="py-3 px-3 rounded-l-xl">Date / Heure</th>
+                    <th class="py-3 px-3">Utilisateur</th>
+                    <th class="py-3 px-3">Adresse IP</th>
+                    <th class="py-3 px-3">Type d'Action</th>
+                    <th class="py-3 px-3 rounded-r-xl">Détails de l'Événement</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-logs-table-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 5: Configuration API GeniusPay, Supabase Cloud & Email Admin -->
+          <div id="admin-view-settings" class="admin-subview hidden space-y-6 max-w-xl">
+            
+            <!-- Carte 1: Supabase Cloud Database Direct Connect -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-5">
+              <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h3 class="font-heading font-bold text-base text-slate-900">Base de Données Supabase Cloud</h3>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    Synchronisation automatique de vos leads, utilisateurs et paiements en direct sur PostgreSQL Supabase.
+                  </p>
+                </div>
+                <div id="supabase-status-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  ⚡ Prêt & Connecté
+                </div>
+              </div>
+
+              <form class="space-y-4" onsubmit="app.handleSupabaseSettingsUpdate(event)">
+                <div>
+                  <label class="soft-label">Supabase Project URL *</label>
+                  <input type="url" id="settings-supabase-url" class="soft-input font-mono text-xs" value="https://ozxenmrmaomaqzkyjobc.supabase.co" required />
+                </div>
+
+                <div>
+                  <label class="soft-label">Supabase Anon Key (Clé API Publique JWT) *</label>
+                  <input type="password" id="settings-supabase-key" class="soft-input font-mono text-xs" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96eGVubXJtYW9tYXF6a3lqb2JjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4NDY3NjYsImV4cCI6MjEwMjQyMjc2Nn0.gi-rL0VXOXDidvCCr2AnsHo0bwDI_q8_Qy88qZNwmd0" required />
+                </div>
+
+                <div class="flex items-center gap-2 pt-2">
+                  <button type="button" class="btn-soft-secondary text-xs flex-1" onclick="app.testSupabaseConnection()">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> Tester Connexion Supabase
+                  </button>
+                  <button type="submit" class="btn-soft-primary text-xs flex-1">
+                    <i data-lucide="save" class="w-3.5 h-3.5"></i> Enregistrer Clés Supabase
+                  </button>
+                </div>
+              </form>
+
+              <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-2">
+                <button type="button" class="btn-soft-secondary text-[11px] py-1.5 px-3 text-emerald-800 bg-emerald-50/50 border-emerald-200" onclick="app.pushAllLeadsToSupabase()">
+                  <i data-lucide="upload-cloud" class="w-3 h-3"></i> Synchroniser les 12 Leads vers Supabase Cloud
+                </button>
+                <button type="button" class="btn-soft-secondary text-[11px] py-1.5 px-3 text-blue-800 bg-blue-50/50 border-blue-200" onclick="app.fetchLeadsFromSupabaseCloud()">
+                  <i data-lucide="download-cloud" class="w-3 h-3"></i> Recharger depuis Supabase Cloud
+                </button>
+              </div>
+            </div>
+
+            <!-- Carte 2: Configuration GeniusPay & Compte Admin -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-5">
+              <div class="border-b border-slate-100 pb-3">
+                <h3 class="font-heading font-bold text-base text-slate-900">Passerelle API GeniusPay (Côte d'Ivoire)</h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Clés actives pour l'administrateur <strong>ray88305@gmail.com</strong>.
+                </p>
+              </div>
+
+              <form class="space-y-4" onsubmit="app.handleGeniusPaySettingsUpdate(event)">
+                <div>
+                  <label class="soft-label">Clé Publique API GeniusPay (API Key) *</label>
+                  <input type="text" id="settings-geniuspay-pubkey" class="soft-input font-mono text-xs" value="sk_sandbox_kU48PXqvgWojG0mWRc7EaKsgIf5DlC1E" required />
+                </div>
+
+                <div>
+                  <label class="soft-label">Clé Secrète API GeniusPay (Secret Key) *</label>
+                  <input type="password" id="settings-geniuspay-secret" class="soft-input font-mono text-xs" value="ss_sandbox_YMvxy8Q5UnLAY3T9hWJ1oiZtMQAC4bHSisv5BUhoTzwwNyf5" required />
+                </div>
+
+                <div>
+                  <label class="soft-label">Mode de la passerelle *</label>
+                  <select id="settings-geniuspay-mode" class="soft-input font-semibold text-xs">
+                    <option value="sandbox">🟡 Mode Sandbox / Test (Wave & Mobile Money)</option>
+                    <option value="live">🟢 Mode Production (Encaisser de vrais paiements Mobile Money)</option>
+                  </select>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100">
+                  <label class="soft-label">Votre Adresse Email Super-Admin *</label>
+                  <input type="email" id="settings-admin-email" class="soft-input font-bold" value="ray88305@gmail.com" required />
+                </div>
+
+                <button type="submit" class="btn-soft-primary text-xs w-full py-2.5">
+                  Enregistrer les paramètres GeniusPay
+                </button>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200/80 py-8 px-4 text-xs text-slate-500 mt-16">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-heading font-bold text-slate-800">BatiLead.pro 🇨🇮</span>
+          <span>— Marketplace BTP Côte d'Ivoire & Passerelle GeniusPay (Wave, Orange, MTN, Moov, Carte)</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <span>Paiements sécurisés Mobile Money</span>
+          <span>•</span>
+          <span>Abidjan, Côte d'Ivoire</span>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- ================================================================= -->
+    <!-- MODALS -->
+    <!-- ================================================================= -->
+
+    <!-- Modal Auth: Connexion avec Google & Email / Mot de Passe (Supabase Auth) -->
+    <div id="authModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-md">
+        
+        <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+              <i data-lucide="shield-check" class="w-5 h-5 text-amber-700"></i>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-base text-slate-900" id="auth-modal-title">Espace Authentification Sécurisé</h3>
+              <p class="text-[11px] text-slate-500">Base de données Supabase Cloud Cloud & BatiLead</p>
+            </div>
+          </div>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('authModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="py-4 space-y-4 text-xs">
+          
+          <!-- 1. Bouton Officiel Google Sign-In -->
+          <button type="button" class="w-full py-2.5 px-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 font-bold text-slate-700 flex items-center justify-center gap-3 transition-all shadow-sm hover:border-slate-300" onclick="app.signInWithGoogle()">
+            <svg class="w-4 h-4" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="text-xs">Continuer avec Google</span>
+          </button>
+
+          <!-- Séparateur -->
+          <div class="relative flex items-center justify-center">
+            <div class="border-t border-slate-200 w-full"></div>
+            <span class="bg-white px-3 text-[10px] text-slate-400 uppercase font-bold tracking-wider">ou avec email & mot de passe</span>
+          </div>
+
+          <!-- Onglets : Se Connecter / Créer un Compte -->
+          <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-2xl font-bold text-center text-xs">
+            <button type="button" id="auth-tab-login" class="py-1.5 rounded-xl bg-white text-slate-900 shadow-sm" onclick="app.setAuthMode('login')">
+              Se Connecter
+            </button>
+            <button type="button" id="auth-tab-signup" class="py-1.5 rounded-xl text-slate-500 hover:text-slate-900" onclick="app.setAuthMode('signup')">
+              Créer un Compte
+            </button>
+          </div>
+
+          <!-- Formulaire Email & Mot de Passe -->
+          <form id="auth-form" class="space-y-3" onsubmit="app.handleAuthSubmit(event)">
+            
+            <div id="auth-field-name" class="hidden">
+              <label class="soft-label">Nom de votre entreprise ou Responsable *</label>
+              <input type="text" id="auth-name" class="soft-input text-xs" placeholder="Ex: Entreprise BTP Moderne / M. Kouamé" />
+            </div>
+
+            <div>
+              <label class="soft-label">Adresse Email *</label>
+              <input type="email" id="auth-email" class="soft-input text-xs font-mono" placeholder="ray88305@gmail.com" required />
+            </div>
+
+            <div>
+              <label class="soft-label">Mot de Passe *</label>
+              <div class="relative">
+                <input type="password" id="auth-password" class="soft-input text-xs font-mono pr-8" placeholder="••••••••" required />
+                <button type="button" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600" onclick="app.togglePasswordVisibility()">
+                  <i data-lucide="eye" class="w-4 h-4" id="auth-eye-icon"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="auth-field-phone" class="hidden">
+              <label class="soft-label">Numéro de téléphone (+225)</label>
+              <input type="tel" id="auth-phone" class="soft-input text-xs font-mono" placeholder="+225 07 00 00 00 00" />
+            </div>
+
+            <div class="pt-2 space-y-2">
+              <button type="submit" id="auth-submit-btn" class="btn-soft-primary text-xs w-full py-2.5">
+                Se Connecter
+              </button>
+
+              <button type="button" class="btn-soft-secondary text-xs w-full bg-purple-50 text-purple-900 border-purple-200 hover:bg-purple-100" onclick="app.quickAdminLogin()">
+                <i data-lucide="crown" class="w-3.5 h-3.5 text-purple-600"></i> Accès Direct Super-Admin (ray88305@gmail.com)
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal 1: Guichet de Paiement GeniusPay Mobile Money (Saisie Initiale) -->
+    <div id="purchaseModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-lg max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+              <i data-lucide="smartphone" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-base text-slate-900">Guichet GeniusPay Mobile Money (CI)</h3>
+              <p class="text-[10px] text-slate-400">Wave, Orange Money, MTN MoMo, Moov Money</p>
+            </div>
+          </div>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('purchaseModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div id="purchase-lead-details" class="py-3 space-y-2.5 text-xs"></div>
+
+        <!-- GeniusPay Payment Method Selector -->
+        <div class="space-y-3 pt-2 border-t border-slate-100">
+          <label class="soft-label font-bold text-slate-800">1. Choisissez votre moyen de paiement Mobile Money :</label>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <label class="payment-method-option active cursor-pointer p-3 rounded-2xl border-2 border-blue-500 bg-blue-50/60 flex flex-col items-center justify-center text-center gap-1">
+              <input type="radio" name="geniuspay-method" value="Wave" checked class="hidden" onchange="app.selectPaymentMethod(this)" />
+              <span class="font-bold text-xs text-blue-700">🌊 Wave</span>
+              <span class="text-[9px] text-emerald-700 font-semibold bg-emerald-100 px-1.5 py-0.2 rounded-full">0% Frais</span>
+            </label>
+
+            <label class="payment-method-option cursor-pointer p-3 rounded-2xl border-2 border-slate-200 bg-slate-50/60 flex flex-col items-center justify-center text-center gap-1 hover:border-orange-400">
+              <input type="radio" name="geniuspay-method" value="Orange Money" class="hidden" onchange="app.selectPaymentMethod(this)" />
+              <span class="font-bold text-xs text-orange-600">🟠 Orange Money</span>
+              <span class="text-[9px] text-slate-400">CI / UEMOA</span>
+            </label>
+
+            <label class="payment-method-option cursor-pointer p-3 rounded-2xl border-2 border-slate-200 bg-slate-50/60 flex flex-col items-center justify-center text-center gap-1 hover:border-yellow-400">
+              <input type="radio" name="geniuspay-method" value="MTN MoMo" class="hidden" onchange="app.selectPaymentMethod(this)" />
+              <span class="font-bold text-xs text-yellow-600">🟡 MTN MoMo</span>
+              <span class="text-[9px] text-slate-400">Instant</span>
+            </label>
+
+            <label class="payment-method-option cursor-pointer p-3 rounded-2xl border-2 border-slate-200 bg-slate-50/60 flex flex-col items-center justify-center text-center gap-1 hover:border-blue-400">
+              <input type="radio" name="geniuspay-method" value="Moov Money" class="hidden" onchange="app.selectPaymentMethod(this)" />
+              <span class="font-bold text-xs text-blue-600">🔵 Moov Money</span>
+              <span class="text-[9px] text-slate-400">Côte d'Ivoire</span>
+            </label>
+          </div>
+
+          <div class="pt-1">
+            <label class="soft-label font-bold text-slate-800">2. Numéro Mobile Money pour valider le paiement (+225) *</label>
+            <div class="flex items-center gap-2">
+              <span class="bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl shrink-0">🇨🇮 +225</span>
+              <input type="tel" id="checkout-momo-phone" class="soft-input text-xs font-mono font-bold" placeholder="07 48 92 14 77" required />
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Vous recevrez une invite de débit Mobile Money sécurisée sur ce numéro.</p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white flex items-center justify-between mt-2">
+            <div>
+              <span class="text-xs font-bold block">Montant à payer :</span>
+              <span class="text-[10px] text-emerald-400 font-mono">API Key : sk_sandbox_kU48...</span>
+            </div>
+            <span class="text-xl font-extrabold text-amber-400 font-heading" id="modal-lead-price-display">25 000 FCFA</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 pt-2">
+            <button class="btn-soft-secondary text-xs py-2.5" onclick="app.closeModal('purchaseModal')">Annuler</button>
+            <button id="geniuspay-submit-btn" class="btn-soft-primary text-xs py-2.5 bg-emerald-600 hover:bg-emerald-700 border-emerald-700 font-bold" onclick="app.initiateGeniusPayPayment()">
+              <i data-lucide="credit-card" class="w-4 h-4"></i> Lancer le paiement GeniusPay
+            </button>
+          </div>
+
+          <p class="text-[10px] text-center text-slate-400 flex items-center justify-center gap-1">
+            <i data-lucide="lock" class="w-3 h-3 text-emerald-500"></i> Passerelle GeniusPay CI • Sécurité 256-bit
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal 2: Écran d'Autorisation & Confirmation Mobile Money GeniusPay (Live USSD / App Push) -->
+    <div id="geniusPayAuthModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-md text-center space-y-4">
+        
+        <!-- Animated Spinner / Operator Badge -->
+        <div class="w-16 h-16 rounded-3xl bg-amber-50 border-2 border-amber-300 mx-auto flex items-center justify-center text-2xl shadow-md">
+          <span id="gp-auth-operator-icon">📱</span>
+        </div>
+
+        <div>
+          <h3 class="font-heading font-extrabold text-lg text-slate-900" id="gp-auth-title">Paiement Mobile Money en cours...</h3>
+          <p class="text-xs text-slate-500 mt-1" id="gp-auth-subtitle">
+            Une demande de débit a été envoyée vers votre numéro <strong class="text-slate-800" id="gp-auth-phone-display">+225 07 •• •• ••</strong>.
+          </p>
+        </div>
+
+        <!-- USSD / App Instruction Box -->
+        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-left space-y-2 text-xs">
+          <div class="flex items-center justify-between text-slate-500 font-semibold text-[11px]">
+            <span>Référence GeniusPay :</span>
+            <span class="font-mono text-slate-800 font-bold" id="gp-auth-ref">GP-TX-982173</span>
+          </div>
+          <div class="flex items-center justify-between text-slate-500 font-semibold text-[11px]">
+            <span>Montant à débiter :</span>
+            <span class="font-mono text-emerald-700 font-extrabold" id="gp-auth-amount">25 000 FCFA</span>
+          </div>
+          <div class="pt-2 border-t border-slate-200">
+            <span class="font-bold text-slate-900 block mb-1">Instructions pour valider :</span>
+            <p class="text-slate-600 text-[11px] leading-relaxed" id="gp-auth-instructions">
+              Ouvrez votre application <strong>Wave</strong> ou tapez le code USSD sur votre téléphone pour approuver le paiement de 25 000 FCFA.
+            </p>
+          </div>
+        </div>
+
+        <!-- Waiting Timer & Status -->
+        <div class="flex items-center justify-center gap-2 text-xs text-amber-700 bg-amber-50 py-2 rounded-xl border border-amber-200">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+          <span>En attente de votre validation Mobile Money...</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-2 pt-1">
+          <button class="btn-soft-primary text-xs w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold" onclick="app.confirmGeniusPayTransactionSuccess()">
+            <i data-lucide="check-circle" class="w-4 h-4"></i> J'ai approuvé le débit sur mon téléphone
+          </button>
+          <button class="btn-soft-secondary text-xs w-full py-2 text-slate-500" onclick="app.closeModal('geniusPayAuthModal')">
+            Annuler la transaction
+          </button>
+        </div>
+
+        <p class="text-[10px] text-slate-400 font-mono">
+          API Endpoint : pay.genius.ci/api/v1/merchant/payments
+        </p>
+      </div>
+    </div>
+
+
+    <!-- Modal 3: Dossier Complet Débloqué & Téléchargements -->
+    <div id="leadDetailModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-xl max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm">
+              ✓
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-base text-slate-900">Coordonnées Complètes du Client</h3>
+              <p class="text-[11px] text-emerald-700 font-medium">Paiement GeniusPay validé • Dossier prêt pour prise de contact</p>
+            </div>
+          </div>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('leadDetailModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div id="lead-full-content" class="py-4 space-y-4 text-xs pr-1"></div>
+
+        <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+          <button class="btn-soft-secondary text-xs" onclick="app.openDisputeModalFromDetail()">
+            <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-600"></i> Signaler un numéro erroné
+          </button>
+          <div class="flex items-center gap-2">
+            <button id="lead-download-doc-btn" class="btn-soft-secondary text-xs font-bold text-blue-700 border-blue-200 bg-blue-50/50">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Imprimer / Télécharger Dossier (PDF)
+            </button>
+            <button class="btn-soft-primary text-xs" onclick="app.closeModal('leadDetailModal'); app.navigateTo('crm')">
+              Voir dans mon suivi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal: Manuel Add Lead (Super-Admin) -->
+    <div id="addLeadModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-lg max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <h3 class="font-heading font-bold text-base text-slate-900">Publier un Nouveau Chantier (Admin)</h3>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('addLeadModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <form id="add-lead-form" class="py-4 space-y-3.5 text-xs" onsubmit="app.handleManualLeadSubmit(event)">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="soft-label">Domaine d'intervention *</label>
+              <select id="form-category" class="soft-input" required>
+                <option value="construction">🏗️ Construction Neuve</option>
+                <option value="renovation">🔨 Rénovation & Réhabilitation</option>
+              </select>
+            </div>
+            <div>
+              <label class="soft-label">Titre descriptif du projet *</label>
+              <input type="text" id="form-title" class="soft-input" placeholder="Ex: Construction villa duplex à Bingerville" required />
+            </div>
+            <div>
+              <label class="soft-label">Nom complet du client *</label>
+              <input type="text" id="form-name" class="soft-input" placeholder="Ex: Jean-Marc KOUAME" required />
+            </div>
+            <div>
+              <label class="soft-label">Numéro de téléphone (+225) *</label>
+              <input type="tel" id="form-phone" class="soft-input" placeholder="+225 07 12 34 56 78" required />
+            </div>
+            <div>
+              <label class="soft-label">Email *</label>
+              <input type="email" id="form-email" class="soft-input" placeholder="client@gmail.com" required />
+            </div>
+            <div>
+              <label class="soft-label">Ville / Commune *</label>
+              <input type="text" id="form-city" class="soft-input" placeholder="Ex: Abidjan - Cocody" required />
+            </div>
+            <div>
+              <label class="soft-label">Budget prévisionnel client (FCFA) *</label>
+              <input type="text" id="form-budget" class="soft-input" placeholder="Ex: 45 000 000 FCFA" required />
+            </div>
+            <div>
+              <label class="soft-label">Prix unitaire initial (FCFA) *</label>
+              <input type="number" id="form-price" class="soft-input" value="25000" min="5000" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="soft-label">Description du projet exprimé par le client *</label>
+            <textarea id="form-description" class="soft-input h-20" placeholder="Précisez les travaux demandés sur Facebook Ads..." required></textarea>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex justify-end gap-2">
+            <button type="button" class="btn-soft-secondary text-xs" onclick="app.closeModal('addLeadModal')">Annuler</button>
+            <button type="submit" class="btn-soft-primary text-xs">Mettre en ligne</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Modal: CSV Import -->
+    <div id="csvImportModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-md">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <h3 class="font-heading font-bold text-base text-slate-900">Importateur CSV Facebook Ads</h3>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('csvImportModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="py-4 space-y-3.5 text-xs">
+          <div id="csv-drop-zone" class="border-2 border-dashed border-slate-200 hover:border-amber-500 rounded-3xl p-6 text-center cursor-pointer bg-slate-50/60 transition-colors" onclick="document.getElementById('csv-file-input').click()">
+            <input type="file" id="csv-file-input" accept=".csv" class="hidden" onchange="app.handleCsvFileSelect(event)" />
+            <i data-lucide="upload-cloud" class="w-8 h-8 text-amber-600 mx-auto mb-2"></i>
+            <p class="font-semibold text-slate-800">Glissez votre fichier .CSV ici</p>
+            <p class="text-slate-400 text-[11px] mt-0.5">ou cliquez pour choisir un fichier</p>
+          </div>
+
+          <div class="flex items-center justify-between bg-slate-50 p-3 rounded-2xl text-[11px]">
+            <span class="text-slate-500">Format d'export Facebook Ads :</span>
+            <button class="text-amber-700 font-semibold hover:underline" onclick="app.downloadSampleCsv()">Télécharger modèle</button>
+          </div>
+
+          <div id="csv-preview-container" class="hidden space-y-1.5">
+            <span class="text-emerald-600 font-semibold text-xs" id="csv-preview-count">0 leads détectés</span>
+            <div id="csv-preview-list" class="max-h-24 overflow-y-auto bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] font-mono"></div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+          <button class="btn-soft-secondary text-xs" onclick="app.closeModal('csvImportModal')">Fermer</button>
+          <button id="csv-confirm-import-btn" class="btn-soft-primary text-xs hidden" onclick="app.confirmCsvImport()">Importer les Leads</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal: Dispute Guarantee -->
+    <div id="disputeModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-sm">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <h3 class="font-heading font-bold text-base text-slate-900">Garantie Remplacement</h3>
+          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('disputeModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <form id="dispute-form" class="py-3.5 space-y-3.5 text-xs" onsubmit="app.handleDisputeSubmit(event)">
+          <input type="hidden" id="dispute-lead-id" />
+          <div>
+            <label class="soft-label">Motif du signalement *</label>
+            <select id="dispute-reason" class="soft-input" required>
+              <option value="invalid_phone">Numéro injoignable / Mauvais destinataire</option>
+              <option value="project_cancelled">Projet annulé avant échange</option>
+              <option value="wrong_location">Chantier hors zone géographique</option>
+            </select>
+          </div>
+          <div class="p-3 rounded-2xl bg-amber-50 text-amber-900 border border-amber-200/70 text-[11px]">
+            Si le motif est constaté, un remplacement immédiat est accordé sous 48h.
+          </div>
+          <div class="pt-2 border-t border-slate-100 flex justify-end gap-2">
+            <button type="button" class="btn-soft-secondary text-xs" onclick="app.closeModal('disputeModal')">Annuler</button>
+            <button type="submit" class="btn-soft-primary text-xs bg-amber-600 hover:bg-amber-700">Valider la garantie</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-xs pointer-events-none"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
