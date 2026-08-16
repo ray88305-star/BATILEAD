@@ -1,0 +1,271 @@
+/* ==========================================================================
+   BatiLead Pro - Master Human & Soft Design System
+   Design épuré, courbes douces et chaleureuses (Non-robotique)
+   ========================================================================== */
+
+:root {
+  --bg-page: #FBFBFC;
+  --bg-card: #FFFFFF;
+  --border-soft: rgba(226, 232, 240, 0.8);
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --amber-primary: #D97706;
+  --amber-dark: #B45309;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+/* Soft Vibrant Hero Banner */
+.hero-live-banner {
+  background: #FFFFFF;
+  border-radius: 1.75rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-live-banner:hover {
+  box-shadow: 0 10px 30px -6px rgba(15, 23, 42, 0.08);
+}
+
+/* Soft Category Image Cards */
+.category-image-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  min-height: 84px;
+}
+
+.category-image-card:hover {
+  border-color: #FCD34D;
+  background: #FFFDF8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -2px rgba(217, 119, 6, 0.08);
+}
+
+.category-image-card.active {
+  border-color: #D97706;
+  background: #FFFBEB;
+  box-shadow: 0 6px 14px -1px rgba(217, 119, 6, 0.12);
+}
+
+.category-image-card.active .font-heading {
+  color: #B45309;
+}
+
+/* Tabs */
+.soft-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 12px;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.soft-tab:hover {
+  color: #0F172A;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.soft-tab.active {
+  color: #0F172A;
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.soft-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+
+/* Soft Lead Card (Design Arrondi & Humain) */
+.soft-lead-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-soft);
+  border-radius: 1.5rem;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.soft-lead-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.06);
+  transform: translateY(-2px);
+}
+
+.soft-lead-card.is-purchased {
+  border-color: #10B981;
+  background: #F8FDFB;
+}
+
+.soft-lead-card.is-expired {
+  opacity: 0.65;
+  background: #FAFAFA;
+}
+
+/* Soft Buttons */
+.btn-soft-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid #B45309;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-soft-primary:hover {
+  background: linear-gradient(135deg, #B45309 0%, #92400E 100%);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-soft-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 15px;
+  background: #FFFFFF;
+  color: #334155;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-soft-secondary:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+
+/* Forms & Inputs */
+.soft-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 5px;
+}
+
+.soft-input {
+  width: 100%;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #0F172A;
+  transition: all 0.2s ease;
+}
+
+.soft-input:focus {
+  outline: none;
+  background: #FFFFFF;
+  border-color: #D97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+}
+
+/* CRM Column */
+.soft-crm-column {
+  background: #F8FAFC;
+  border: 1px solid var(--border-soft);
+  border-radius: 1.5rem;
+  padding: 16px;
+  min-height: 480px;
+}
+
+.soft-crm-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.soft-crm-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+.soft-modal-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1.75rem;
+  padding: 24px;
+  width: 100%;
+  box-shadow: 0 25px 40px -10px rgba(15, 23, 42, 0.12);
+}
+
+/* Toast */
+.soft-toast {
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
