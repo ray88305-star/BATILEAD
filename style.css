@@ -1,0 +1,244 @@
+/* ==========================================================================
+   Bati'O Pro — Design System & Charte Graphique Épurée Bleu Ciel
+   ========================================================================== */
+
+:root {
+  --primary-sky: #0ea5e9;
+  --primary-sky-hover: #0284c7;
+  --primary-sky-light: #f0f9ff;
+  --primary-sky-border: #bae6fd;
+  
+  --slate-dark: #0f172a;
+  --slate-body: #334155;
+  --slate-muted: #64748b;
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --border-soft: #e2e8f0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--slate-body);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Soft Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Soft Tabs Navigation */
+.soft-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.875rem;
+  color: var(--slate-muted);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.soft-tab:hover {
+  color: var(--slate-dark);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.soft-tab.active {
+  color: #0284c7;
+  background-color: #ffffff;
+  border-color: #e0f2fe;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Soft Pills */
+.soft-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+/* Buttons */
+.btn-sky-primary, .btn-soft-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.625rem 1.15rem;
+  border-radius: 0.875rem;
+  box-shadow: 0 2px 8px -1px rgba(14, 165, 233, 0.35);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-sky-primary:hover, .btn-soft-primary:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 4px 12px -1px rgba(14, 165, 233, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-sky-secondary, .btn-soft-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background-color: #ffffff;
+  color: #334155;
+  font-weight: 600;
+  padding: 0.625rem 1.15rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-sky-secondary:hover, .btn-soft-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Category Filter Cards */
+.category-filter-card {
+  background-color: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.category-filter-card:hover {
+  border-color: #7dd3fc;
+  box-shadow: 0 4px 12px -2px rgba(14, 165, 233, 0.1);
+  transform: translateY(-2px);
+}
+
+.category-filter-card.active {
+  border-color: #0ea5e9;
+  background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+  box-shadow: 0 4px 14px -2px rgba(14, 165, 233, 0.18);
+}
+
+/* Lead Cards */
+.soft-lead-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.5rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.soft-lead-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 8px 24px -4px rgba(14, 165, 233, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Inputs & Labels */
+.soft-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.soft-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.875rem;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-size: 0.8125rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.soft-input:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.soft-modal-card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  width: 100%;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #f1f5f9;
+}
+
+/* CRM Column */
+.soft-crm-column {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  min-height: 480px;
+}
+
+/* Toast */
+.soft-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #0f172a;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #334155;
+  animation: slideInUp 0.3s ease-out forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
