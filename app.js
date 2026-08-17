@@ -10,389 +10,394 @@ const ONE_DAY_MS = 1000 * 60 * 60 * 24;
 const DB_VERSION = "batilead_db_v18_official_anon_key";
 
 const OFFICIAL_SUPABASE_URL = "https://ozxenmrmaomaqzkyjobc.supabase.co";
-const OFFICIAL_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96eGVubXJtYW9tYXF6a3lqb2JjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4NDY3NjYsImV4cCI6MjEwMjQyMjc2Nn0.gi-rL0VXOXDidvCCr2AnsHo0bwDI_q8_Qy88qZNwmd0";
+constOFFICIAL_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96eGVubXJtYW9tYXF6a3lqb2JjIiwicm9 sZSI6ImFub24iLCJpYXQiOjE3ODY4NDY3NjYsImV4cCI6MjEwMjQyMjc2Nn0.gi-rL0VXOXDidvCCr2AnsHo0bwDI_q8_Qy88qZNwmd0";
+
+// Configuration Officielle Passerelle Mobile Money GeniusPay (Côte d'Ivoire)
+const OFFICIAL_GENIUSPAY_ENDPOINT = "https://geniuspay.ci/api/v1/merchant";
+const OFFICIAL_GENIUSPAY_PUBKEY = "sk_sandbox_kU48PXqvgWojG0mWRc7EaKsgIf5DlC1E";
+const OFFICIAL_GENIUSPAY_SECRET = "ss_sandbox_YMvxy8Q5UnLAY3T9hWJ1oiZtMQAC4bHSisv5BUhoTzwwNyf5";
 
 // 12 Chantiers Réalistes de Base en Côte d'Ivoire (FCFA)
 const DEFAULT_LEADS_CI = [
   {
-    id: "LEAD-CI-101",
-    daysAgo: 1,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction villa duplex 5 pièces avec piscine",
-    description: "Terrain de 500m² avec ACD acquis à Bingerville. Nous recherchons une entreprise de BTP sérieuse pour la réalisation gros œuvre et second œuvre. Plans d'architecte déjà validés.",
-    budget: "48 000 000 FCFA",
-    budgetValue: 48000000,
-    surface: "240 m²",
-    horizon: "Urgent (< 1 mois)",
+    id : "LEAD-CI-101",
+    Il y a 1 jour :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction villa duplex 5 pièces avec piscine",
+    description: "Terrain de 500m² avec ACD acquis à Bingerville. Nous recherchons une entreprise de BTP sérieuse pour la réalisation gros œuvre et seconde œuvre. Plans d'architecte déjà validés.",
+    budget : « 48 000 000 FCFA »,
+    Valeur du budget : 48 000 000,
+    surface : « 240 m² »,
+    horizon : « Urgent (< 1 mois) »,
     propertyType: "Terrain avec ACD",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Bingerville",
-    commune: "Bingerville (Feh Kessé)",
-    fullName: "Jean-Marc KOUAME",
-    phone: "+225 07 48 92 14 77",
-    email: "jm.kouame@gmail.com",
-    address: "Quartier Feh Kessé, Bingerville, Abidjan",
-    campaign: "Facebook Ads - Construction Abidjan Est",
-    basePrice: 25000,
-    currentPrice: 25000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : "Abidjan - Bingerville",
+    commune : "Bingerville (Feh Kessé)",
+    Nom complet : « Jean-Marc KOUAME »,
+    téléphone : "+225 07 48 92 14 77",
+    email : "jm.koumame@gmail.com",
+    adresse : « Quartier Feh Kessé, Bingerville, Abidjan »,
+    campagne : « Publicités Facebook - Construction Abidjan Est »,
+    Prix ​​de base : 25 000,
+    Prix ​​actuel : 25 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-102",
-    daysAgo: 1,
-    category: "renovation",
-    categoryLabel: "Rénovation & Réhabilitation",
-    title: "Rénovation intégrale villa basse 4 pièces + dépendance",
+    id : "LEAD-CI-102",
+    Il y a 1 jour :
+    catégorie : « rénovation »,
+    CatégorieLabel : "Rénovation & Réhabilitation",
+    titre : "Rénovation intégrale villa basse 4 pièces + dépendance",
     description: "Travaux complets : réfection toiture tôle bac, reprise totale de l'étanchéité, plomberie neuve, pose de carrelage 60x60 et peinture intérieure/extérieure.",
-    budget: "18 500 000 FCFA",
-    budgetValue: 18500000,
-    surface: "160 m²",
-    horizon: "Urgent (< 1 mois)",
-    propertyType: "Villa basse",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Cocody",
-    commune: "Cocody (Deux-Plateaux)",
-    fullName: "Mireille BAKAYOKO",
-    phone: "+225 05 71 33 80 12",
+    budget : « 18 500 000 FCFA »,
+    Valeur du budget : 18 500 000,
+    surface : « 160 m² »,
+    horizon : « Urgent (< 1 mois) »,
+    type de propriété : "Villa basse",
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Cocody »,
+    commune : "Cocody (Deux-Plateaux)",
+    Nom complet : "Mireille BAKAYOKO",
+    téléphone : "+225 05 71 33 80 12",
     email: "m.bakayoko@yahoo.fr",
-    address: "Deux-Plateaux Vallons, Cocody, Abidjan",
-    campaign: "Facebook Ads - Rénovation Cocody",
-    basePrice: 20000,
-    currentPrice: 20000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    adresse : "Deux-Plateaux Vallons, Cocody, Abidjan",
+    campagne : "Facebook Ads - Rénovation Cocody",
+    Prix ​​de base : 20 000,
+    Prix ​​actuel : 20 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-103",
-    daysAgo: 2,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction résidence de vacances en bordure de lagune",
+    id : "LEAD-CI-103",
+    Il y a 2 jours :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction résidence de vacances en bordure de lagune",
     description: "Projet de maison de vacances moderne de plain-pied avec grande terrasse en bois et clôture sécurisée. Accès dégagé pour camions de livraison.",
-    budget: "55 000 000 FCFA",
-    budgetValue: 55000000,
-    surface: "190 m²",
+    budget : « 55 000 000 FCFA »,
+    Valeur du budget : 55 000 000,
+    surface : « 190 m² »,
     horizon: "Sous 2 à 3 mois",
     propertyType: "Terrain bord lagune",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Assinie",
-    commune: "Assinie Mafia",
-    fullName: "Stéphane N'GUESSAN",
-    phone: "+225 07 19 84 55 20",
-    email: "s.nguessan@outlook.ci",
-    address: "Assinie Km 9, Bord lagune",
-    campaign: "Facebook Ads - Villas Assinie Prestige",
-    basePrice: 30000,
-    currentPrice: 30000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Assinie »,
+    commune : « La mafia d'Assinie »,
+    Nom complet : « Stéphane N'GUESSAN »,
+    téléphone : "+225 07 19 84 55 20",
+    courriel : "s.nguessan@outlook.ci",
+    adresse : « Assinie Km 9, Bord lagune »,
+    campagne : « Publicités Facebook - Villas Assinie Prestige »,
+    Prix ​​de base : 30 000,
+    Prix ​​actuel : 30 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-104",
-    daysAgo: 2,
-    category: "renovation",
-    categoryLabel: "Rénovation & Réhabilitation",
-    title: "Rénovation & Aménagement bureaux commerciaux R+1",
+    id : "LEAD-CI-104",
+    Il y a 2 jours :
+    catégorie : « rénovation »,
+    CatégorieLabel : "Rénovation & Réhabilitation",
+    titre : "Rénovation & Aménagement bureaux commerciaux R+1",
     description: "Transformation d'un bâtiment en espace de bureaux : cloisons vitrées en aluminium, faux plafonds en staff avec spots LED intégrés, climatisation et carrelage poli.",
-    budget: "22 000 000 FCFA",
-    budgetValue: 22000000,
-    surface: "210 m²",
+    budget : « 22 000 000 FCFA »,
+    Valeur du budget : 22 000 000,
+    surface : « 210 m² »,
     horizon: "Sous 2 à 3 mois",
     propertyType: "Bâtiment commercial",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Marcory",
-    commune: "Marcory (Zone 4C)",
-    fullName: "Christian YAO",
-    phone: "+225 01 88 41 29 03",
-    email: "c.yao.finance@gmail.com",
-    address: "Zone 4C, Rue du Canal, Marcory, Abidjan",
-    campaign: "Facebook Ads - BTP Entreprises Abidjan",
-    basePrice: 25000,
-    currentPrice: 25000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Marcory »,
+    commune : « Marcory (Zone 4C) »,
+    Nom complet : "Christian YAO",
+    téléphone : "+225 01 88 41 29 03",
+    email : "c.yao.finance@gmail.com",
+    adresse : "Zone 4C, Rue du Canal, Marcory, Abidjan",
+    campagne : "Facebook Ads - BTP Entreprises Abidjan",
+    Prix ​​de base : 25 000,
+    Prix ​​actuel : 25 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-105",
-    daysAgo: 2,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction petit immeuble R+2 locatif (6 appartements)",
-    description: "Terrain clôturé à Yopougon. Recherche entrepreneur BTP pour élévation des murs, dalles béton armé et second œuvre. Financement bancaire accordé.",
-    budget: "85 000 000 FCFA",
-    budgetValue: 85000000,
-    surface: "380 m² bâti",
-    horizon: "Urgent (< 1 mois)",
+    id : "LEAD-CI-105",
+    Il y a 2 jours :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction petit immeuble R+2 locatif (6 appartements)",
+    description: "Terrain clôturé à Yopougon. Recherche entrepreneur BTP pour élévation des murs, dalles béton armé et seconde œuvre. Financement bancaire accordé.",
+    budget : « 85 000 000 FCFA »,
+    Valeur du budget : 85 000 000,
+    surface : « 380 m² bâti »,
+    horizon : « Urgent (< 1 mois) »,
     propertyType: "Parcelle viabilisée",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Yopougon",
-    commune: "Yopougon (Niangon)",
-    fullName: "Aïssatou DIABATE",
-    phone: "+225 05 55 62 10 98",
-    email: "aissatou.diabate@gmail.com",
-    address: "Yopougon Niangon Sud, Abidjan",
-    campaign: "Facebook Ads - Immeubles Locatifs CI",
-    basePrice: 35000,
-    currentPrice: 35000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Yopougon »,
+    commune : « Yopougon (Niangon) »,
+    Nom complet : "Aïssatou DIABATE",
+    téléphone : "+225 05 55 62 10 98",
+    Courriel : "aissattou.diabate@gmail.com",
+    adresse : « Yopougon Niangon Sud, Abidjan »,
+    campagne : "Facebook Ads - Immeubles Locatifs CI",
+    Prix ​​de base : 35 000,
+    Prix ​​actuel : 35 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-106",
-    daysAgo: 3,
-    category: "renovation",
-    categoryLabel: "Rénovation & Réhabilitation",
-    title: "Réfection toiture, étanchéité & peinture extérieure villa",
+    id : "LEAD-CI-106",
+    Il y a 3 jours :
+    catégorie : « rénovation »,
+    CatégorieLabel : "Rénovation & Réhabilitation",
+    titre : "Réfection toiture, étanchéité & peinture extérieure villa",
     description: "Remplacement de la charpente bois, pose de tôles bac aluminium et peinture de façade étanche antifongique contre l'air marin.",
-    budget: "14 000 000 FCFA",
-    budgetValue: 14000000,
-    surface: "175 m²",
+    budget : « 14 000 000 FCFA »,
+    Valeur du budget : 14 000 000,
+    surface : « 175 m² »,
     horizon: "Sous 2 à 3 mois",
     propertyType: "Villa individuelle",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Grand-Bassam",
-    commune: "Grand-Bassam (Quartier France)",
-    fullName: "Kouassi KONAN",
-    phone: "+225 07 33 77 15 42",
-    email: "k.konan@orange.ci",
-    address: "Quartier France, Grand-Bassam",
-    campaign: "Facebook Ads - Rénovation Bassam",
-    basePrice: 20000,
-    currentPrice: 20000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Grand-Bassam »,
+    commune : "Grand-Bassam (Quartier France)",
+    Nom complet : "Kouassi KONAN",
+    téléphone : "+225 07 33 77 15 42",
+    courriel : « k.konan@orange.ci »,
+    adresse : "Quartier France, Grand-Bassam",
+    campagne : "Facebook Ads - Rénovation Bassam",
+    Prix ​​de base : 20 000,
+    Prix ​​actuel : 20 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-107",
-    daysAgo: 3,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction villa contemporaine 6 pièces plain-pied à Angré",
-    description: "Fondations profondes, élévation en briques pleines, toiture dalle béton accessible et baie vitrée panoramique. Devis main d'œuvre ou clé en main.",
-    budget: "62 000 000 FCFA",
-    budgetValue: 62000000,
-    surface: "220 m²",
-    horizon: "Urgent (< 1 mois)",
+    id : "LEAD-CI-107",
+    Il y a 3 jours :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction villa contemporaine 6 pièces plain-pied à Angré",
+    description: "Fondations profondes, élévations en briques pleines, toiture dalle béton accessible et baie vitrée panoramique. Devis main d'œuvre ou clé en main.",
+    budget : « 62 000 000 FCFA »,
+    Valeur du budget : 62 000 000,
+    surface : « 220 m² »,
+    horizon : « Urgent (< 1 mois) »,
     propertyType: "Terrain avec ACD",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Cocody",
-    commune: "Cocody (Angré 8e Tranche)",
-    fullName: "Dr. Ibrahim CISSE",
-    phone: "+225 07 89 22 14 05",
-    email: "dr.cisse.sante@gmail.com",
-    address: "Angré 8e Tranche, près de la CNPS, Cocody",
-    campaign: "Facebook Ads - Construction Prestige Angré",
-    basePrice: 30000,
-    currentPrice: 30000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Cocody »,
+    commune : "Cocody (Angré 8e Tranche)",
+    Nom complet : « Dr Ibrahim CISSE »,
+    téléphone : "+225 07 89 22 14 05",
+    courriel : « dr.cisse.sante@gmail.com »,
+    adresse : "Angré 8e Tranche, près de la CNPS, Cocody",
+    campagne : "Facebook Ads - Construction Prestige Angré",
+    Prix ​​de base : 30 000,
+    Prix ​​actuel : 30 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-108",
-    daysAgo: 4,
-    category: "renovation",
-    categoryLabel: "Rénovation & Réhabilitation",
-    title: "Rénovation plomberie, électricité & carrelage immeuble R+3",
-    description: "Remise aux normes électriques NFC 15-100, réfection complète des colonnes d'évacuation PVC et pose de carrelage grès cérame dans les parties communes.",
-    budget: "28 000 000 FCFA",
-    budgetValue: 28000000,
-    surface: "450 m²",
+    id : "LEAD-CI-108",
+    Il y a 4 jours
+    catégorie : « rénovation »,
+    CatégorieLabel : "Rénovation & Réhabilitation",
+    titre : "Rénovation plomberie, électricité & carrelage immeuble R+3",
+    description : "Remise aux normes électriques NFC 15-100, réfection complète des colonnes d'évacuation PVC et pose de carrelage grès cérame dans les parties communes.",
+    budget : « 28 000 000 FCFA »,
+    Valeur du budget : 28 000 000,
+    surface : « 450 m² »,
     horizon: "Sous 2 à 3 mois",
     propertyType: "Immeuble collectif",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Riviera",
-    commune: "Riviera (Palmeraie)",
-    fullName: "Mme Salimata OUATTARA",
-    phone: "+225 05 44 98 12 30",
-    email: "sali.ouattara@syndic.ci",
-    address: "Riviera Palmeraie, Rond-Point ADO, Abidjan",
-    campaign: "Facebook Ads - Copropriétés & Syndics CI",
-    basePrice: 25000,
-    currentPrice: 25000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Riviera »,
+    commune : "Côte d'Azur (Palmeraie)",
+    Nom complet : « Mme Salimata OUATTARA »,
+    téléphone : "+225 05 44 98 12 30",
+    courriel : "sali.ouattara@syndic.ci",
+    adresse : « Riviera Palmeraie, Rond-Point ADO, Abidjan »,
+    campagne : "Facebook Ads - Copropriétés & Syndics CI",
+    Prix ​​de base : 25 000,
+    Prix ​​actuel : 25 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-109",
-    daysAgo: 4,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction entrepôt de stockage métallique 500m²",
+    id : "LEAD-CI-109",
+    Il y a 4 jours
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction entrepôt de stockage métallique 500m²",
     description: "Dallage industriel armé haute résistance pour passage de chariots élévateurs, charpente métallique IPN et bardage toiture bac aluminium.",
-    budget: "70 000 000 FCFA",
-    budgetValue: 70000000,
-    surface: "500 m²",
-    horizon: "Urgent (< 1 mois)",
+    budget : « 70 000 000 FCFA »,
+    Valeur du budget : 70 000 000,
+    surface : « 500 m² »,
+    horizon : « Urgent (< 1 mois) »,
     propertyType: "Zone industrielle",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Koumassi",
-    commune: "Koumassi (Zone Industrielle)",
-    fullName: "M. Patrick DE SOUZA",
-    phone: "+225 07 10 35 66 89",
-    email: "p.desouza@logistique.ci",
-    address: "Boulevard du Gabon, Zone Industrielle Koumassi",
-    campaign: "Facebook Ads - Entrepôts & Hangars BTP",
-    basePrice: 35000,
-    currentPrice: 35000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Koumassi »,
+    commune : "Koumassi (Zone Industrielle)",
+    Nom complet : "M. Patrick DE SOUZA",
+    téléphone : "+225 07 10 35 66 89",
+    courriel : « p.desouza@logistique.ci »,
+    adresse : "Boulevard du Gabon, Zone Industrielle Koumassi",
+    campagne : "Facebook Ads - Entrepôts & Hangars BTP",
+    Prix ​​de base : 35 000,
+    Prix ​​actuel : 35 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-110",
-    daysAgo: 5,
-    category: "renovation",
-    categoryLabel: "Rénovation & Réhabilitation",
-    title: "Aménagement & Décoration intérieure restaurant gastronomique",
+    id : "LEAD-CI-110",
+    Il y a 5 jours :
+    catégorie : « rénovation »,
+    CatégorieLabel : "Rénovation & Réhabilitation",
+    titre : "Aménagement & Décoration intérieure restaurant gastronomique",
     description: "Création d'un bar en béton ciré, faux plafonds acoustiques en staff avec rubans LED, carrelage métro pour la cuisine et sanitaires haut de gamme.",
-    budget: "19 000 000 FCFA",
-    budgetValue: 19000000,
-    surface: "140 m²",
+    budget : « 19 000 000 FCFA »,
+    Valeur du budget : 19 000 000,
+    surface : « 140 m² »,
     horizon: "Sous 2 à 3 mois",
-    propertyType: "Local commercial",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Abidjan - Plateau",
-    commune: "Plateau (Centre des Affaires)",
-    fullName: "Arnaud GAUZE",
-    phone: "+225 01 22 76 90 14",
-    email: "arnaud.gauze@restocotedivoire.ci",
-    address: "Avenue Chardy, Plateau, Abidjan",
-    campaign: "Facebook Ads - Commerces & Restaurants Plateau",
-    basePrice: 20000,
-    currentPrice: 20000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    type de propriété : « Commercial local »,
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Abidjan - Plateau »,
+    commune : "Plateau (Centre des Affaires)",
+    Nom complet : « Arnaud GAUZE »,
+    téléphone : "+225 01 22 76 90 14",
+    courriel : "arnaud.gauze@restocotedivoire.ci",
+    adresse : « Avenue Chardy, Plateau, Abidjan »,
+    campagne : "Facebook Ads - Commerces & Restaurants Plateau",
+    Prix ​​de base : 20 000,
+    Prix ​​actuel : 20 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-111",
-    daysAgo: 5,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction villa 4 pièces plain-pied sur 400m² à Yamoussoukro",
+    id : "LEAD-CI-111",
+    Il y a 5 jours :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction villa 4 pièces plain-pied sur 400m² à Yamoussoukro",
     description: "Fondations, élévation, toiture et clôture complète pour une villa familiale. Devis demandé pour main d'œuvre ou fourniture comprise.",
-    budget: "32 000 000 FCFA",
-    budgetValue: 32000000,
-    surface: "145 m²",
+    budget : « 32 000 000 FCFA »,
+    Valeur du budget : 32 000 000,
+    surface : « 145 m² »,
     horizon: "Sous 2 à 3 mois",
     propertyType: "Terrain avec titre foncier",
-    isOwner: true,
-    phoneVerified: true,
-    city: "Yamoussoukro",
-    commune: "Yamoussoukro (Millionnaire)",
-    fullName: "Fatou COULIBALY",
-    phone: "+225 01 77 12 30 45",
-    email: "fatou.coulibaly@gmail.com",
-    address: "Quartier Millionnaire, Yamoussoukro",
-    campaign: "Facebook Ads - BTP Centre Côte d'Ivoire",
-    basePrice: 20000,
-    currentPrice: 20000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « Yamoussoukro »,
+    commune : « Yamoussoukro (Millionnaire) »,
+    Nom complet : "Fatou COULIBALY",
+    téléphone : "+225 01 77 12 30 45",
+    email : "fatou.coulibaly@gmail.com",
+    adresse : "Quartier Millionnaire, Yamoussoukro",
+    campagne : "Facebook Ads - BTP Centre Côte d'Ivoire",
+    Prix ​​de base : 20 000,
+    Prix ​​actuel : 20 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   },
   {
-    id: "LEAD-CI-112",
-    daysAgo: 5,
-    category: "construction",
-    categoryLabel: "Construction Neuve",
-    title: "Construction clôture maçonnée sécurisée sur 1 200m²",
+    id : "LEAD-CI-112",
+    Il y a 5 jours :
+    catégorie : « construction »,
+    label de catégorie : "Construction neuve",
+    titre : "Construction clôture maçonnée sécurisée sur 1 200m²",
     description: "Élévation mur de clôture de 2,50m de haut avec poteaux raidisseurs béton armé, pose de barbelés concertina et installation d'un grand portail coulissant.",
-    budget: "12 500 000 FCFA",
-    budgetValue: 12500000,
-    surface: "1 200 m² (périmètre 140 m)",
-    horizon: "Urgent (< 1 mois)",
+    budget : « 12 500 000 FCFA »,
+    Valeur du budget : 12 500 000,
+    surface : "1 200 m² (périmètre 140 m)",
+    horizon : « Urgent (< 1 mois) »,
     propertyType: "Terrain nu viabilisé",
-    isOwner: true,
-    phoneVerified: true,
-    city: "San-Pédro",
-    commune: "San-Pédro (Balmer)",
-    fullName: "Koffi ADJEI",
-    phone: "+225 07 65 89 23 11",
-    email: "koffi.adjei@cacao.ci",
-    address: "Quartier Balmer, San-Pédro",
-    campaign: "Facebook Ads - BTP Sud-Ouest CI",
-    basePrice: 15000,
-    currentPrice: 15000,
-    status: "available",
-    crmStage: "new",
-    quoteAmount: null,
-    artisanNotes: "",
-    createdBy: "ray88305@gmail.com"
+    estPropriétaire : vrai,
+    téléphoneVérifié : vrai,
+    ville : « San-Pédro »,
+    commune : "San-Pédro (Balmer)",
+    Nom complet : "Koffi ADJEI",
+    téléphone : "+225 07 65 89 23 11",
+    courriel : « koffi.adjei@cacao.ci »,
+    adresse : "Quartier Balmer, San-Pédro",
+    campagne : "Facebook Ads - BTP Sud-Ouest CI",
+    Prix ​​de base : 15 000,
+    Prix ​​actuel : 15 000,
+    statut : « disponible »,
+    crmStage : « nouveau »,
+    Montant du devis : nul,
+    artisanNotes : "",
+    créé par : "ray88305@gmail.com"
   }
 ];
 
-class BatiLeadRealtimeFullStackApp {
-  constructor() {
+classe BatiLeadRealtimeFullStackApp {
+  constructeur() {
     this.forceDirectDatabaseUpdate();
 
     this.deviceId = this.getOrCreateDeviceId();
     this.adminEmail = this.loadAdminEmail();
     
-    // GeniusPay Config
+    // Configuration GeniusPay
     this.geniusPayPubKey = this.loadGeniusPayKey();
     this.geniusPaySecretKey = this.loadGeniusPaySecret();
     this.geniusPayMode = this.loadGeniusPayMode();
 
-    // Supabase Cloud Config (Official Credentials)
+    // Configuration de Supabase Cloud (Identifiants officiels)
     this.supabaseUrl = localStorage.getItem("batilead_supabase_url") || OFFICIAL_SUPABASE_URL;
-    this.supabaseKey = localStorage.getItem("batilead_supabase_key") || OFFICIAL_SUPABASE_KEY;
+    this.supabaseKey = localStorage.getItem("batilead_supabase_key") || OFFICIAL_SUPABASE_KEY ;
     this.supabaseClient = null;
     this.supabaseConnected = false;
 
-    // Auth state mode: 'login' or 'signup'
-    this.authMode = "login";
+    // Mode d'authentification : « connexion » ou « inscription »
+    this.authMode = "connexion";
 
-    // Data Store
+    // Magasin de données
     this.currentUser = this.loadCurrentUser();
     this.leads = this.loadLeads();
     this.users = this.loadUsersRegistry();
     this.orders = this.loadOrdersRegistry();
     this.activityLogs = this.loadActivityLogs();
 
-    // UI States
+    // États de l'interface utilisateur
     this.currentView = "marketplace";
     this.adminSubTab = "leads";
     this.selectedCategory = "all";
@@ -408,9 +413,9 @@ class BatiLeadRealtimeFullStackApp {
   }
 
   forceDirectDatabaseUpdate() {
-    try {
+    essayer {
       const currentVersion = localStorage.getItem("batilead_db_version_tag");
-      if (currentVersion !== DB_VERSION) {
+      si (version_actuelle !== DB_VERSION) {
         localStorage.setItem("batilead_db_version_tag", DB_VERSION);
         if (!localStorage.getItem("batilead_geniuspay_leads_db_v18")) {
           localStorage.setItem("batilead_geniuspay_leads_db_v18", JSON.stringify(DEFAULT_LEADS_CI));
@@ -419,70 +424,70 @@ class BatiLeadRealtimeFullStackApp {
         localStorage.setItem("batilead_supabase_url", OFFICIAL_SUPABASE_URL);
         localStorage.setItem("batilead_supabase_key", OFFICIAL_SUPABASE_KEY);
       }
-    } catch (e) {
-      console.warn("Storage auto-migration warning:", e);
+    } attraper (e) {
+      console.warn("Avertissement de migration automatique du stockage :", e);
     }
   }
 
   // =========================================================================
-  // SUPABASE CLIENT INITIALIZATION & LIVE REALTIME SYNC
+  // INITIALISATION DU CLIENT SUPABASE ET SYNCHRONISATION EN DIRECT ET EN TEMPS RÉEL
   // =========================================================================
 
   initSupabaseClient() {
-    if (window.supabase && this.supabaseUrl && this.supabaseKey) {
-      try {
+    si (window.supabase && this.supabaseUrl && this.supabaseKey) {
+      essayer {
         this.supabaseClient = window.supabase.createClient(this.supabaseUrl, this.supabaseKey, {
           auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
         });
-        console.log("Supabase Client initialized with project URL:", this.supabaseUrl);
+        console.log("Client Supabase initialisé avec l'URL du projet :", this.supabaseUrl);
         this.listenToSupabaseAuthChanges();
         this.testSupabaseConnection(true);
-      } catch (e) {
-        console.error("Supabase initialization error:", e);
+      } attraper (e) {
+        console.error("Erreur d'initialisation de Supabase :", e);
         this.updateSupabaseStatusBadge(false, e.message);
       }
-    } else {
+    } autre {
       this.updateSupabaseStatusBadge(false, "SDK en chargement...");
     }
   }
 
   async listenToSupabaseAuthChanges() {
-    if (!this.supabaseClient || !this.supabaseClient.auth) return;
+    si (!this.supabaseClient || !this.supabaseClient.auth) retourner;
 
-    try {
+    essayer {
       // 1. Récupération immédiate de la session active (retour OAuth Google)
       const { data: { session } } = await this.supabaseClient.auth.getSession();
-      if (session && session.user) {
-        await this.processAuthenticatedSupabaseUser(session.user);
+      si (session && session.user) {
+        attendre this.processAuthenticatedSupabaseUser(session.user);
       }
-    } catch (e) {
+    } attraper (e) {
       console.warn("getSession note:", e);
     }
 
     // 2. Écoute dynamique de tous les événements d'authentification
     this.supabaseClient.auth.onAuthStateChange(async (event, session) => {
-      console.log("Supabase Auth event:", event, session);
-      if (session && session.user) {
-        await this.processAuthenticatedSupabaseUser(session.user);
+      console.log("Événement d'authentification Supabase :", événement, session);
+      si (session && session.user) {
+        attendre this.processAuthenticatedSupabaseUser(session.user);
       }
     });
   }
 
   async processAuthenticatedSupabaseUser(user) {
     const email = user.email ? user.email.toLowerCase() : "";
-    const name = user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.given_name || email.split("@")[0];
-    const phone = user.user_metadata?.phone || user.phone || "+225 07 00 00 00 00";
+    const nom = user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.given_name || email.split("@")[0];
+    const téléphone = utilisateur.user_metadata?.phone || utilisateur.phone || "+225 07 00 00 00 00";
     const avatar = user.user_metadata?.avatar_url || user.user_metadata?.picture || "";
     const isRay = this.isSuperAdmin(email);
 
     const authedUser = {
-      id: user.id,
-      name: name,
-      email: email,
-      phone: phone,
-      role: isRay ? "super_admin" : "artisan",
-      avatar: avatar,
-      loggedAt: new Date().toISOString()
+      id : utilisateur.id,
+      nom : nom,
+      courriel : courriel,
+      téléphone : téléphone,
+      rôle : estRay ? "super_admin" : "artisan",
+      avatar : avatar,
+      connectéÀ: nouvelle Date().toISOString()
     };
 
     this.saveCurrentUser(authedUser);
@@ -491,54 +496,54 @@ class BatiLeadRealtimeFullStackApp {
     this.renderAdminFullStack();
 
     // Nettoyage de l'URL pour supprimer les tokens
-    if (window.location.search || window.location.hash) {
-      window.history.replaceState({}, document.title, window.location.pathname);
+    si (window.location.search || window.location.hash) {
+      fenêtre.history.replaceState({}, document.title, fenêtre.location.pathname);
     }
 
     // Enregistrement dans Supabase Cloud
-    await this.supabaseClient.from("users").upsert({
-      id: authedUser.id,
-      name: authedUser.name,
-      email: authedUser.email,
-      avatar_url: authedUser.avatar,
-      phone: authedUser.phone,
-      role: authedUser.role,
-      ip_address: this.deviceId,
-      login_count: 1,
-      last_login_at: authedUser.loggedAt
+    attendre this.supabaseClient.from("users").upsert({
+      id : authedUser.id,
+      nom : authedUser.name,
+      email : authedUser.email,
+      avatar_url : authedUser.avatar,
+      téléphone : authedUser.phone,
+      rôle : authedUser.role,
+      adresse_ip : this.deviceId,
+      Nombre de connexions : 1,
+      dernière_connexion_à: authedUser.loggedAt
     }, { onConflict: "email" }).catch(console.warn);
 
-    await this.supabaseClient.from("user_sessions_log").insert({
+    attendre this.supabaseClient.from("user_sessions_log").insert({
       user_email: authedUser.email,
-      user_name: authedUser.name,
-      ip_address: this.deviceId,
+      nom_utilisateur : authedUser.name,
+      adresse_ip : this.deviceId,
       action_type: "GOOGLE_OAUTH_LOGIN",
-      details: `Session Google active pour ${authedUser.email}`
+      détails : `Session Google active pour ${authedUser.email}`
     }).catch(console.warn);
 
     this.logActivity("AUTH_STATE_CHANGE", `Session Google active pour ${email}`);
     
-    if (isRay) {
+    si (isRay) {
       this.showToast(`👑 Bienvenue Ray ! Accès Gestion & Ajout de chantiers activé.`);
-    } else {
+    } autre {
       this.showToast(`✅ Bienvenue ${name} ! Connecté avec votre compte Google.`);
     }
 
-    if (this.selectedLeadForPurchase) {
+    si (this.selectedLeadForPurchase) {
       const lead = this.selectedLeadForPurchase;
       setTimeout(() => this.openPurchaseModal(lead.id), 400);
     }
   }
 
-  updateSupabaseStatusBadge(isConnected, detail = "") {
+  mettre à jour le badge d'état de la superbase(estConnecté, détail = "") {
     const badge = document.getElementById("supabase-status-badge");
-    if (!badge) return;
-    this.supabaseConnected = isConnected;
+    si (!badge) retourner;
+    this.supabaseConnected = estConnecté;
 
-    if (isConnected) {
+    si (estConnecté) {
       badge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5";
       badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Supabase Cloud Connecté (ozxenmrmaomaqzkyjobc)`;
-    } else {
+    } autre {
       badge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5";
       badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> ${detail || 'En attente de connexion'}`;
     }
@@ -546,8 +551,8 @@ class BatiLeadRealtimeFullStackApp {
 
   // Polling automatique toutes les 6 secondes pour synchroniser tous les téléphones et PC
   startLiveSyncPolling() {
-    setInterval(() => {
-      if (this.supabaseClient && this.supabaseConnected) {
+    définirInterval(() => {
+      si (this.supabaseClient && this.supabaseConnected) {
         this.fetchLeadsFromSupabaseCloud(true);
       }
     }, 6000);
@@ -555,211 +560,211 @@ class BatiLeadRealtimeFullStackApp {
 
   async testSupabaseConnection(isSilent = false) {
     if (!this.supabaseClient) this.initSupabaseClient();
-    if (!this.supabaseClient) return;
+    si (!this.supabaseClient) retourner;
 
-    try {
+    essayer {
       if (!isSilent) this.showToast("Test de connexion Supabase en cours...");
       
       const { data, error } = await this.supabaseClient.from("leads").select("id").limit(1);
       
-      if (error) {
-        console.warn("Supabase check error:", error);
+      si (erreur) {
+        console.warn("Erreur de vérification Supabase :", erreur);
         this.updateSupabaseStatusBadge(false, error.message);
-        if (!isSilent) {
+        si (!isSilent) {
           this.showToast(`Note Supabase : ${error.message} (Avez-vous exécuté le script SQL dans SQL Editor ?)`);
         }
-      } else {
+      } autre {
         this.updateSupabaseStatusBadge(true);
-        if (!isSilent) {
+        si (!isSilent) {
           this.showToast(`✅ Succès ! Base de données Supabase connectée en direct.`);
           this.pushAllLeadsToSupabase();
-        } else {
+        } autre {
           this.fetchLeadsFromSupabaseCloud(true);
         }
       }
-    } catch (e) {
-      console.warn("Supabase connection exception:", e);
+    } attraper (e) {
+      console.warn("Exception de connexion à Supabase :", e);
       this.updateSupabaseStatusBadge(false, e.message);
       if (!isSilent) this.showToast(`Connexion Supabase : ${e.message}`);
     }
   }
 
-  handleSupabaseSettingsUpdate(event) {
-    event.preventDefault();
+  gérerLaMiseÀJourDesParamètresSupabase(événement) {
+    événement.prévenirDefault();
     const url = document.getElementById("settings-supabase-url").value.trim();
     const key = document.getElementById("settings-supabase-key").value.trim();
     
     this.supabaseUrl = url;
-    this.supabaseKey = key;
+    this.supabaseKey = clé;
     localStorage.setItem("batilead_supabase_url", this.supabaseUrl);
     localStorage.setItem("batilead_supabase_key", this.supabaseKey);
     
     this.initSupabaseClient();
-    this.showToast("Clés Supabase Cloud enregistrées.");
+    this.showToast("Clés Supabase Cloud enregistrés.");
     this.testSupabaseConnection(false);
   }
 
   // Récupère les leads de Supabase en temps réel pour tous les appareils
   async fetchLeadsFromSupabaseCloud(isSilent = false) {
-    if (!this.supabaseClient) return;
+    si (!this.supabaseClient) retourner;
 
-    try {
+    essayer {
       const { data, error } = await this.supabaseClient.from("leads").select("*").order("created_at", { ascending: false });
       
-      if (error) throw error;
+      si (erreur) lever une exception ;
 
-      if (data && data.length > 0) {
+      si (données && données.longueur > 0) {
         this.leads = data.map(d => ({
-          id: d.id,
-          category: d.category,
-          categoryLabel: d.category_label || (d.category === 'construction' ? 'Construction Neuve' : 'Rénovation & Réhabilitation'),
-          title: d.title,
-          description: d.description,
-          budget: d.budget,
-          budgetValue: d.budget_value,
-          surface: d.surface,
-          horizon: d.horizon,
-          propertyType: d.property_type,
-          isOwner: d.is_owner,
-          phoneVerified: d.phone_verified,
-          city: d.city,
-          commune: d.commune,
-          fullName: d.full_name,
-          phone: d.phone,
-          email: d.email,
-          address: d.address,
-          campaign: d.campaign,
-          basePrice: d.base_price,
-          currentPrice: d.current_price,
-          status: d.status,
-          crmStage: d.crm_stage,
+          id : d.id,
+          catégorie : d.catégorie,
+          CategoryLabel : d.category_label || (d.category === 'construction' ? 'Construction Neuve' : 'Rénovation & Réhabilitation'),
+          titre : d.titre,
+          description : d.description,
+          budget : d.budget,
+          valeur_budget : d.valeur_budget,
+          surface : d.surface,
+          horizon : d.horizon,
+          type_propriété : d.property_type,
+          estPropriétaire : d.est_propriétaire,
+          téléphone vérifié : d.phone_verified,
+          ville : d.city,
+          commune : d.commune,
+          Nom complet : d.nom_complet,
+          téléphone : d.phone,
+          courriel : d.email,
+          adresse : d.adresse,
+          campagne : d.campagne,
+          prix_de_base : d.prix_de_base,
+          prix_actuel : d.prix_actuel,
+          statut : d.status,
+          crmStage : d.crm_stage,
           quoteAmount: d.quote_amount,
-          createdAt: d.created_at,
-          createdBy: d.unlocked_by_email || 'ray88305@gmail.com'
+          crééÀ : d.créé_à,
+          créé par : d.unlocked_by_email || 'ray88305@gmail.com'
         }));
 
         this.saveLeads();
         this.renderMarketplaceLeads();
         this.renderAdminFullStack();
         if (!isSilent) this.showToast(`✅ ${data.length} chantiers synchronisés depuis Supabase Cloud !`);
-      } else {
+      } autre {
         // Si la base Supabase est vide, on y injecte automatiquement les 12 chantiers
-        console.log("Supabase leads table is empty, auto-pushing initial leads...");
-        await this.pushAllLeadsToSupabase();
+        console.log("La table des prospects Supabase est vide, envoi automatique des prospects initiaux...");
+        attendre this.pushAllLeadsToSupabase();
       }
-    } catch (e) {
-      if (!isSilent) {
-        console.error("Fetch Supabase Cloud note:", e);
+    } attraper (e) {
+      si (!isSilent) {
+        console.error("Récupération de la note Supabase Cloud :", e);
       }
     }
   }
 
-  // Envoie tous les leads locaux vers Supabase
+  // Envoie à tous les leads locaux vers Supabase
   async pushAllLeadsToSupabase() {
-    if (!this.supabaseClient) {
+    si (!this.supabaseClient) {
       this.showToast("Veuillez vérifier vos identifiants Supabase.");
-      return;
+      retour;
     }
 
-    try {
+    essayer {
       this.showToast("Envoi des chantiers vers Supabase Cloud...");
-      const rowsToInsert = this.leads.map(l => ({
-        id: l.id,
-        category: l.category,
-        category_label: l.categoryLabel,
-        title: l.title,
-        description: l.description,
-        budget: l.budget,
-        budget_value: l.budgetValue || 0,
-        surface: l.surface,
-        horizon: l.horizon,
-        city: l.city,
-        commune: l.commune || l.city,
-        full_name: l.fullName,
-        phone: l.phone,
-        email: l.email,
-        address: l.address,
-        base_price: l.basePrice,
-        current_price: l.currentPrice,
-        status: l.status,
-        crm_stage: l.crmStage || 'new'
+      const lignesÀInsérer = this.leads.map(l => ({
+        id : l.id,
+        catégorie : l.catégorie,
+        étiquette_catégorie : l.étiquette_catégorie,
+        titre : l.titre,
+        description : l.description,
+        budget : l.budget,
+        valeur_budget : l.budgetValue || 0,
+        surface : l.surface,
+        horizon : l.horizon,
+        ville : l.ville,
+        commune : l.commune || l.city,
+        nom_complet : l.nom_complet,
+        téléphone : l.phone,
+        courriel : l.email,
+        adresse : l.adresse,
+        prix_de_base : l.prix_de_base,
+        prix_actuel : l.prix_actuel,
+        statut : l.statut,
+        crm_stage : l.crmStage || 'nouveau'
       }));
 
       const { data, error } = await this.supabaseClient.from("leads").upsert(rowsToInsert, { onConflict: "id" });
-      if (error) throw error;
+      si (erreur) lever une exception ;
 
       this.logActivity("SYNC_PUSH_SUPABASE", `Synchronisation complète de ${rowsToInsert.length} leads vers Supabase PostgreSQL`);
       this.showToast("✅ Tous les chantiers sont synchronisés sur Supabase Cloud !");
-    } catch (e) {
+    } attraper (e) {
       console.error(e);
       this.showToast(`Échec synchronisation Supabase : ${e.message}`);
     }
   }
 
   // =========================================================================
-  // EXHAUSTIVE LOGGING & AUDIT SYSTEM (TOUTES LES ACTIVITÉS & CONNEXIONS)
+  // SYSTÈME EXHAUSTIF DE LOGGING & AUDIT (TOUTES LES ACTIVITÉS & CONNEXIONS)
   // =========================================================================
 
-  loadActivityLogs() {
+  chargerActivityLogs() {
     const saved = localStorage.getItem("batilead_activity_logs_v18");
-    if (saved) {
+    si (enregistré) {
       try { return JSON.parse(saved); } catch (e) { return []; }
     }
-    return [
+    retour [
       {
-        id: "LOG-001",
-        actorEmail: "ray88305@gmail.com",
-        actorName: "Super-Administrateur",
+        id : "LOG-001",
+        acteurEmail : "ray88305@gmail.com",
+        acteurName: "Super-Administrateur",
         actionType: "SUPER_ADMIN_INIT",
-        description: "Marketplace BatiLead Pro CI connectée à Supabase Cloud",
-        ipAddress: "197.234.42.22",
-        timestamp: new Date(NOW - 30 * 60 * 1000).toISOString()
+        description : "Marketplace BatiLead Pro CI connectée à Supabase Cloud",
+        adresse IP : « 197.234.42.22 »,
+        horodatage : nouvelle Date(NOW - 30 * 60 * 1000).toISOString()
       }
     ];
   }
 
-  saveActivityLogs() {
+  enregistrer les journaux d'activité() {
     localStorage.setItem("batilead_activity_logs_v18", JSON.stringify(this.activityLogs));
     this.renderAdminLogsTable();
   }
 
-  logActivity(actionType, description, metadata = {}) {
+  logActivity(actionType, description, métadonnées = {}) {
     const actorEmail = this.currentUser ? this.currentUser.email : "visiteur_anonyme@ci.net";
-    const actorName = this.currentUser ? this.currentUser.name : "Visiteur Appareil CI";
+    const acteurName = this.currentUser ? this.currentUser.name : "Visiteur Appareil CI";
 
     const logEntry = {
       id: `LOG-${Math.floor(1000 + Math.random() * 9000)}`,
-      actorEmail,
-      actorName,
-      actionType,
+      Courriel de l'acteur,
+      nom de l'acteur,
+      type d'action,
       description,
-      ipAddress: this.deviceId,
-      metadata,
-      timestamp: new Date().toISOString()
+      adresse IP : this.deviceId,
+      métadonnées,
+      horodatage : nouvelle Date().toISOString()
     };
 
     this.activityLogs.unshift(logEntry);
     if (this.activityLogs.length > 200) this.activityLogs.pop();
     this.saveActivityLogs();
 
-    // Sync direct to Supabase Cloud
-    if (this.supabaseClient) {
+    // Synchronisation directe avec Supabase Cloud
+    si (this.supabaseClient) {
       this.supabaseClient.from("audit_activity_logs").insert({
-        actor_email: actorEmail,
-        actor_name: actorName,
-        action_type: actionType,
-        description: description,
-        ip_address: this.deviceId,
-        metadata: metadata
+        acteur_email : acteurEmail,
+        nom_acteur : nom_acteur,
+        type_action : type_action,
+        description : description,
+        adresse_ip : this.deviceId,
+        métadonnées : métadonnées
       }).then().catch(console.warn);
 
-      if (actionType === "LOGIN" || actionType === "AUTO_SESSION") {
+      si (actionType === "LOGIN" || actionType === "AUTO_SESSION") {
         this.supabaseClient.from("user_sessions_log").insert({
           user_email: actorEmail,
-          user_name: actorName,
-          ip_address: this.deviceId,
-          action_type: actionType,
-          details: description
+          nom_utilisateur : nom_acteur,
+          adresse_ip : this.deviceId,
+          type_action : type_action,
+          détails : description
         }).then().catch(console.warn);
       }
     }
@@ -768,7 +773,7 @@ class BatiLeadRealtimeFullStackApp {
   renderAdminLogsTable() {
     const tbody = document.getElementById("admin-logs-table-body");
     const countBadge = document.getElementById("admin-logs-total-count");
-    if (!tbody) return;
+    si (!tbody) retourner;
 
     if (countBadge) countBadge.textContent = `${this.activityLogs.length} événements tracés`;
 
@@ -778,7 +783,7 @@ class BatiLeadRealtimeFullStackApp {
       if (log.actionType.includes("LOGIN") || log.actionType.includes("ADMIN") || log.actionType.includes("GOOGLE")) badgeClass = "bg-purple-100 text-purple-800 font-bold";
       if (log.actionType.includes("LEAD") || log.actionType.includes("STAGE")) badgeClass = "bg-blue-100 text-blue-800";
 
-      return `
+      retourner `
         <tr class="hover:bg-slate-50/80 transition-colors">
           <td class="py-3 px-3 font-mono text-[11px] text-slate-500 whitespace-nowrap">${new Date(log.timestamp).toLocaleString("fr-FR")}</td>
           <td class="py-3 px-3">
@@ -792,7 +797,7 @@ class BatiLeadRealtimeFullStackApp {
           <td class="py-3 px-3 text-slate-700 font-medium">${log.description}</td>
         </tr>
       `;
-    }).join("");
+    }).rejoindre("");
   }
 
   init() {
@@ -809,20 +814,20 @@ class BatiLeadRealtimeFullStackApp {
 
     this.logActivity("AUTO_SESSION", `Connexion reconnue pour l'appareil IP ${this.deviceId}`);
 
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
     this.setupDragAndDrop();
   }
 
   // =========================================================================
-  // AUTHENTICATION : GOOGLE SIGN-IN, EMAIL & MOT DE PASSE (SUPABASE AUTH)
+  // AUTHENTIFICATION : CONNEXION GOOGLE, ADRESSE E-MAIL ET MOT DE PASSE (AUTH. SUPABASE)
   // =========================================================================
 
-  toggleAuthMode() {
+  basculerLeModeAuthentifié() {
     const nextMode = this.authMode === "signup" ? "login" : "signup";
     this.setAuthMode(nextMode);
   }
 
-  setAuthMode(mode) {
+  définir le mode d'authentification(mode) {
     this.authMode = mode;
     const heading = document.getElementById("auth-modal-heading");
     const fieldName = document.getElementById("auth-field-name");
@@ -830,70 +835,70 @@ class BatiLeadRealtimeFullStackApp {
     const switchText = document.getElementById("auth-switch-text");
     const switchBtn = document.getElementById("auth-switch-btn");
 
-    if (mode === "signup") {
+    si (mode === "signup") {
       if (heading) heading.textContent = "Créer un compte";
-      if (fieldName) fieldName.classList.remove("hidden");
+      si (fieldName) fieldName.classList.remove("hidden");
       if (submitBtn) submitBtn.textContent = "S'inscrire";
       if (switchText) switchText.textContent = "Vous avez déjà un compte ?";
       if (switchBtn) switchBtn.textContent = "Se connecter";
-    } else {
+    } autre {
       if (heading) heading.textContent = "Bon retour parmi nous";
-      if (fieldName) fieldName.classList.add("hidden");
+      si (fieldName) fieldName.classList.add("hidden");
       if (submitBtn) submitBtn.textContent = "Se connecter";
       if (switchText) switchText.textContent = "Vous n'avez pas de compte ?";
       if (switchBtn) switchBtn.textContent = "S'inscrire";
     }
   }
 
-  togglePasswordVisibility() {
+  afficher/masquer le mot de passe() {
     const pwdInput = document.getElementById("auth-password");
     const eyeIcon = document.getElementById("auth-eye-icon");
-    if (!pwdInput) return;
+    si (!pwdInput) retourner;
 
-    if (pwdInput.type === "password") {
-      pwdInput.type = "text";
-      if (eyeIcon) eyeIcon.setAttribute("data-lucide", "eye-off");
-    } else {
-      pwdInput.type = "password";
-      if (eyeIcon) eyeIcon.setAttribute("data-lucide", "eye");
+    si (pwdInput.type === "password") {
+      pwdInput.type = "texte";
+      si (eyeIcon) eyeIcon.setAttribute("data-lucide", "eye-off");
+    } autre {
+      pwdInput.type = "mot de passe";
+      si (eyeIcon) eyeIcon.setAttribute("data-lucide", "œil");
     }
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   initGoogleIdentityServices() {
     const GOOGLE_CLIENT_ID = "919075699648-7io8aipions5s9fn5aijv3aqfknmr72q.apps.googleusercontent.com";
 
-    if (window.google && window.google.accounts && window.google.accounts.oauth2) {
-      try {
+    si (window.google && window.google.accounts && window.google.accounts.oauth2) {
+      essayer {
         this.googleTokenClient = window.google.accounts.oauth2.initTokenClient({
-          client_id: GOOGLE_CLIENT_ID,
-          scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-          callback: async (tokenResponse) => {
-            if (tokenResponse && tokenResponse.access_token) {
-              await this.fetchGoogleUserProfile(tokenResponse.access_token);
+          client_id : GOOGLE_CLIENT_ID,
+          portée : « https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email »,
+          rappel : asynchrone (réponse du jeton) => {
+            si (tokenResponse && tokenResponse.access_token) {
+              attendre this.fetchGoogleUserProfile(tokenResponse.access_token);
             }
           }
         });
-        console.log("Google Token Client Popup ready !");
-      } catch (e) {
-        console.warn("Google Token Client Init note:", e);
+        console.log("Fenêtre contextuelle du client de jeton Google prête !");
+      } attraper (e) {
+        console.warn("Note d'initialisation du client Google Token :", e);
       }
     }
   }
 
   async fetchGoogleUserProfile(accessToken) {
-    try {
+    essayer {
       this.showToast("Récupération de votre compte Google...");
       const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        en-têtes : { Authorization: `Bearer ${accessToken}` }
       });
       const googleUser = await res.json();
       console.log("Compte Google authentifié en direct :", googleUser);
 
-      if (googleUser && googleUser.email) {
-        await this.processAuthenticatedGooglePayload(googleUser);
+      si (googleUser && googleUser.email) {
+        attendre this.processAuthenticatedGooglePayload(googleUser);
       }
-    } catch (e) {
+    } attraper (e) {
       console.error("Erreur Google UserInfo:", e);
       this.showToast("Connexion Google effectuée.");
     }
@@ -901,18 +906,18 @@ class BatiLeadRealtimeFullStackApp {
 
   async processAuthenticatedGooglePayload(googleUser) {
     const email = googleUser.email.toLowerCase();
-    const name = googleUser.name || googleUser.given_name || email.split("@")[0];
+    const nom = googleUser.name || googleUser.given_name || email.split("@")[0];
     const avatar = googleUser.picture || "";
     const isRay = this.isSuperAdmin(email);
 
     const authedUser = {
       id: googleUser.sub || `USR-GGL-${Date.now()}`,
-      name: name,
-      email: email,
-      phone: "+225 07 00 00 00 00",
-      role: isRay ? "super_admin" : "artisan",
-      avatar: avatar,
-      loggedAt: new Date().toISOString()
+      nom : nom,
+      courriel : courriel,
+      téléphone : "+225 07 00 00 00 00",
+      rôle : estRay ? "super_admin" : "artisan",
+      avatar : avatar,
+      connectéÀ: nouvelle Date().toISOString()
     };
 
     // 1. Sauvegarde locale immédiate
@@ -923,189 +928,189 @@ class BatiLeadRealtimeFullStackApp {
     this.renderAdminFullStack();
 
     // 2. Écriture immédiate dans la base de données Supabase Cloud
-    if (this.supabaseClient) {
-      await this.supabaseClient.from("users").upsert({
-        id: authedUser.id,
-        name: authedUser.name,
-        email: authedUser.email,
-        avatar_url: authedUser.avatar,
-        phone: authedUser.phone,
-        role: authedUser.role,
-        ip_address: this.deviceId,
-        login_count: 1,
-        last_login_at: authedUser.loggedAt
+    si (this.supabaseClient) {
+      attendre this.supabaseClient.from("users").upsert({
+        id : authedUser.id,
+        nom : authedUser.name,
+        email : authedUser.email,
+        avatar_url : authedUser.avatar,
+        téléphone : authedUser.phone,
+        rôle : authedUser.role,
+        adresse_ip : this.deviceId,
+        Nombre de connexions : 1,
+        dernière_connexion_à: authedUser.loggedAt
       }, { onConflict: "email" }).catch(console.warn);
 
-      await this.supabaseClient.from("user_sessions_log").insert({
+      attendre this.supabaseClient.from("user_sessions_log").insert({
         user_email: authedUser.email,
-        user_name: authedUser.name,
-        ip_address: this.deviceId,
+        nom_utilisateur : authedUser.name,
+        adresse_ip : this.deviceId,
         action_type: "GOOGLE_OAUTH_LOGIN",
-        details: `Connexion Google Popup réussie pour ${authedUser.email}`
+        détails : `Connexion Google Popup réussie pour ${authedUser.email}`
       }).catch(console.warn);
     }
 
     this.logActivity("LOGIN_GOOGLE", `Connexion officielle Google pour ${name} (${email})`);
-    if (window.confetti) confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+    si (fenêtre.confettis) confettis({ nombre de particules : 60, dispersion : 70, origine : { y : 0,6 } });
 
-    if (isRay) {
+    si (isRay) {
       this.showToast(`👑 Bienvenue Ray ! Accès Gestion & Ajout de chantiers activé.`);
-    } else {
+    } autre {
       this.showToast(`✅ Bienvenue ${name} ! Vous êtes connecté.`);
     }
 
-    if (this.selectedLeadForPurchase) {
+    si (this.selectedLeadForPurchase) {
       const lead = this.selectedLeadForPurchase;
       setTimeout(() => this.openPurchaseModal(lead.id), 400);
     }
   }
 
   async signInWithRealGoogleOAuth() {
-    this.logActivity("GOOGLE_OAUTH_CLICK", "Ouverture Google Sign-In");
+    this.logActivity("GOOGLE_OAUTH_CLICK", "Ouverture Connexion Google");
 
     // 1. Tentative Popup Google Native Directe (Ultra-rapide, 0 rechargement de page)
-    if (this.googleTokenClient) {
-      try {
+    si (this.googleTokenClient) {
+      essayer {
         this.googleTokenClient.requestAccessToken({ prompt: 'select_account' });
-        return;
-      } catch (err) {
+        retour;
+      } attraper (erreur) {
         console.warn("Popup Google fallback:", err);
       }
     }
 
     // 2. Méthode Supabase OAuth Redirection (Fallback)
-    if (this.supabaseClient && this.supabaseClient.auth) {
-      try {
+    si (this.supabaseClient && this.supabaseClient.auth) {
+      essayer {
         this.showToast("Ouverture de Google...");
         const redirectUrl = "https://batilead-nu.vercel.app";
-        const { error } = await this.supabaseClient.auth.signInWithOAuth({
-          provider: 'google',
+        const { erreur } = await this.supabaseClient.auth.signInWithOAuth({
+          fournisseur : 'google',
           options: {
-            redirectTo: redirectUrl,
+            rediriger vers : URL de redirection,
             queryParams: { prompt: 'select_account' }
           }
         });
-        if (error) throw error;
-      } catch (e) {
-        console.warn("Supabase Google Auth Note:", e);
+        si (erreur) lever une exception ;
+      } attraper (e) {
+        console.warn("Remarque d'authentification Google Supabase :", e);
         this.showToast(`Connexion Google : ${e.message}`);
       }
     }
   }
 
   async handleAuthSubmit(event) {
-    event.preventDefault();
+    événement.prévenirDefault();
     const email = document.getElementById("auth-email").value.trim().toLowerCase();
-    const password = document.getElementById("auth-password").value;
+    const mot de passe = document.getElementById("auth-password").value;
     const name = document.getElementById("auth-name")?.value.trim() || email.split("@")[0];
     const phone = document.getElementById("auth-phone")?.value.trim() || "+225 07 00 00 00 00";
 
     const submitBtn = document.getElementById("auth-submit-btn");
-    if (submitBtn) {
+    si (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span class="animate-spin mr-1">⏳</span> Connexion en cours...`;
     }
 
     const isRay = this.isSuperAdmin(email);
-    const user = {
+    const utilisateur = {
       id: `USR-${Date.now()}`,
-      name: name,
-      email: email,
-      phone: phone,
-      role: isRay ? "super_admin" : "artisan",
-      loggedAt: new Date().toISOString()
+      nom : nom,
+      courriel : courriel,
+      téléphone : téléphone,
+      rôle : estRay ? "super_admin" : "artisan",
+      connectéÀ: nouvelle Date().toISOString()
     };
 
     // Sauvegarde en mémoire locale & en base Supabase
     this.saveCurrentUser(user);
 
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("users").upsert({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        ip_address: this.deviceId,
-        login_count: 1,
-        last_login_at: user.loggedAt
+        id : utilisateur.id,
+        nom : nom.utilisateur,
+        Courriel : user.email,
+        téléphone : utilisateur.téléphone,
+        rôle : utilisateur.rôle,
+        adresse_ip : this.deviceId,
+        Nombre de connexions : 1,
+        dernière_connexion_à: utilisateur.connectéÀ
       }, { onConflict: "email" }).then().catch(console.warn);
 
       this.supabaseClient.from("user_sessions_log").insert({
-        user_email: user.email,
-        user_name: user.name,
-        ip_address: this.deviceId,
-        action_type: "LOGIN",
-        details: `Connexion ${this.authMode === 'signup' ? 'nouvelle inscription' : 'reconnexion'} réussie`
+        adresse_email de l'utilisateur : utilisateur.email,
+        nom_utilisateur : nom.utilisateur,
+        adresse_ip : this.deviceId,
+        action_type: "CONNEXION",
+        détails : `Connexion ${this.authMode === 'signup' ? 'nouvelle inscription' : 'reconnexion'} réussie`
       }).then().catch(console.warn);
     }
 
     this.closeModal("authModal");
 
-    if (submitBtn) {
+    si (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.textContent = this.authMode === "signup" ? "S'inscrire" : "Se connecter";
+      submitBtn.textContent = this.authMode === "inscription" ? "S'inscrire" : "Se connecter";
     }
 
     this.logActivity("LOGIN", `Connexion réussie pour ${name} (${email})`);
-    if (window.confetti) confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+    si (fenêtre.confetti) confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
 
-    if (isRay) {
+    si (isRay) {
       this.showToast(`👑 Bienvenue Ray ! Accès Gestion & Ajout de chantiers activé.`);
-    } else {
+    } autre {
       this.showToast(`✅ Bienvenue ${name} ! Vous êtes connecté.`);
     }
     this.updateAuthUi();
 
-    if (this.selectedLeadForPurchase) {
+    si (this.selectedLeadForPurchase) {
       const pendingLead = this.selectedLeadForPurchase;
       setTimeout(() => {
         this.openPurchaseModal(pendingLead.id);
       }, 400);
-    } else {
+    } autre {
       this.renderCrmBoard();
     }
   }
 
   // =========================================================================
-  // PERSISTENCE & GENIUSPAY CONFIG
+  // CONFIGURATION PERSISTENCE & GENIUSPAY
   // =========================================================================
 
-  getOrCreateDeviceId() {
+  obtenirOrCréerDeviceId() {
     let device = localStorage.getItem("batilead_device_fingerprint_v18");
-    if (!device) {
-      device = `197.234.${Math.floor(10 + Math.random() * 80)}.${Math.floor(10 + Math.random() * 80)}`;
+    si (!device) {
+      appareil = `197.234.${Math.floor(10 + Math.random() * 80)}.${Math.floor(10 + Math.random() * 80)}`;
       localStorage.setItem("batilead_device_fingerprint_v18", device);
     }
-    return device;
+    appareil de retour ;
   }
 
-  loadAdminEmail() {
+  chargerAdminEmail() {
     return localStorage.getItem("batilead_master_admin_email_v18") || "ray88305@gmail.com";
   }
 
-  saveAdminEmail(email) {
+  enregistrerAdminEmail(email) {
     this.adminEmail = email.trim().toLowerCase();
     localStorage.setItem("batilead_master_admin_email_v18", this.adminEmail);
     const badge = document.getElementById("admin-active-email-badge");
-    if (badge) badge.textContent = this.adminEmail;
+    si (badge) badge.textContent = this.adminEmail ;
     const input = document.getElementById("settings-admin-email");
-    if (input) input.value = this.adminEmail;
+    si (entrée) entrée.valeur = this.adminEmail ;
   }
 
-  loadGeniusPayKey() {
-    return localStorage.getItem("batilead_geniuspay_pubkey_v18") || "sk_sandbox_kU48PXqvgWojG0mWRc7EaKsgIf5DlC1E";
+  chargerGeniusPayKey() {
+    return localStorage.getItem("batilead_geniuspay_pubkey_v18") || OFFICIAL_GENIUSPAY_PUBKEY;
   }
 
-  loadGeniusPaySecret() {
-    return localStorage.getItem("batilead_geniuspay_secret_v18") || "ss_sandbox_YMvxy8Q5UnLAY3T9hWJ1oiZtMQAC4bHSisv5BUhoTzwwNyf5";
+  chargerGeniusPaySecret() {
+    return localStorage.getItem("batilead_geniuspay_secret_v18") || OFFICIAL_GENIUSPAY_SECRET;
   }
 
-  loadGeniusPayMode() {
-    return localStorage.getItem("batilead_geniuspay_mode_v18") || "sandbox";
+  chargerGeniusPayMode() {
+    retourner localStorage.getItem("batilead_geniuspay_mode_v18") || "sandbox";
   }
 
-  saveGeniusPayConfig(key, secret, mode) {
+  enregistrerGeniusPayConfig(clé, secret, mode) {
     this.geniusPayPubKey = key.trim();
     this.geniusPaySecretKey = secret.trim();
     this.geniusPayMode = mode;
@@ -1114,39 +1119,39 @@ class BatiLeadRealtimeFullStackApp {
     localStorage.setItem("batilead_geniuspay_mode_v18", this.geniusPayMode);
   }
 
-  loadCurrentUser() {
+  chargerUtilisateurActuel() {
     const saved = localStorage.getItem("batilead_current_user_v18");
-    if (saved) {
+    si (enregistré) {
       try { return JSON.parse(saved); } catch (e) { return null; }
     }
-    return null;
+    renvoyer null ;
   }
 
-  saveCurrentUser(user) {
-    this.currentUser = user;
-    if (user) {
+  enregistrerUtilisateurActuel(utilisateur) {
+    this.currentUser = utilisateur;
+    si (utilisateur) {
       localStorage.setItem("batilead_current_user_v18", JSON.stringify(user));
       this.registerOrUpdateUserInDb(user);
-    } else {
+    } autre {
       localStorage.removeItem("batilead_current_user_v18");
     }
     this.updateAuthUi();
   }
 
-  loadLeads() {
+  chargerLeads() {
     const saved = localStorage.getItem("batilead_geniuspay_leads_db_v18");
-    if (saved) {
-      try {
+    si (enregistré) {
+      essayer {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length >= 10) {
-          return parsed;
+        si (Array.isArray(parsed) && parsed.length >= 10) {
+          retour analysé ;
         }
       } catch (e) { console.error(e); }
     }
-    return JSON.parse(JSON.stringify(DEFAULT_LEADS_CI));
+    renvoie JSON.parse(JSON.stringify(DEFAULT_LEADS_CI));
   }
 
-  saveLeads() {
+  enregistrerLesProspects() {
     this.processLeadPricing();
     localStorage.setItem("batilead_geniuspay_leads_db_v18", JSON.stringify(this.leads));
     this.updateCategoryCounts();
@@ -1154,36 +1159,36 @@ class BatiLeadRealtimeFullStackApp {
     this.renderAdminFullStack();
   }
 
-  loadUsersRegistry() {
+  chargerRegistreUtilisateurs() {
     const saved = localStorage.getItem("batilead_users_registry_v18");
-    if (saved) {
+    si (enregistré) {
       try { return JSON.parse(saved); } catch (e) { return []; }
     }
-    return [
+    retour [
       {
-        id: "USR-CI-001",
-        name: "Société Ivoirienne de BTP & Rénovation",
-        email: "direction@sibtp.ci",
-        phone: "+225 07 48 92 14 00",
-        role: "artisan",
-        registeredAt: new Date(NOW - 3 * ONE_DAY_MS).toISOString(),
+        id : "USR-CI-001",
+        nom : "Société Ivoirienne de BTP & Rénovation",
+        Courriel : « direction@sibtp.ci »,
+        téléphone : "+225 07 48 92 14 00",
+        rôle : « artisan »,
+        enregistréÀ : nouvelle Date(MAINTENANT - 3 * ONE_DAY_MS).toISOString(),
         lastLoginAt: new Date(NOW - 15 * 60 * 1000).toISOString(),
-        loginCount: 4,
-        ipAddress: "197.234.55.12",
-        purchasedCount: 0,
+        Nombre de connexions : 4,
+        Adresse IP : « 197.234.55.12 »,
+        Nombre d'achats : 0,
         totalSpentFcfa: 0
       },
       {
-        id: "USR-CI-002",
-        name: "Entreprise Générale de Construction Abidjan (EGCA)",
-        email: "contact@egca-btp.ci",
-        phone: "+225 05 00 11 22 33",
-        role: "artisan",
-        registeredAt: new Date(NOW - 1 * ONE_DAY_MS).toISOString(),
+        id : "USR-CI-002",
+        nom : « Entreprise Générale de Construction Abidjan (EGCA) »,
+        courriel : « contact@egca-btp.ci »,
+        téléphone : "+225 05 00 11 22 33",
+        rôle : « artisan »,
+        enregistréÀ : nouvelle Date(MAINTENANT - 1 * ONE_DAY_MS).toISOString(),
         lastLoginAt: new Date(NOW - 2 * 60 * 1000).toISOString(),
-        loginCount: 2,
-        ipAddress: "197.234.88.45",
-        purchasedCount: 0,
+        Nombre de connexions : 2,
+        Adresse IP : « 197.234.88.45 »,
+        Nombre d'achats : 0,
         totalSpentFcfa: 0
       }
     ];
@@ -1193,67 +1198,67 @@ class BatiLeadRealtimeFullStackApp {
     localStorage.setItem("batilead_users_registry_v18", JSON.stringify(this.users));
   }
 
-  registerOrUpdateUserInDb(user) {
+  enregistrerOuMettreÀJourUtilisateurDansLaBaseDeDonnées(utilisateur) {
     let existing = this.users.find(u => u.email.toLowerCase() === user.email.toLowerCase());
-    if (!existing) {
-      existing = {
+    si (!existant) {
+      existant = {
         id: `USR-CI-${Math.floor(100 + Math.random() * 900)}`,
-        name: user.name,
-        email: user.email,
-        phone: user.phone || "Non renseigné",
-        role: user.role || (this.isSuperAdmin(user.email) ? "super_admin" : "artisan"),
-        registeredAt: new Date().toISOString(),
+        nom : nom.utilisateur,
+        Courriel : user.email,
+        téléphone : utilisateur.phone || "Non renseigné",
+        rôle : utilisateur.rôle || (ceci.estSuperAdmin(utilisateur.email) ? "super_admin" : "artisan"),
+        enregistréÀ: nouvelle Date().toISOString(),
         lastLoginAt: new Date().toISOString(),
-        loginCount: 1,
-        ipAddress: this.deviceId,
-        purchasedCount: 0,
+        Nombre de connexions : 1,
+        adresse IP : this.deviceId,
+        Nombre d'achats : 0,
         totalSpentFcfa: 0
       };
-      this.users.unshift(existing);
-    } else {
-      existing.name = user.name;
-      existing.phone = user.phone || existing.phone;
-      existing.ipAddress = this.deviceId;
-      existing.lastLoginAt = new Date().toISOString();
-      existing.loginCount = (existing.loginCount || 1) + 1;
+      this.users.unshift(existant);
+    } autre {
+      nom.existant = nom.utilisateur;
+      téléphone existant = téléphone de l'utilisateur || téléphone existant ;
+      existant.ipAddress = this.deviceId;
+      existant.lastLoginAt = new Date().toISOString();
+      existant.loginCount = (existant.loginCount || 1) + 1;
     }
     this.saveUsersRegistry();
 
     // Supabase Cloud Async Sync
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("users").upsert({
-        id: existing.id,
-        name: existing.name,
-        email: existing.email,
-        phone: existing.phone,
-        role: existing.role,
-        ip_address: existing.ipAddress,
-        login_count: existing.loginCount,
-        last_login_at: existing.lastLoginAt,
-        purchased_count: existing.purchasedCount,
-        total_spent_fcfa: existing.totalSpentFcfa
+        id : existant.id,
+        nom : nom.existant,
+        courriel : courriel existant,
+        téléphone : téléphone existant,
+        rôle : rôle existant,
+        adresse_ip : adresse.ip existante,
+        nombre_de_connexions : existant.loginCount,
+        dernière_connexion_à : existant.dernière_connexionÀ,
+        nombre_achetés : nombre_achetés_existant,
+        total_spent_fcfa: existant.totalSpentFcfa
       }, { onConflict: "email" }).then().catch(console.warn);
     }
   }
 
-  loadOrdersRegistry() {
+  chargerRegistreDesCommandes() {
     const saved = localStorage.getItem("batilead_orders_registry_v18");
-    if (saved) {
+    si (enregistré) {
       try { return JSON.parse(saved); } catch (e) { return []; }
     }
-    return [];
+    retour [];
   }
 
   saveOrdersRegistry() {
     localStorage.setItem("batilead_orders_registry_v18", JSON.stringify(this.orders));
   }
 
-  isSuperAdmin(email) {
-    if (!email) return false;
+  estSuperAdmin(email) {
+    si (!email) retourner faux ;
     return email.trim().toLowerCase() === this.adminEmail.toLowerCase();
   }
 
-  updateAuthUi() {
+  mettre à jourAuthUi() {
     const container = document.getElementById("auth-header-container");
     const adminNavTab = document.getElementById("nav-tab-admin");
     const adminMobileNav = document.getElementById("mobile-nav-admin");
@@ -1265,36 +1270,36 @@ class BatiLeadRealtimeFullStackApp {
     const settingsSupaUrl = document.getElementById("settings-supabase-url");
     const settingsSupaKey = document.getElementById("settings-supabase-key");
 
-    if (adminEmailBadge) adminEmailBadge.textContent = this.adminEmail;
-    if (settingsInput) settingsInput.value = this.adminEmail;
-    if (settingsKeyInput) settingsKeyInput.value = this.geniusPayPubKey;
-    if (settingsSecretInput) settingsSecretInput.value = this.geniusPaySecretKey;
-    if (settingsModeInput) settingsModeInput.value = this.geniusPayMode;
-    if (settingsSupaUrl) settingsSupaUrl.value = this.supabaseUrl;
-    if (settingsSupaKey) settingsSupaKey.value = this.supabaseKey;
+    si (adminEmailBadge) adminEmailBadge.textContent = this.adminEmail ;
+    si (settingsInput) settingsInput.value = this.adminEmail;
+    si (settingsKeyInput) settingsKeyInput.value = this.geniusPayPubKey;
+    si (settingsSecretInput) settingsSecretInput.value = this.geniusPaySecretKey;
+    si (settingsModeInput) settingsModeInput.value = this.geniusPayMode ;
+    si (settingsSupaUrl) settingsSupaUrl.value = this.supabaseUrl;
+    si (settingsSupaKey) settingsSupaKey.value = this.supabaseKey;
 
     const isRay = this.currentUser && this.isSuperAdmin(this.currentUser.email);
 
-    if (isRay) {
-      if (adminNavTab) adminNavTab.classList.remove("hidden");
-      if (adminMobileNav) {
+    si (isRay) {
+      si (adminNavTab) adminNavTab.classList.remove("hidden");
+      si (adminMobileNav) {
         adminMobileNav.classList.remove("hidden");
         adminMobileNav.classList.add("flex");
       }
-    } else {
-      if (adminNavTab) adminNavTab.classList.add("hidden");
-      if (adminMobileNav) {
+    } autre {
+      if (adminNavTab) adminNavTab.classList.add("caché");
+      si (adminMobileNav) {
         adminMobileNav.classList.add("hidden");
         adminMobileNav.classList.remove("flex");
       }
-      if (this.currentView === "admin") {
+      si (this.currentView === "admin") {
         this.navigateTo("marketplace");
       }
     }
 
-    if (!container) return;
+    si (!conteneur) retourner;
 
-    if (this.currentUser) {
+    si (this.currentUser) {
       const avatarHtml = this.currentUser.avatar
         ? `<img src="${this.currentUser.avatar}" alt="${this.currentUser.name}" class="w-8 h-8 rounded-xl object-cover shadow-sm border border-sky-200" />`
         : `<div class="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
@@ -1316,7 +1321,7 @@ class BatiLeadRealtimeFullStackApp {
           </button>
         </div>
       `;
-    } else {
+    } autre {
       container.innerHTML = `
         <button class="btn-sky-primary text-xs" onclick="app.openModal('authModal')">
           <i data-lucide="user" class="w-3.5 h-3.5"></i>
@@ -1324,14 +1329,14 @@ class BatiLeadRealtimeFullStackApp {
         </button>
       `;
     }
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
-  logoutUser() {
+  déconnexionUtilisateur() {
     const email = this.currentUser ? this.currentUser.email : "Utilisateur";
     this.logActivity("LOGOUT", `Déconnexion de ${email}`);
     
-    if (this.supabaseClient && this.supabaseClient.auth) {
+    si (this.supabaseClient && this.supabaseClient.auth) {
       this.supabaseClient.auth.signOut().catch(() => {});
     }
 
@@ -1343,14 +1348,14 @@ class BatiLeadRealtimeFullStackApp {
     this.navigateTo("marketplace");
   }
 
-  handleGeniusPaySettingsUpdate(event) {
-    event.preventDefault();
+  handleGeniusPaySettingsUpdate(événement) {
+    événement.prévenirDefault();
     const key = document.getElementById("settings-geniuspay-pubkey").value;
     const secret = document.getElementById("settings-geniuspay-secret").value;
     const mode = document.getElementById("settings-geniuspay-mode").value;
     const email = document.getElementById("settings-admin-email").value;
 
-    this.saveGeniusPayConfig(key, secret, mode);
+    this.saveGeniusPayConfig(clé, secret, mode);
     this.saveAdminEmail(email);
     this.logActivity("SETTINGS_UPDATE", `Mise à jour des identifiants GeniusPay (${mode}) par ${email}`);
     this.showToast("Paramètres GeniusPay & Email enregistrés.");
@@ -1358,54 +1363,54 @@ class BatiLeadRealtimeFullStackApp {
   }
 
   // =========================================================================
-  // PRICING & FRESHNESS (FCFA)
+  // PRIX ET FRAÎCHEUR (FCFA)
   // =========================================================================
 
   processLeadPricing() {
     this.leads.forEach(lead => {
-      if (!lead.createdAt) {
-        const days = lead.daysAgo !== undefined ? lead.daysAgo : 1;
+      si (!lead.createdAt) {
+        const jours = lead.daysAgo !== undefined ? lead.daysAgo : 1;
         lead.createdAt = new Date(NOW - days * ONE_DAY_MS).toISOString();
       }
 
       const diffDays = Math.floor((NOW - new Date(lead.createdAt).getTime()) / ONE_DAY_MS);
       lead.ageDays = Math.max(0, diffDays);
 
-      if (lead.ageDays <= 3) {
-        lead.ageCategory = "fresh";
+      si (lead.ageDays <= 3) {
+        lead.ageCategory = "frais";
         lead.ageBadgeText = `⚡ ${lead.ageDays === 0 ? "Frais du jour" : `Disponible depuis ${lead.ageDays} jour${lead.ageDays > 1 ? "s" : ""}`}`;
         lead.ageBadgeClass = "bg-emerald-50 text-emerald-800 border-emerald-200/80";
         lead.pricingLabel = "Plein Tarif";
         lead.currentPrice = lead.basePrice || 25000;
-        lead.isExpired = false;
-      } else if (lead.ageDays <= 5) {
-        lead.ageCategory = "discounted";
+        plomb.estExpiré = faux ;
+      } sinon si (lead.ageDays <= 5) {
+        lead.ageCategory = "réduit";
         lead.ageBadgeText = `🏷️ Disponible depuis ${lead.ageDays} jours • Tarif dégressif`;
         lead.ageBadgeClass = "bg-amber-50 text-amber-800 border-amber-200/80";
         lead.pricingLabel = "Tarif Dégressif (-35%)";
         lead.currentPrice = Math.max(10000, Math.round((lead.basePrice || 25000) * 0.65));
-        lead.isExpired = false;
-      } else {
-        lead.ageCategory = "expired";
+        plomb.estExpiré = faux ;
+      } autre {
+        lead.ageCategory = "expiré";
         lead.ageBadgeText = `⛔ Expiré (> 7 jours)`;
         lead.ageBadgeClass = "bg-slate-100 text-slate-500 border-slate-200";
         lead.pricingLabel = "Non disponible";
-        lead.currentPrice = 0;
-        lead.isExpired = true;
+        prix actuel du plomb = 0 ;
+        plomb.estExpiré = vrai;
       }
     });
   }
 
-  isLeadPurchasedByCurrentUser(lead) {
-    if (!this.currentUser || !this.currentUser.email) return false;
+  estLeadAchetéParL'UtilisateurActuel(lead) {
+    si (!this.currentUser || !this.currentUser.email) retourner faux ;
     const userEmail = this.currentUser.email.toLowerCase();
-    if (lead.unlockedByEmails && Array.isArray(lead.unlockedByEmails)) {
+    si (lead.unlockedByEmails && Array.isArray(lead.unlockedByEmails)) {
       return lead.unlockedByEmails.map(e => e.toLowerCase()).includes(userEmail);
     }
-    if (lead.unlockedByEmail && lead.unlockedByEmail.toLowerCase() === userEmail) {
-      return true;
+    si (lead.unlockedByEmail && lead.unlockedByEmail.toLowerCase() === userEmail) {
+      renvoyer vrai ;
     }
-    return false;
+    renvoyer faux ;
   }
 
   syncDevicePurchasedLeads() {
@@ -1413,11 +1418,11 @@ class BatiLeadRealtimeFullStackApp {
   }
 
   getDeviceUnlockedLeadIds() {
-    return [];
+    retour [];
   }
 
   saveDeviceUnlockedLeadId(leadId) {
-    // Non partagé entre sessions
+    // Sessions non partagées
   }
 
   updateNavCounts() {
@@ -1426,11 +1431,11 @@ class BatiLeadRealtimeFullStackApp {
 
     const navAvail = document.getElementById("nav-count-available");
     const navPurch = document.getElementById("nav-count-purchased");
-    if (navAvail) navAvail.textContent = availableCount;
-    if (navPurch) navPurch.textContent = purchasedCount;
+    if (navAvail) navAvail.textContent = availableCount ;
+    si (navPurch) navPurch.textContent = purchasedCount;
   }
 
-  updateCategoryCounts() {
+  mettre à jourCategoryCounts() {
     const allCount = this.leads.filter(l => l.status === "available" && !l.isExpired).length;
     const constrCount = this.leads.filter(l => l.category === "construction" && l.status === "available" && !l.isExpired).length;
     const renoCount = this.leads.filter(l => l.category === "renovation" && l.status === "available" && !l.isExpired).length;
@@ -1439,30 +1444,30 @@ class BatiLeadRealtimeFullStackApp {
     const elConstr = document.getElementById("count-construction-leads");
     const elReno = document.getElementById("count-renovation-leads");
 
-    if (elAll) elAll.textContent = allCount;
-    if (elConstr) elConstr.textContent = constrCount;
-    if (elReno) elReno.textContent = renoCount;
+    si (elAll) elAll.textContent = allCount;
+    si (elConstr) elConstr.textContent = constrCount;
+    si (elReno) elReno.textContent = renoCount;
   }
 
-  navigateTo(viewName) {
-    if (viewName === "admin" && (!this.currentUser || !this.isSuperAdmin(this.currentUser.email))) {
+  naviguerVers(nomvue) {
+    si (viewName === "admin" && (!this.currentUser || !this.isSuperAdmin(this.currentUser.email))) {
       this.openModal("authModal");
       this.showToast("Accès réservé à ray88305@gmail.com. Veuillez vous identifier.");
-      return;
+      retour;
     }
 
     this.currentView = viewName;
     document.querySelectorAll(".soft-tab").forEach(tab => tab.classList.remove("active"));
     const activeTab = document.getElementById(`nav-tab-${viewName}`);
-    if (activeTab) activeTab.classList.add("active");
+    si (activeTab) activeTab.classList.add("active");
 
     document.querySelectorAll(".view-section").forEach(sec => {
       sec.classList.remove("active");
-      sec.classList.add("hidden");
+      sec.classList.add("caché");
     });
 
     const targetSec = document.getElementById(`view-${viewName}`);
-    if (targetSec) {
+    si (targetSec) {
       targetSec.classList.remove("hidden");
       targetSec.classList.add("active");
     }
@@ -1472,20 +1477,20 @@ class BatiLeadRealtimeFullStackApp {
     if (viewName === "marketplace") this.renderMarketplaceLeads();
 
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
-  toggleMobileMenu() {
+  basculerMenuMobile() {
     const menu = document.getElementById("mobile-menu");
     if (menu) menu.classList.toggle("hidden");
   }
 
   // =========================================================================
-  // MARKETPLACE
+  // MARCHÉ
   // =========================================================================
 
-  selectCategory(cat, btnElement) {
-    this.selectedCategory = cat;
+  sélectionnerCategory(cat, btnElement) {
+    this.selectedCategory = chat;
     document.querySelectorAll(".category-image-card").forEach(c => c.classList.remove("active"));
     if (btnElement) btnElement.classList.add("active");
     this.logActivity("FILTER_CATEGORY", `Filtrage du catalogue : ${cat}`);
@@ -1494,16 +1499,16 @@ class BatiLeadRealtimeFullStackApp {
 
   filterLeads() {
     const filtered = this.leads.filter(lead => {
-      if (this.selectedCategory !== "all" && lead.category !== this.selectedCategory) {
-        return false;
+      si (this.selectedCategory !== "all" && lead.category !== this.selectedCategory) {
+        renvoyer faux ;
       }
-      return true;
+      renvoyer vrai ;
     });
 
-    this.renderFilteredLeads(filtered);
+    this.renderFilteredLeads(filtré);
   }
 
-  resetFilters() {
+  réinitialiserFiltres() {
     this.selectCategory("all", document.querySelector('[data-category="all"]'));
   }
 
@@ -1516,35 +1521,35 @@ class BatiLeadRealtimeFullStackApp {
     const emptyState = document.getElementById("leads-empty-state");
     const badge = document.getElementById("results-count-badge");
 
-    if (!grid) return;
+    si (!grid) retourner;
     if (badge) badge.textContent = `${leadsToRender.length} projet${leadsToRender.length > 1 ? "s" : ""} en ligne`;
 
-    if (leadsToRender.length === 0) {
-      grid.innerHTML = "";
-      if (emptyState) emptyState.classList.remove("hidden");
-      return;
+    si (leadsToRender.length === 0) {
+      grille.innerHTML = "";
+      si (emptyState) emptyState.classList.remove("hidden");
+      retour;
     }
 
-    if (emptyState) emptyState.classList.add("hidden");
+    si (emptyState) emptyState.classList.add("hidden");
     grid.innerHTML = leadsToRender.map(lead => this.createHumanLeadCardHtml(lead)).join("");
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
-  getMaskedName(fullName) {
+  obtenirNomMasqué(nomcomplet) {
     const parts = fullName.trim().split(" ");
     const lastName = parts[0] || "Client";
-    return `M. ${lastName} ••••••••• (Client Vérifié)`;
+    renvoie `M. ${lastName} ••••••••• (Client Vérifié)`;
   }
 
-  getMaskedPhone(phone) {
-    return `+225 07 •• •• •• ••`;
+  obtenirTéléphoneMasqué(téléphone) {
+    renvoie `+225 07 •• •• •• ••`;
   }
 
-  getMaskedEmail(email) {
-    return `••••••••@client.ci`;
+  obtenirMaskedEmail(email) {
+    renvoie `••••••••@client.ci`;
   }
 
-  createHumanLeadCardHtml(lead) {
+  créerHumanLeadCardHtml(lead) {
     const isPurchased = lead.status === "purchased";
     const isPurchasedByMe = this.isLeadPurchasedByCurrentUser(lead);
     const isExpired = lead.isExpired && !isPurchased;
@@ -1552,11 +1557,11 @@ class BatiLeadRealtimeFullStackApp {
     const maskedName = this.getMaskedName(lead.fullName);
     const maskedPhone = this.getMaskedPhone(lead.phone);
 
-    return `
+    retourner `
       <div class="soft-lead-card p-5 sm:p-6 flex flex-col justify-between ${isPurchased ? 'border-slate-200 bg-slate-50/50 relative overflow-hidden' : 'bg-white'}">
         
         <div class="space-y-4">
-          <!-- Header row -->
+          <!-- Ligne d'en-tête -->
           <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
             <div>
               <div class="flex items-center gap-2">
@@ -1571,7 +1576,7 @@ class BatiLeadRealtimeFullStackApp {
                 ` : ''}
               </div>
 
-              <!-- Contact masked info -->
+              <!-- Informations de contact masquées -->
               <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 mt-1.5">
                 <span class="flex items-center gap-1.5">
                   <i data-lucide="phone" class="w-3 h-3 text-slate-400"></i>
@@ -1585,23 +1590,23 @@ class BatiLeadRealtimeFullStackApp {
               </div>
             </div>
 
-            <!-- Price Badge in FCFA -->
+            <!-- Prix affiché en FCFA -->
             <div class="text-right shrink-0">
               ${isPurchased ? `
                 <div class="text-xs font-extrabold text-slate-500 font-heading bg-slate-200/80 px-2.5 py-1 rounded-lg">Chantier Vendu</div>
-              ` : isExpired ? `
+              ` : est expiré ? `
                 <span class="text-xs font-bold text-slate-400">Expiré</span>
               ` : lead.ageCategory === 'discounted' ? `
                 <div class="text-base font-extrabold text-sky-700 font-heading leading-tight">${lead.currentPrice.toLocaleString()} FCFA</div>
                 <span class="text-[10px] text-slate-400 line-through">${lead.basePrice.toLocaleString()} FCFA</span>
               ` : `
                 <div class="text-base font-extrabold text-slate-900 font-heading leading-tight">${lead.currentPrice.toLocaleString()} FCFA</div>
-                <span class="text-[10px] text-slate-500">Plein tarif</span>
+                <span class="text-[10px] text-slate-500">Tarif plein</span>
               `}
             </div>
           </div>
 
-          <!-- Project Details with Floutage Effect if Purchased -->
+          <!-- Détails du projet avec effet de flottage si acheté -->
           <div class="space-y-2.5 ${isPurchased && !isPurchasedByMe ? 'relative select-none' : ''}">
             <div class="flex items-center justify-between gap-2">
               <h4 class="font-bold text-xs text-slate-900 leading-snug">${lead.title}</h4>
@@ -1614,10 +1619,10 @@ class BatiLeadRealtimeFullStackApp {
               ${lead.description}
             </p>
 
-            <!-- Specifications Row -->
+            <!-- Ligne de spécifications -->
             <div class="grid grid-cols-3 gap-2 pt-1 text-[11px] ${isPurchased && !isPurchasedByMe ? 'blur-[1.5px] opacity-60' : ''}">
               <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Budget Projet</span>
+                <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Projet budgétaire</span>
                 <span class="font-bold text-slate-900">${lead.budget}</span>
               </div>
               <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
@@ -1625,7 +1630,7 @@ class BatiLeadRealtimeFullStackApp {
                 <span class="font-semibold text-slate-700">${lead.horizon}</span>
               </div>
               <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Surface</span>
+                Surface
                 <span class="font-semibold text-slate-700">${lead.surface || 'N/A'}</span>
               </div>
             </div>
@@ -1640,25 +1645,25 @@ class BatiLeadRealtimeFullStackApp {
           </div>
         </div>
 
-        <!-- BOTTOM FOOTER -->
+        <!-- PIED DE PAGE INFÉRIEUR -->
         <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 mt-4">
-          <!-- Left: Age Badge & Freshness -->
+          <!-- Gauche : Étiquette d'âge et de fraîcheur -->
           <div class="flex items-center gap-1.5">
             <span class="text-[10px] font-bold px-2.5 py-1 rounded-full border ${lead.ageBadgeClass}">
               ${lead.ageBadgeText}
             </span>
           </div>
 
-          <!-- Right: Action Button -->
+          <!-- Droite : Bouton d'action -->
           ${isPurchasedByMe ? `
             <button class="btn-sky-secondary text-xs py-2 px-3.5" onclick="app.navigateTo('crm')">
-              <i data-lucide="folder-check" class="w-3.5 h-3.5 text-emerald-600"></i> Voir dans mon CRM
+              Voir dans mon CRM
             </button>
-          ` : isPurchased ? `
+          ` : est acheté ? `
             <button class="btn-sky-secondary text-xs py-2 px-3.5 opacity-60 cursor-not-allowed border border-slate-300 bg-slate-100 text-slate-600 font-bold" disabled>
               <i data-lucide="check-circle" class="w-3.5 h-3.5 text-slate-500"></i> Chantier déjà acheté
             </button>
-          ` : isExpired ? `
+          ` : est expiré ? `
             <button class="btn-sky-secondary text-xs py-2 opacity-50 cursor-not-allowed" disabled>
               Chantier expiré (> 7 jours)
             </button>
@@ -1677,33 +1682,33 @@ class BatiLeadRealtimeFullStackApp {
   // WORKFLOW DE PAIEMENT RÉEL GENIUSPAY MOBILE MONEY
   // =========================================================================
 
-  selectPaymentMethod(radioEl) {
+  sélectionnerPaymentMethod(radioEl) {
     this.selectedPaymentMethod = radioEl.value;
     document.querySelectorAll(".payment-method-option").forEach(o => {
       o.classList.remove("active", "border-sky-500", "bg-sky-50/60");
       o.classList.add("border-slate-200", "bg-slate-50/60");
     });
     const parentLabel = radioEl.closest("label");
-    if (parentLabel) {
+    si (parentLabel) {
       parentLabel.classList.add("active", "border-sky-500", "bg-sky-50/60");
       parentLabel.classList.remove("border-slate-200", "bg-slate-50/60");
     }
   }
 
-  openPurchaseModal(leadId) {
-    if (!this.currentUser) {
+  ouvrirPurchaseModal(leadId) {
+    si (!this.currentUser) {
       this.openModal("authModal");
-      this.showToast("Veuillez vous connecter avec votre compte pour débloquer ce chantier.");
-      return;
+      this.showToast("Veuillez vous connecter à votre compte pour débloquer ce chantier.");
+      retour;
     }
 
     const lead = this.leads.find(l => l.id === leadId);
-    if (!lead || lead.isExpired) return;
+    si (!lead || lead.isExpired) retourner;
 
     this.selectedLeadForPurchase = lead;
     const container = document.getElementById("purchase-lead-details");
     const priceDisplay = document.getElementById("modal-lead-price-display");
-    if (!container) return;
+    si (!conteneur) retourner;
 
     this.logActivity("OPEN_PURCHASE_MODAL", `Consultation pour déblocage du chantier #${lead.id} (${lead.title})`);
 
@@ -1719,36 +1724,36 @@ class BatiLeadRealtimeFullStackApp {
         <p class="text-slate-600 text-xs italic">"${lead.description}"</p>
         <div class="flex items-center justify-between border-t border-slate-200/80 pt-2 text-[11px] text-slate-600 font-medium">
           <span>Budget estimé : <strong class="text-slate-900">${lead.budget}</strong></span>
-          <span>Démarrage : <strong class="text-slate-900">${lead.horizon}</strong></span>
+          Démarrage : ${lead.horizon}</strong></span>
         </div>
       </div>
     `;
 
     this.openModal("purchaseModal");
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   // Étape 1 : Appel API vers GeniusPay et ouverture de l'écran d'autorisation USSD/App
   async initiateGeniusPayPayment() {
-    if (!this.selectedLeadForPurchase) return;
+    si (!this.selectedLeadForPurchase) retourner;
     const lead = this.selectedLeadForPurchase;
     const rawPhone = document.getElementById("checkout-momo-phone")?.value || "";
     const digitsOnly = rawPhone.replace(/[^0-9]/g, "");
 
-    if (digitsOnly.length < 8) {
+    si (digitsOnly.length < 8) {
       this.showToast("Veuillez saisir un numéro Mobile Money valide (ex: 07 48 92 14 77).");
       document.getElementById("checkout-momo-phone")?.focus();
-      return;
+      retour;
     }
 
     const cleanPhone = digitsOnly.startsWith("225") ? digitsOnly.substring(3) : digitsOnly;
     const fullPhone = `+225 ${cleanPhone}`;
-    const buyerName = this.currentUser ? this.currentUser.name : "Entreprise BTP Partenaire";
+    const acheteurName = this.currentUser ? this.currentUser.name : "Entreprise BTP Partenaire";
     const buyerEmail = this.currentUser ? this.currentUser.email : "artisan@momo.ci";
     const txRef = `GP-TX-${Math.floor(100000 + Math.random() * 900000)}`;
 
     const submitBtn = document.getElementById("geniuspay-submit-btn");
-    if (submitBtn) {
+    si (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span class="animate-spin mr-1">⏳</span> Connexion GeniusPay...`;
     }
@@ -1757,48 +1762,54 @@ class BatiLeadRealtimeFullStackApp {
 
     // Préparation de la requête officielle GeniusPay
     const paymentPayload = {
-      amount: lead.currentPrice,
-      currency: "XOF",
+      montant : lead.currentPrice,
+      devise : « XOF »,
       description: `Achat Contact Client Chantier #${lead.id} (${lead.title})`,
-      customer_name: buyerName,
+      nom_du_client : nom_de_l'acheteur,
       customer_email: buyerEmail,
-      customer_phone: fullPhone,
-      payment_method: this.selectedPaymentMethod.toLowerCase().replace(/\s+/g, "_"),
-      merchant_reference: txRef,
-      api_key: this.geniusPayPubKey,
-      mode: this.geniusPayMode
+      téléphone_client : téléphone_complet,
+      méthode_de_paiement : this.selectedPaymentMethod.toLowerCase().replace(/\s+/g, "_"),
+      référence_marchand : txRef,
+      clé_API : this.geniusPayPubKey,
+      mode : this.geniusPayMode
     };
 
     this.pendingPaymentData = {
-      lead,
-      buyerName,
-      buyerEmail,
-      momoPhone: fullPhone,
+      plomb,
+      Nom de l'acheteur,
+      Courriel de l'acheteur,
+      momoPhone : téléphone complet,
       txRef,
-      method: this.selectedPaymentMethod,
-      amount: lead.currentPrice
+      méthode : this.selectedPaymentMethod,
+      montant : lead.currentPrice
     };
 
-    // Appel API vers pay.genius.ci
-    try {
-      fetch("https://pay.genius.ci/api/v1/merchant/payments", {
-        method: "POST",
-        headers: {
+    // Appel API vers le point d'entrée officiel GeniusPay CI
+    essayer {
+      const endpoint = `${OFFICIAL_GENIUSPAY_ENDPOINT}/payments`;
+      récupérer(point de terminaison, {
+        méthode : « POST »,
+        en-têtes : {
           "Content-Type": "application/json",
-          "X-API-KEY": this.geniusPayPubKey,
-          "X-API-SECRET": this.geniusPaySecretKey
+          "X-API-KEY" : this.geniusPayPubKey || OFFICIAL_GENIUSPAY_PUBKEY,
+          "X-API-SECRET" : this.geniusPaySecretKey || OFFICIAL_GENIUSPAY_SECRET
         },
-        body: JSON.stringify(paymentPayload)
+        corps : JSON.stringify(paymentPayload)
+      }).then(res => res.json()).then(resp => {
+        console.log("Réponse de GeniusPay :", resp);
+        si (resp && resp.checkout_url) {
+          this.pendingPaymentData.checkoutUrl = resp.checkout_url;
+        }
       }).catch(err => {
-        console.log("GeniusPay Direct Fetch Bridge handled:", err);
+        console.log("GeniusPay Direct Bridge traité :", err);
       });
-    } catch (e) {
-      console.log("GeniusPay Bridge Handled:", e);
+    } attraper (e) {
+      console.log("Pont GeniusPay géré :", e);
     }
 
     // Transition vers l'écran d'autorisation USSD/SMS
     setTimeout(() => {
-      if (submitBtn) {
+      si (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<i data-lucide="credit-card" class="w-4 h-4"></i> Lancer le paiement GeniusPay`;
       }
@@ -1808,8 +1819,8 @@ class BatiLeadRealtimeFullStackApp {
     }, 800);
   }
 
-  // Étape 2 : Affichage de l'invite de validation USSD / Mobile Money
-  showGeniusPayAuthorizationModal(data) {
+  // Étape 2 : Affichage de l'invitation de validation USSD / Mobile Money
+  afficherGeniusPayAuthorizationModal(données) {
     const modal = document.getElementById("geniusPayAuthModal");
     const iconEl = document.getElementById("gp-auth-operator-icon");
     const titleEl = document.getElementById("gp-auth-title");
@@ -1818,116 +1829,116 @@ class BatiLeadRealtimeFullStackApp {
     const amountEl = document.getElementById("gp-auth-amount");
     const instructionsEl = document.getElementById("gp-auth-instructions");
 
-    if (phoneEl) phoneEl.textContent = data.momoPhone;
+    si (phoneEl) phoneEl.textContent = data.momoPhone;
     if (refEl) refEl.textContent = data.txRef;
-    if (amountEl) amountEl.textContent = `${data.amount.toLocaleString()} FCFA`;
+    si (amountEl) amountEl.textContent = `${data.amount.toLocaleString()} FCFA`;
 
     let icon = "📱";
-    let instructions = "";
+    laissez les instructions = "";
 
     switch (data.method) {
-      case "Wave":
-        icon = "🌊";
+      cas « Vague » :
+        icône = "🌊";
         instructions = `1. Ouvrez votre application <strong>Wave</strong> sur votre téléphone.<br/>2. Cliquez sur la notification de paiement GeniusPay.<br/>3. Validez le débit de <strong>${data.amount.toLocaleString()} FCFA</strong> avec votre code secret Wave.`;
-        break;
-      case "Orange Money":
-        icon = "🟠";
+        casser;
+      affaire « Orange Money » :
+        icône = "🟠";
         instructions = `1. Composez le code USSD <strong>#144*82#</strong> ou ouvrez l'application Orange Money.<br/>2. Générez votre code d'autorisation.<br/>3. Validez le paiement de <strong>${data.amount.toLocaleString()} FCFA</strong> pour GeniusPay.`;
-        break;
-      case "MTN MoMo":
-        icon = "🟡";
-        instructions = `1. Regardez l'écran de votre téléphone MTN pour l'invite USSD (ou composez <strong>*133#</strong>).<br/>2. Tapez 1 pour approuver le paiement GeniusPay.<br/>3. Entrez votre code PIN MTN MoMo pour confirmer.`;
-        break;
-      case "Moov Money":
-        icon = "🔵";
+        casser;
+      cas « MTN MoMo » :
+        icône = "🟡";
+        instructions = `1. Regardez l'écran de votre téléphone MTN pour l'inviter USSD (ou composez <strong>*133#</strong>).<br/>2. Tapez 1 pour approuver le paiement GeniusPay.<br/>3. Entrez votre code PIN MTN MoMo pour confirmer.`;
+        casser;
+      cas « Moov Money » :
+        icône = "🔵";
         instructions = `1. Composez <strong>#155#</strong> sur votre téléphone Moov.<br/>2. Choisissez l'option 1 pour valider la demande GeniusPay en attente.<br/>3. Entrez votre code secret.`;
-        break;
-      default:
-        icon = "💳";
+        casser;
+      défaut:
+        icône = "💳";
         instructions = `Suivez les instructions de validation 3D-Secure sur votre téléphone pour confirmer le paiement.`;
     }
 
-    if (iconEl) iconEl.innerHTML = icon;
+    si (iconEl) iconEl.innerHTML = icône ;
     if (titleEl) titleEl.textContent = `Paiement ${data.method} en cours...`;
-    if (instructionsEl) instructionsEl.innerHTML = instructions;
+    si (instructionsEl) instructionsEl.innerHTML = instructions;
 
     this.openModal("geniusPayAuthModal");
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   // Étape 3 : Confirmation réelle après débit Mobile Money -> Déblocage effectif
   confirmGeniusPayTransactionSuccess() {
-    if (!this.pendingPaymentData) return;
+    si (!this.pendingPaymentData) retourner;
     const { lead, buyerName, buyerEmail, momoPhone, txRef, method, amount } = this.pendingPaymentData;
 
     this.showToast("Vérification du reçu de paiement GeniusPay...");
 
     setTimeout(() => {
       const invoiceNum = `FAC-GP-${Math.floor(1000 + Math.random() * 9000)}`;
-      const newOrder = {
-        invoiceNumber: invoiceNum,
-        transactionRef: txRef,
-        leadId: lead.id,
+      const nouvelleCommande = {
+        Numéro de facture : numéro de facture,
+        référence de transaction : txRef,
+        leadId : lead.id,
         leadTitle: lead.title,
-        userName: buyerName,
+        Nom d'utilisateur : Nom de l'acheteur,
         userEmail: buyerEmail,
-        customerPhone: momoPhone,
-        amount: amount,
-        timestamp: new Date().toISOString(),
-        paymentMethod: `GeniusPay (${method}) - ${momoPhone}`,
-        operator: method,
-        ipAddress: this.deviceId,
-        status: "completed"
+        Téléphone du client : momoPhone,
+        montant : montant,
+        horodatage : nouvelle Date().toISOString(),
+        méthode de paiement : `GeniusPay (${method}) - ${momoPhone}`,
+        opérateur : méthode,
+        adresse IP : this.deviceId,
+        Statut : « terminé »
       };
 
       this.orders.unshift(newOrder);
       this.saveOrdersRegistry();
 
-      if (!lead.unlockedByEmails) lead.unlockedByEmails = [];
-      if (!lead.unlockedByEmails.includes(buyerEmail.toLowerCase())) {
+      si (!lead.unlockedByEmails) lead.unlockedByEmails = [];
+      si (!lead.unlockedByEmails.includes(buyerEmail.toLowerCase())) {
         lead.unlockedByEmails.push(buyerEmail.toLowerCase());
       }
       lead.unlockedByEmail = buyerEmail.toLowerCase();
-      lead.unlockedByName = buyerName;
-      lead.unlockedAt = new Date().toISOString();
-      lead.invoiceNumber = invoiceNum;
+      piste.déverrouilléParNom = nomacheteur;
+      plomb.déverrouilléÀ = new Date().toISOString();
+      numéro de facture principal = numéro de facture;
 
       this.saveLeads();
 
       // Traçabilité complète dans le journal d'activité
-      this.logActivity("PAYMENT_SUCCESS", `Paiement Mobile Money validé (${amount.toLocaleString()} FCFA) pour chantier #${lead.id}. Facture : ${invoiceNum}`, { invoiceNum, txRef, amount });
+      this.logActivity("PAYMENT_SUCCESS", `Paiement Mobile Money validé (${amount.toLocaleString()} FCFA) pour chantier #${lead.id}. Facture : ${invoiceNum}`, { billNum, txRef, montant });
 
       // Synchronisation Supabase Cloud en tâche de fond
-      if (this.supabaseClient) {
+      si (this.supabaseClient) {
         this.supabaseClient.from("orders").insert({
-          invoice_number: newOrder.invoiceNumber,
-          transaction_ref: newOrder.transactionRef,
-          lead_id: newOrder.leadId,
-          lead_title: newOrder.leadTitle,
-          user_name: newOrder.userName,
+          numéro_de_facture : nouvelleCommande.numéro_de_facture,
+          référence_transaction : nouvelleCommande.réf_transaction,
+          lead_id : newOrder.leadId,
+          lead_title : newOrder.leadTitle,
+          nom_utilisateur : nouvelleCommande.nom_utilisateur,
           user_email: newOrder.userEmail,
-          customer_phone: newOrder.customerPhone,
-          amount: newOrder.amount,
-          payment_method: newOrder.paymentMethod,
-          operator: newOrder.operator,
-          ip_address: this.deviceId,
-          status: newOrder.status
+          téléphone_client : nouvelleCommande.téléphone_client,
+          montant : newOrder.montant,
+          méthode_de_paiement : nouvelleCommande.méthode_de_paiement,
+          opérateur : newOrder.operator,
+          adresse_ip : this.deviceId,
+          statut : newOrder.status
         }).then().catch(console.warn);
 
         this.supabaseClient.from("leads").update({
-          status: "purchased",
-          crm_stage: "new",
-          unlocked_by_email: buyerEmail,
-          unlocked_by_name: buyerName,
-          unlocked_at: lead.unlockedAt
+          statut : « acheté »,
+          crm_stage : "nouveau",
+          déverrouillé_par_email : acheteurEmail,
+          déverrouillé_par_nom : nom_de_l'acheteur,
+          déverrouillé_à: lead.déverrouilléÀ
         }).eq("id", lead.id).then().catch(console.warn);
       }
 
-      if (this.currentUser) {
+      si (this.currentUser) {
         const userInDb = this.users.find(u => u.email.toLowerCase() === this.currentUser.email.toLowerCase());
-        if (userInDb) {
-          userInDb.purchasedCount = (userInDb.purchasedCount || 0) + 1;
-          userInDb.totalSpentFcfa = (userInDb.totalSpentFcfa || 0) + amount;
+        si (utilisateurDansDb) {
+          userInDb.purchasedCount = (userInDb.purchasedCount || 0) + 1 ;
+          userInDb.totalSpentFcfa = (userInDb.totalSpentFcfa || 0) + montant ;
           this.saveUsersRegistry();
         }
       }
@@ -1935,8 +1946,8 @@ class BatiLeadRealtimeFullStackApp {
       this.closeModal("geniusPayAuthModal");
       this.pendingPaymentData = null;
 
-      if (window.confetti) {
-        confetti({ particleCount: 65, spread: 70, origin: { y: 0.6 } });
+      si (fenêtre.confettis) {
+        confettis({ particleCount: 65, spread: 70, origin: { y: 0.6 } });
       }
 
       this.showToast(`Paiement Mobile Money validé par GeniusPay (${amount.toLocaleString()} FCFA) !`);
@@ -1950,18 +1961,18 @@ class BatiLeadRealtimeFullStackApp {
   // DOSSIER TECHNIQUE & TÉLÉCHARGEMENT IMMÉDIAT
   // =========================================================================
 
-  openLeadDetailModal(leadId) {
+  ouvrirModalDétailDePiste(identifiantDePiste) {
     const lead = this.leads.find(l => l.id === leadId);
-    if (!lead) return;
+    si (!lead) retourner;
 
     this.selectedLeadForDetail = lead;
     const container = document.getElementById("lead-full-content");
     const downloadBtn = document.getElementById("lead-download-doc-btn");
-    if (!container) return;
+    si (!conteneur) retourner;
 
     this.logActivity("VIEW_LEAD_DETAIL", `Consultation des coordonnées débloquées du chantier #${lead.id} (${lead.fullName})`);
 
-    if (downloadBtn) {
+    si (downloadBtn) {
       downloadBtn.onclick = () => this.downloadLeadDossier(lead);
     }
 
@@ -1971,7 +1982,7 @@ class BatiLeadRealtimeFullStackApp {
     );
 
     container.innerHTML = `
-      <!-- Contact Card Unmasked -->
+      <!-- Carte de contact démasquée -->
       <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200/80 space-y-3.5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -1984,10 +1995,10 @@ class BatiLeadRealtimeFullStackApp {
 
           <div class="flex items-center gap-2">
             <a href="tel:${lead.phone}" class="btn-soft-primary bg-emerald-600 hover:bg-emerald-700 text-xs">
-              <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Appeler : ${lead.phone}
+              Appelant : ${lead.phone}
             </a>
             <a href="https://wa.me/${cleanPhone}?text=${whatsappMsg}" target="_blank" class="btn-soft-secondary text-xs text-emerald-800 border-emerald-300">
-              <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-600"></i> WhatsApp Direct
+              WhatsApp Direct
             </a>
           </div>
         </div>
@@ -2004,11 +2015,11 @@ class BatiLeadRealtimeFullStackApp {
         </div>
       </div>
 
-      <!-- Technical Project Details -->
+      <!-- Détails techniques du projet -->
       <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2.5">
         <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Dossier Technique & Expression du Besoin</h4>
         <div class="grid grid-cols-3 gap-2.5 text-xs">
-          <div><span class="text-slate-400 block text-[10px]">Budget Estimé</span><strong class="text-slate-900">${lead.budget}</strong></div>
+          <div><span class="text-slate-400 block text-[10px]">Estimation du budget</span><strong class="text-slate-900">${lead.budget}</strong></div>
           <div><span class="text-slate-400 block text-[10px]">Surface</span><strong class="text-slate-900">${lead.surface || 'N/A'}</strong></div>
           <div><span class="text-slate-400 block text-[10px]">Délai Souhaité</span><strong class="text-slate-900">${lead.horizon}</strong></div>
         </div>
@@ -2017,15 +2028,15 @@ class BatiLeadRealtimeFullStackApp {
         </div>
       </div>
 
-      <!-- CRM Tracking in FCFA -->
+      <!-- Suivi CRM en FCFA -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200/80 space-y-2.5">
-        <div class="font-bold text-slate-900 text-xs">Suivi commercial dans votre espace</div>
+        <div class="font-bold text-slate-900 text-xs">Suivez commercial dans votre espace</div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="soft-label text-[10px]">Statut commercial</label>
             <select class="soft-input text-xs" onchange="app.updateLeadStage('${lead.id}', this.value)">
-              <option value="new" ${lead.crmStage === 'new' ? 'selected' : ''}>À Contacter</option>
-              <option value="contacted" ${lead.crmStage === 'contacted' ? 'selected' : ''}>En Discussion</option>
+              <option value="nouveau" ${lead.crmStage === 'nouveau' ? 'selected' : ''}>À Contacter</option>
+              <option value="contacted" ${lead.crmStage === 'contacted' ? 'selected' : ''}>En discussion</option>
               <option value="quote_sent" ${lead.crmStage === 'quote_sent' ? 'selected' : ''}>Devis Transmis</option>
               <option value="won" ${lead.crmStage === 'won' ? 'selected' : ''}>Chantier Conclu</option>
             </select>
@@ -2039,16 +2050,16 @@ class BatiLeadRealtimeFullStackApp {
     `;
 
     this.openModal("leadDetailModal");
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
-  downloadLeadDossier(lead) {
+  téléchargerLeadDossier(lead) {
     this.logActivity("DOWNLOAD_DOSSIER", `Téléchargement du dossier PDF pour le chantier #${lead.id} (${lead.fullName})`);
 
     const printWindow = window.open("", "_blank");
-    if (!printWindow) {
+    si (!printWindow) {
       this.showToast("Veuillez autoriser les fenêtres pop-up pour imprimer le dossier.");
-      return;
+      retour;
     }
 
     const htmlContent = `
@@ -2057,7 +2068,7 @@ class BatiLeadRealtimeFullStackApp {
       <head>
         <title>Fiche Technique Chantier - ${lead.id} | BatiLead Pro CI</title>
         <style>
-          body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1e293b; padding: 30px; line-height: 1.5; }
+          corps { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1e293b; padding: 30px; line-height: 1.5; }
           .header { display: flex; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
           .logo { font-size: 20px; font-weight: bold; color: #b45309; }
           .badge { background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
@@ -2069,7 +2080,7 @@ class BatiLeadRealtimeFullStackApp {
           @media print { button { display: none; } body { padding: 0; } }
         </style>
       </head>
-      <body>
+      <corps>
         <div class="header">
           <div>
             <div class="logo">BatiLead.pro 🇨🇮</div>
@@ -2082,11 +2093,11 @@ class BatiLeadRealtimeFullStackApp {
         </div>
 
         <div class="box" style="background: #ecfdf5; border-color: #a7f3d0;">
-          <h3 style="color: #065f46;">1. Coordonnées Directes du Particulier</h3>
+          <h3 style="couleur: #065f46;">1. Coordonnées Directes du Particulier</h3>
           <div class="grid">
             <div>Nom du Client : <span class="value">${lead.fullName} (Propriétaire)</span></div>
-            <div>Téléphone Direct : <span class="value">${lead.phone}</span></div>
-            <div>Email : <span class="value">${lead.email}</span></div>
+            <div>Téléphone direct : <span class="value">${lead.phone}</span></div>
+            <div>Courriel : <span class="value">${lead.email}</span></div>
             <div>Localité Chantier : <span class="value">${lead.address || lead.city}</span></div>
           </div>
         </div>
@@ -2095,10 +2106,10 @@ class BatiLeadRealtimeFullStackApp {
           <h3>2. Spécifications du Projet BTP</h3>
           <div style="font-weight: bold; font-size: 15px; margin-bottom: 8px;">${lead.title}</div>
           <div class="grid" style="margin-bottom: 12px;">
-            <div>Budget Prévisionnel : <span class="value">${lead.budget}</span></div>
-            <div>Surface Estimée : <span class="value">${lead.surface || 'N/A'}</span></div>
+            <div>Prévisionnel Budgétaire : <span class="value">${lead.budget}</span></div>
+            <div>Surface Estimée : <span class="value">${lead.surface || 'N/A'</span></div>
             <div>Délai d'Intervention : <span class="value">${lead.horizon}</span></div>
-            <div>Statut Foncier : <span class="value">${lead.propertyType || 'Bien immobilier'}</span></div>
+            <div>Statut Foncier : <span class="value">${lead.propertyType || 'Bien immobilier'</span></div>
           </div>
           <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
             <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">Description formulée sur Facebook Ads :</div>
@@ -2112,7 +2123,7 @@ class BatiLeadRealtimeFullStackApp {
             <div>Montant Payé : <span class="value">${(lead.currentPrice || lead.basePrice).toLocaleString()} FCFA</span></div>
             <div>N° Facture : <span class="value">${lead.invoiceNumber || 'FAC-GP-2026'}</span></div>
             <div>Passerelle : <span class="value">GeniusPay Mobile Money (Côte d'Ivoire)</span></div>
-            <div>Garantie Remplacement : <span class="value">Active 48h</span></div>
+            <div>Garantie de Remplacement : <span class="value">Active 48h</span></div>
           </div>
         </div>
 
@@ -2129,67 +2140,67 @@ class BatiLeadRealtimeFullStackApp {
       </html>
     `;
 
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
+    imprimerFenêtre.document.écrire(htmlContenu);
+    imprimerFenêtre.document.fermer();
     this.showToast("Dossier généré et prêt pour l'impression PDF.");
   }
 
-  updateLeadStage(leadId, stage) {
+  mettre à jourLeadStage(leadId, étape) {
     const lead = this.leads.find(l => l.id === leadId);
-    if (!lead) return;
-    lead.crmStage = stage;
+    si (!lead) retourner;
+    lead.crmStage = étape;
     this.saveLeads();
     this.renderCrmBoard();
 
     this.logActivity("UPDATE_CRM_STAGE", `Mise à jour statut commercial du chantier #${lead.id} : ${stage}`);
 
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("leads").update({ crm_stage: stage }).eq("id", leadId).then().catch(console.warn);
     }
     this.showToast(`Statut mis à jour : ${stage}`);
   }
 
-  updateLeadQuote(leadId, quote) {
+  mettreàjourQuoteLead(idLead, citation) {
     const lead = this.leads.find(l => l.id === leadId);
-    if (!lead) return;
+    si (!lead) retourner;
     lead.quoteAmount = parseFloat(quote) || null;
     this.saveLeads();
     this.renderCrmBoard();
 
     this.logActivity("UPDATE_LEAD_QUOTE", `Devis de ${(lead.quoteAmount || 0).toLocaleString()} FCFA émis pour #${lead.id}`);
 
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("leads").update({ quote_amount: lead.quoteAmount }).eq("id", leadId).then().catch(console.warn);
     }
   }
 
-  openDisputeModalFromDetail() {
-    if (!this.selectedLeadForDetail) return;
+  ouvrirDisputeModalDeDétail() {
+    si (!this.selectedLeadForDetail) retourner;
     const lead = this.selectedLeadForDetail;
     this.closeModal("leadDetailModal");
     const el = document.getElementById("dispute-lead-id");
-    if (el) el.value = lead.id;
+    si (el) el.value = lead.id;
     this.openModal("disputeModal");
   }
 
-  handleDisputeSubmit(event) {
-    event.preventDefault();
+  gérerDisputeSubmit(événement) {
+    événement.prévenirDefault();
     const id = document.getElementById("dispute-lead-id")?.value;
-    const reason = document.getElementById("dispute-reason")?.value;
+    const raison = document.getElementById("dispute-reason")?.value;
     const lead = this.leads.find(l => l.id === id);
-    if (!lead) return;
+    si (!lead) retourner;
 
-    lead.status = "available";
+    lead.status = "disponible";
     this.saveLeads();
 
     this.logActivity("DISPUTE_SUBMIT", `Demande de garantie activée pour #${lead.id} (Raison : ${reason})`);
 
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("disputes_guarantee_logs").insert({
-        lead_id: lead.id,
+        lead_id : lead.id,
         user_email: this.currentUser ? this.currentUser.email : "artisan@momo.ci",
-        reason: reason,
-        status: "approved"
+        raison : raison,
+        statut : « approuvé »
       }).then().catch(console.warn);
     }
 
@@ -2207,44 +2218,44 @@ class BatiLeadRealtimeFullStackApp {
     const lockedContainer = document.getElementById("crm-locked-container");
     const authContainer = document.getElementById("crm-authenticated-container");
 
-    if (!this.currentUser) {
-      if (lockedContainer) lockedContainer.classList.remove("hidden");
-      if (authContainer) authContainer.classList.add("hidden");
-      if (window.lucide) lucide.createIcons();
-      return;
+    si (!this.currentUser) {
+      si (lockedContainer) lockedContainer.classList.remove("hidden");
+      si (authContainer) authContainer.classList.add("hidden");
+      si (window.lucide) lucide.createIcons();
+      retour;
     }
 
-    if (lockedContainer) lockedContainer.classList.add("hidden");
-    if (authContainer) authContainer.classList.remove("hidden");
+    si (lockedContainer) lockedContainer.classList.add("hidden");
+    si (authContainer) authContainer.classList.remove("hidden");
 
     const userEmail = this.currentUser.email ? this.currentUser.email.toLowerCase() : "";
-    const purchased = this.leads.filter(lead => this.isLeadPurchasedByCurrentUser(lead));
+    const acheté = this.leads.filter(lead => this.isLeadPurchasedByCurrentUser(lead));
     const emptyState = document.getElementById("crm-empty-state");
 
-    const stages = ["new", "contacted", "quote_sent", "won"];
+    const stages = ["nouveau", "contacté", "devis_envoyé", "gagné"];
     const counts = { new: 0, contacted: 0, quote_sent: 0, won: 0 };
-    const containers = {
-      new: document.getElementById("crm-list-new"),
-      contacted: document.getElementById("crm-list-contacted"),
+    const conteneurs = {
+      nouveau : document.getElementById("crm-list-new"),
+      contacté : document.getElementById("crm-list-contacted"),
       quote_sent: document.getElementById("crm-list-quote_sent"),
-      won: document.getElementById("crm-list-won")
+      gagné : document.getElementById("crm-list-won")
     };
 
-    stages.forEach(s => {
-      if (containers[s]) containers[s].innerHTML = "";
+    étapes.forEach(s => {
+      si (conteneurs[s]) conteneurs[s].innerHTML = "";
     });
 
-    if (purchased.length === 0) {
-      if (emptyState) emptyState.classList.remove("hidden");
-    } else {
-      if (emptyState) emptyState.classList.add("hidden");
+    si (purchased.length === 0) {
+      si (emptyState) emptyState.classList.remove("hidden");
+    } autre {
+      si (emptyState) emptyState.classList.add("hidden");
 
-      purchased.forEach(lead => {
-        const stage = lead.crmStage || "new";
-        counts[stage] = (counts[stage] || 0) + 1;
+      acheté.forEach(lead => {
+        const stage = lead.crmStage || "nouveau";
+        comptes[étape] = (comptes[étape] || 0) + 1;
 
-        if (containers[stage]) {
-          containers[stage].innerHTML += `
+        si (conteneurs[étape]) {
+          conteneurs[stage].innerHTML += `
             <div class="p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-sky-400 cursor-pointer transition-all shadow-sm space-y-2" onclick="app.openLeadDetailModal('${lead.id}')">
               <div class="flex items-center justify-between text-[11px]">
                 <span class="font-bold text-sky-800">${lead.categoryLabel}</span>
@@ -2262,14 +2273,14 @@ class BatiLeadRealtimeFullStackApp {
       });
     }
 
-    stages.forEach(s => {
+    étapes.forEach(s => {
       const el = document.getElementById(`crm-count-${s}`);
-      if (el) el.textContent = counts[s];
+      si (el) el.textContent = counts[s];
     });
 
-    const totalInvest = purchased.reduce((acc, l) => acc + (l.currentPrice || l.basePrice || 25000), 0);
-    const totalQuotes = purchased.reduce((acc, l) => acc + (parseFloat(l.quoteAmount) || 0), 0);
-    const wonLeads = purchased.filter(l => l.crmStage === "won");
+    const totalInvest = bought.reduce((acc, l) => acc + (l.currentPrice || l.basePrice || 25000), 0);
+    const totalQuotes = bought.reduce((acc, l) => acc + (parseFloat(l.quoteAmount) || 0), 0);
+    const wonLeads = bought.filter(l => l.crmStage === "won");
     const totalWon = wonLeads.reduce((acc, l) => acc + (parseFloat(l.quoteAmount) || l.budgetValue || 0), 0);
 
     const sTot = document.getElementById("crm-stat-total");
@@ -2277,25 +2288,25 @@ class BatiLeadRealtimeFullStackApp {
     const sQuo = document.getElementById("crm-stat-quotes");
     const sWon = document.getElementById("crm-stat-won");
 
-    if (sTot) sTot.textContent = purchased.length;
-    if (sInv) sInv.textContent = `${totalInvest.toLocaleString()} FCFA`;
-    if (sQuo) sQuo.textContent = `${totalQuotes.toLocaleString()} FCFA`;
+    if (sTot) sTot.textContent = acheté.longueur ;
+    if (sInv) sInv.textContent = `${totalInvest.toLocaleString()} FCFA` ;
+    si (sQuo) sQuo.textContent = `${totalQuotes.toLocaleString()} FCFA`;
     if (sWon) sWon.textContent = `${totalWon.toLocaleString()} FCFA`;
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   exportPurchasedLeadsCsv() {
-    const purchased = this.leads.filter(l => l.status === "purchased");
-    if (purchased.length === 0) {
-      this.showToast("Aucun chantier débloqué à exporter.");
-      return;
+    const acheté = this.leads.filter(l => l.status === "acheté");
+    si (purchased.length === 0) {
+      this.showToast("Aucun chantier débloqué à exportateur.");
+      retour;
     }
 
     this.logActivity("EXPORT_PURCHASED_CSV", `Exportation CSV de ${purchased.length} chantiers débloqués`);
 
-    const headers = ["ID", "Nom Client", "Telephone", "Email", "Ville", "Projet", "Budget", "Prix Paye", "Statut CRM", "Devis"];
-    const rows = purchased.map(l => [
-      l.id,
+    const headers = ["ID", "Nom Client", "Téléphone", "Email", "Ville", "Projet", "Budget", "Prix Paye", "Statut CRM", "Devis"];
+    const lignes = acheté.map(l => [
+      couvercle,
       `"${l.fullName}"`,
       `"${l.phone}"`,
       l.email,
@@ -2308,33 +2319,33 @@ class BatiLeadRealtimeFullStackApp {
     ]);
 
     const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
-    const encoded = encodeURI(csvContent);
+    const encodé = encodeURI(csvContent);
     const link = document.createElement("a");
-    link.href = encoded;
-    link.download = `mes_chantiers_batilead_${new Date().toISOString().split("T")[0]}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    lien.href = encodé ;
+    lien.téléchargement = `mes_chantiers_batilead_${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(lien);
+    lien.cliquer();
+    document.body.removeChild(lien);
 
     this.showToast("Export CSV généré avec succès.");
   }
 
   // =========================================================================
-  // SUPER-ADMIN FULL-STACK SUITE (ray88305@gmail.com)
+  // SUITE SUPER-ADMIN FULL-STACK (ray88305@gmail.com)
   // =========================================================================
 
   switchAdminSubTab(tabName) {
-    this.adminSubTab = tabName;
+    this.adminSubTab = nom_onglet;
     document.querySelectorAll("[id^='admin-subtab-']").forEach(t => t.classList.remove("active"));
     const activeBtn = document.getElementById(`admin-subtab-${tabName}`);
-    if (activeBtn) activeBtn.classList.add("active");
+    si (boutonactif) boutonactif.classList.add("actif");
 
     document.querySelectorAll(".admin-subview").forEach(v => v.classList.add("hidden"));
     const target = document.getElementById(`admin-view-${tabName}`);
-    if (target) target.classList.remove("hidden");
+    si (cible) cible.classList.supprimer("caché");
 
     if (tabName === "logs") this.renderAdminLogsTable();
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   renderAdminFullStack() {
@@ -2357,14 +2368,14 @@ class BatiLeadRealtimeFullStackApp {
     const elAvail = document.getElementById("admin-kpi-available");
 
     if (elRev) elRev.textContent = `${totalRev.toLocaleString()} FCFA`;
-    if (elSold) elSold.textContent = totalSold;
-    if (elUsers) elUsers.textContent = totalUsers;
-    if (elAvail) elAvail.textContent = totalAvailable;
+    si (elSold) elSold.textContent = totalSold;
+    si (elUsers) elUsers.textContent = totalUsers;
+    if (elAvail) elAvail.textContent = totalAvailable ;
   }
 
   renderAdminLeadsTable() {
     const tbody = document.getElementById("admin-leads-table-body");
-    if (!tbody) return;
+    si (!tbody) retourner;
 
     tbody.innerHTML = this.leads.map(lead => `
       <tr class="hover:bg-slate-50/80 transition-colors">
@@ -2380,7 +2391,7 @@ class BatiLeadRealtimeFullStackApp {
         </td>
         <td class="py-3 px-3 font-bold text-slate-900">${lead.currentPrice.toLocaleString()} FCFA</td>
         <td class="py-3 px-3">
-          ${lead.status === 'purchased' ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Vendu / Débloqué</span>' : '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60">En Ligne</span>'}
+          ${lead.status === 'purchased' ? 'Vendu / Débloqué' : 'En Ligne'}
         </td>
         <td class="py-3 px-3 text-right">
           <button class="text-rose-500 hover:text-rose-700 p-1.5 rounded-lg hover:bg-rose-50" onclick="app.deleteLead('${lead.id}')">
@@ -2390,15 +2401,15 @@ class BatiLeadRealtimeFullStackApp {
       </tr>
     `).join("");
 
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
   renderAdminUsersTable() {
     const tbody = document.getElementById("admin-users-table-body");
     const countEl = document.getElementById("admin-users-total-count");
-    if (!tbody) return;
+    si (!tbody) retourner;
 
-    if (countEl) countEl.textContent = `${this.users.length} clients enregistrés`;
+    si (countEl) countEl.textContent = `${this.users.length} clients enregistrés`;
 
     tbody.innerHTML = this.users.map(user => `
       <tr class="hover:bg-slate-50/80 transition-colors">
@@ -2415,7 +2426,7 @@ class BatiLeadRealtimeFullStackApp {
 
   renderAdminOrdersTable() {
     const tbody = document.getElementById("admin-orders-table-body");
-    if (!tbody) return;
+    si (!tbody) retourner;
 
     tbody.innerHTML = this.orders.map(order => `
       <tr class="hover:bg-slate-50/80 transition-colors">
@@ -2430,53 +2441,53 @@ class BatiLeadRealtimeFullStackApp {
         <td class="py-3 px-3 text-slate-600">${order.paymentMethod}</td>
         <td class="py-3 px-3 text-right">
           <button class="btn-soft-secondary text-[11px] py-1 px-2 text-blue-700" onclick="app.openLeadDetailModal('${order.leadId}')">
-            Fiche Client
+            Fiche client
           </button>
         </td>
       </tr>
     `).join("");
   }
 
-  handleManualLeadSubmit(event) {
-    event.preventDefault();
+  gérerManualLeadSubmit(événement) {
+    événement.prévenirDefault();
     const cat = document.getElementById("form-category").value;
     const title = document.getElementById("form-title").value;
     const fullName = document.getElementById("form-name").value;
-    const phone = document.getElementById("form-phone").value;
+    const téléphone = document.getElementById("form-phone").value;
     const email = document.getElementById("form-email").value;
     const cityInput = document.getElementById("form-city").value;
     const budget = document.getElementById("form-budget").value;
-    const price = parseFloat(document.getElementById("form-price").value) || 25000;
+    const prix = parseFloat(document.getElementById("form-price").value) || 25000;
     const desc = document.getElementById("form-description").value;
 
     const newLead = {
       id: `LEAD-CI-${Math.floor(100 + Math.random() * 900)}`,
-      daysAgo: 1,
-      category: cat,
-      categoryLabel: cat === "construction" ? "Construction Neuve" : "Rénovation & Réhabilitation",
-      title,
-      description: desc,
+      il y a 1 jour
+      catégorie : chat,
+      CategoryLabel : cat === "construction" ? "Construction Neuve" : "Rénovation & Réhabilitation",
+      titre,
+      description : desc,
       budget,
       budgetValue: parseInt(budget.replace(/[^0-9]/g, "")) || 20000000,
-      surface: "150 m²",
-      horizon: "Démarrage sous 1 à 2 mois",
+      surface : « 150 m² »,
+      horizon : "Démarrage sous 1 à 2 mois",
       propertyType: "Bien immobilier",
-      isOwner: true,
-      phoneVerified: true,
-      city: cityInput,
-      commune: cityInput,
-      fullName,
-      phone,
-      email,
-      address: cityInput,
-      campaign: "Facebook Ads Direct Injection",
-      basePrice: price,
-      currentPrice: price,
-      status: "available",
-      crmStage: "new",
-      quoteAmount: null,
-      artisanNotes: "",
-      createdBy: this.adminEmail
+      estPropriétaire : vrai,
+      téléphoneVérifié : vrai,
+      ville : villeInput,
+      commune : entrée de la ville,
+      nom et prénom,
+      téléphone,
+      e-mail,
+      adresse : villeInput,
+      campagne : « Injection directe de publicités Facebook »,
+      basePrice : prix,
+      prix actuel : prix,
+      statut : « disponible »,
+      crmStage : « nouveau »,
+      Montant du devis : nul,
+      artisanNotes : "",
+      créé par : this.adminEmail
     };
 
     // 1. Mise à jour immédiate de l'écran local
@@ -2493,49 +2504,49 @@ class BatiLeadRealtimeFullStackApp {
     this.renderAdminFullStack();
 
     // 2. Propagation Supabase Cloud vers tous les autres appareils
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("leads").insert({
-        id: newLead.id,
-        category: newLead.category,
-        category_label: newLead.categoryLabel,
-        title: newLead.title,
-        description: newLead.description,
-        budget: newLead.budget,
-        budget_value: newLead.budgetValue,
-        surface: newLead.surface,
-        horizon: newLead.horizon,
-        city: newLead.city,
-        commune: newLead.commune,
-        full_name: newLead.fullName,
-        phone: newLead.phone,
-        email: newLead.email,
-        address: newLead.address,
-        base_price: newLead.basePrice,
-        current_price: newLead.currentPrice,
-        status: newLead.status,
-        crm_stage: newLead.crmStage,
-        unlocked_by_email: this.adminEmail
-      }).then(({ error }) => {
-        if (error) {
-          console.warn("Supabase insert note:", error);
-          this.showToast(`Note Supabase: ${error.message}`);
-        } else {
+        id : newLead.id,
+        catégorie : newLead.category,
+        étiquette_catégorie : newLead.categoryLabel,
+        titre : newLead.title,
+        description : newLead.description,
+        budget : newLead.budget,
+        valeur_budget : newLead.budgetValue,
+        surface : newLead.surface,
+        horizon : newLead.horizon,
+        ville : newLead.city,
+        commune : newLead.commune,
+        nom_complet : newLead.fullName,
+        téléphone : newLead.phone,
+        Courriel : newLead.email,
+        adresse : newLead.address,
+        prix_de_base : nouveau_prospect.prix_de_base,
+        prix_actuel : newLead.prix_actuel,
+        statut : newLead.status,
+        crm_stage : newLead.crmStage,
+        déverrouillé par e-mail : this.adminEmail
+      }).then(({ erreur }) => {
+        si (erreur) {
+          console.warn("Note d'insertion Supabase :", erreur);
+          this.showToast(`Note Supabase : ${error.message}`);
+        } autre {
           this.showToast(`✅ Chantier #${newLead.id} enregistré sur Supabase Cloud et propagé !`);
         }
       }).catch(err => {
-        console.warn("Supabase insert exception:", err);
+        console.warn("Exception d'insertion Supabase :", err);
       });
     }
   }
 
-  deleteLead(leadId) {
+  supprimerLead(leadId) {
     if (!confirm(`Supprimer définitivement le chantier ${leadId} ?`)) return;
     this.leads = this.leads.filter(l => l.id !== leadId);
     this.saveLeads();
 
     this.logActivity("ADMIN_DELETE_LEAD", `Suppression du chantier #${leadId}`);
 
-    if (this.supabaseClient) {
+    si (this.supabaseClient) {
       this.supabaseClient.from("leads").delete().eq("id", leadId).then().catch(console.warn);
     }
 
@@ -2545,7 +2556,7 @@ class BatiLeadRealtimeFullStackApp {
     this.showToast("Chantier supprimé de la base.");
   }
 
-  resetToDefaultLeads() {
+  réinitialiserToDefaultLeads() {
     this.leads = JSON.parse(JSON.stringify(DEFAULT_LEADS_CI));
     this.saveLeads();
     this.logActivity("ADMIN_RESET_DB", "Réinitialisation des 12 chantiers de test");
@@ -2556,34 +2567,34 @@ class BatiLeadRealtimeFullStackApp {
   }
 
   exportOrdersCsv() {
-    if (this.orders.length === 0) {
+    si (this.orders.length === 0) {
       this.showToast("Aucune transaction enregistrée.");
-      return;
+      retour;
     }
 
     this.logActivity("EXPORT_ORDERS_CSV", `Exportation comptable GeniusPay de ${this.orders.length} transactions`);
 
     const headers = ["N_Facture", "Date", "Acheteur", "Email_Acheteur", "Lead_ID", "Chantier", "Montant_FCFA", "Moyen_Paiement", "Statut"];
-    const rows = this.orders.map(o => [
-      o.invoiceNumber,
+    const lignes = this.orders.map(o => [
+      o.numéro de facture,
       `"${o.timestamp}"`,
       `"${o.userName}"`,
       `"${o.userEmail}"`,
       o.leadId,
       `"${o.leadTitle}"`,
-      o.amount,
+      o.montant,
       `"${o.paymentMethod}"`,
-      o.status
+      o.statut
     ]);
 
     const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
-    const encoded = encodeURI(csvContent);
+    const encodé = encodeURI(csvContent);
     const link = document.createElement("a");
-    link.href = encoded;
-    link.download = `comptabilite_geniuspay_batilead_${new Date().toISOString().split("T")[0]}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    lien.href = encodé ;
+    lien.téléchargement = `comptabilite_geniuspay_batilead_${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(lien);
+    lien.cliquer();
+    document.body.removeChild(lien);
 
     this.showToast("Export comptable CSV généré avec succès.");
   }
@@ -2591,119 +2602,119 @@ class BatiLeadRealtimeFullStackApp {
   exportFullDatabaseJson() {
     const fullDb = {
       exportedAt: new Date().toISOString(),
-      adminEmail: this.adminEmail,
-      geniusPayPubKey: this.geniusPayPubKey,
-      supabaseUrl: this.supabaseUrl,
-      leads: this.leads,
-      users: this.users,
-      orders: this.orders,
-      activityLogs: this.activityLogs
+      Adresse e-mail de l'administrateur : cette adresse e-mail d'administrateur,
+      geniusPayPubKey : cette clé geniusPayPubKey,
+      supabaseUrl : this.supabaseUrl,
+      pistes : ceci.pistes,
+      utilisateurs : this.users,
+      commandes : this.commandes,
+      activityLogs : this.activityLogs
     };
 
     this.logActivity("EXPORT_FULL_DB", "Sauvegarde globale JSON de la base de données");
 
     const blob = new Blob([JSON.stringify(fullDb, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `batilead_fullstack_database_backup_${new Date().toISOString().split("T")[0]}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    lien.href = URL.createObjectURL(blob);
+    lien.téléchargement = `batilead_fullstack_database_backup_${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(lien);
+    lien.cliquer();
+    document.body.removeChild(lien);
 
     this.showToast("Sauvegarde complète de la base de données exportée.");
   }
 
   // =========================================================================
-  // CSV IMPORT
+  // IMPORTATION CSV
   // =========================================================================
 
-  setupDragAndDrop() {
+  configurerGlisserEtDéposer() {
     const zone = document.getElementById("csv-drop-zone");
-    if (!zone) return;
-    ["dragenter", "dragover"].forEach(e => {
+    si (!zone) retourner;
+    ["dragonter", "dragover"].forEach(e => {
       zone.addEventListener(e, (ev) => { ev.preventDefault(); zone.classList.add("border-amber-500", "bg-amber-50/50"); });
     });
     ["dragleave", "drop"].forEach(e => {
       zone.addEventListener(e, (ev) => { ev.preventDefault(); zone.classList.remove("border-amber-500", "bg-amber-50/50"); });
     });
     zone.addEventListener("drop", (e) => {
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      si (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
         this.processCsv(e.dataTransfer.files[0]);
       }
     });
   }
 
   handleCsvFileSelect(e) {
-    if (e.target.files && e.target.files[0]) this.processCsv(e.target.files[0]);
+    si (e.target.files && e.target.files[0]) this.processCsv(e.target.files[0]);
   }
 
-  processCsv(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const text = e.target.result;
-      const lines = text.split(/\r\n|\n/).filter(l => l.trim() !== "");
-      if (lines.length < 2) return;
+  processCsv(fichier) {
+    const lecteur = new FileReader();
+    lecteur.onload = (e) => {
+      const texte = e.cible.résultat;
+      const lignes = text.split(/\r\n|\n/).filter(l => l.trim() !== "");
+      si (lignes.length < 2) retourner;
 
       const headers = lines[0].split(",").map(h => h.trim().toLowerCase());
-      const parsed = [];
+      const analysé = [];
 
-      for (let i = 1; i < lines.length; i++) {
+      pour (soit i = 1 ; i < lignes.longueur ; i++) {
         const row = lines[i].split(",").map(c => c.trim().replace(/^["']|["']$/g, ""));
-        if (row.length < 3) continue;
+        si (ligne.longueur < 3) continuer ;
         const obj = {};
         headers.forEach((h, idx) => obj[h] = row[idx] || "");
 
-        const cat = (obj.project_type || "").toLowerCase().includes("construction") ? "construction" : "renovation";
+        const cat = (obj.project_type || "").toLowerCase().includes("construction") ? "construction" : "rénovation";
 
-        parsed.push({
+        analysé.push({
           id: `FB-CSV-${Math.floor(100 + Math.random() * 900)}`,
-          daysAgo: 1,
-          category: cat,
-          categoryLabel: cat === "construction" ? "Construction Neuve" : "Rénovation & Réhabilitation",
-          title: obj.project_type || "Projet BTP",
-          description: obj.description || `Demande qualifiée pour ${obj.full_name || 'Client'}`,
+          il y a 1 jour
+          catégorie : chat,
+          CategoryLabel : cat === "construction" ? "Construction Neuve" : "Rénovation & Réhabilitation",
+          titre : obj.project_type || "Projet BTP",
+          description : obj.description || `Demande qualifiée pour ${obj.full_name || 'Client'}`,
           budget: obj.estimated_budget || "35 000 000 FCFA",
-          budgetValue: 35000000,
-          surface: "160 m²",
-          horizon: "Démarrage sous 1 à 2 mois",
+          Valeur du budget : 35 000 000,
+          surface : « 160 m² »,
+          horizon : "Démarrage sous 1 à 2 mois",
           propertyType: "Bien immobilier",
-          isOwner: true,
-          phoneVerified: true,
-          city: obj.city || "Abidjan - Cocody",
-          commune: obj.city || "Cocody",
-          fullName: obj.full_name || "Prospect Qualifié",
-          phone: obj.phone_number || "+225 07 00 00 00 00",
+          estPropriétaire : vrai,
+          téléphoneVérifié : vrai,
+          ville : obj.ville || "Abidjan - Cocody",
+          commune : obj.ville || "Cocody",
+          nom complet : obj.nom_complet || "Prospect Qualifié",
+          téléphone : obj.phone_number || "+225 07 00 00 00 00",
           email: obj.email || "contact@client.ci",
-          address: obj.city || "Abidjan",
-          campaign: "Meta Ads CSV Import",
-          basePrice: 25000,
-          currentPrice: 25000,
-          status: "available",
-          crmStage: "new",
-          quoteAmount: null,
-          artisanNotes: "",
-          createdBy: this.adminEmail
+          adresse : obj.city || "Abidjan",
+          campagne : « Importation CSV des métadonnées publicitaires »,
+          Prix ​​de base : 25 000,
+          Prix ​​actuel : 25 000,
+          statut : « disponible »,
+          crmStage : « nouveau »,
+          Montant du devis : nul,
+          artisanNotes : "",
+          créé par : this.adminEmail
         });
       }
 
-      this.parsedCsvLeads = parsed;
+      this.parsedCsvLeads = analysé ;
       const prevC = document.getElementById("csv-preview-container");
       const prevCount = document.getElementById("csv-preview-count");
       const prevList = document.getElementById("csv-preview-list");
       const btn = document.getElementById("csv-confirm-import-btn");
 
       if (prevC && prevCount && prevList && btn) {
-        prevC.classList.remove("hidden");
+        prevC.classList.remove("caché");
         btn.classList.remove("hidden");
         prevCount.textContent = `${parsed.length} chantiers détectés`;
         prevList.innerHTML = parsed.map(p => `<div>• ${p.fullName} | ${p.title} | ${p.city}</div>`).join("");
       }
     };
-    reader.readAsText(file);
+    lecteur.lireCommeTexte(fichier);
   }
 
-  confirmCsvImport() {
-    if (!this.parsedCsvLeads || this.parsedCsvLeads.length === 0) return;
+  confirmerCsvImport() {
+    si (!this.parsedCsvLeads || this.parsedCsvLeads.length === 0) retourner;
     this.leads = [...this.parsedCsvLeads, ...this.leads];
     this.saveLeads();
     this.logActivity("CSV_IMPORT", `Importation de ${this.parsedCsvLeads.length} leads depuis Facebook Ads CSV`);
@@ -2715,61 +2726,61 @@ class BatiLeadRealtimeFullStackApp {
     this.renderAdminFullStack();
   }
 
-  downloadSampleCsv() {
-    const csv = "full_name,phone_number,email,city,project_type,estimated_budget,description\n" +
+  téléchargerSampleCsv() {
+    const csv = "full_name,phone_number,email,city,project_type,estated_budget,description\n" +
       "Kouassi Koffi,+22507112233,koffi@gmail.com,Abidjan - Cocody,Construction villa duplex,45000000 FCFA,Projet de construction R+1 sur terrain viabilise\n" +
-      "Aminata Toure,+22505998877,aminata@yahoo.fr,Abidjan - Marcory,Renovation appartement,15000000 FCFA,Travaux peinture carrelage et plomberie complete";
+      "Aminata Toure,+22505998877,aminata@yahoo.fr,Abidjan - Marcory,Rénovation appartement,15000000 FCFA,Travaux peinture carrelage et plomberie complet";
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
+    lien.href = URL.createObjectURL(blob);
     link.download = "modele_leads_facebook_btp_ci.csv";
-    link.click();
+    lien.cliquer();
     this.showToast("Modèle CSV téléchargé.");
   }
 
   // =========================================================================
-  // MODALS & NOTIFICATIONS
+  // MODALES ET NOTIFICATIONS
   // =========================================================================
 
-  openModal(id) {
+  ouvrirModal(id) {
     const m = document.getElementById(id);
-    if (m) {
+    si (m) {
       m.classList.remove("hidden");
       m.style.display = "flex";
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "masqué";
     }
-    if (id === "authModal") {
+    si (id === "authModal") {
       this.initGoogleIdentityServices();
     }
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
   }
 
-  closeModal(id) {
+  fermerModal(id) {
     const m = document.getElementById(id);
-    if (m) {
-      m.classList.add("hidden");
-      m.style.display = "none";
+    si (m) {
+      m.classList.add("caché");
+      m.style.display = "aucun";
       document.body.style.overflow = "";
     }
   }
 
-  showToast(msg) {
+  afficherToast(msg) {
     const c = document.getElementById("toast-container");
-    if (!c) return;
+    si (!c) retourner;
     const t = document.createElement("div");
-    t.className = "soft-toast";
+    t.className = "toast moelleux";
     t.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>${msg}</span>`;
     c.appendChild(t);
-    if (window.lucide) lucide.createIcons();
+    si (window.lucide) lucide.createIcons();
     setTimeout(() => {
-      t.style.opacity = "0";
-      t.style.transition = "opacity 0.3s ease";
+      t.style.opacité = "0";
+      t.style.transition = "opacité 0.3s ease";
       setTimeout(() => t.remove(), 300);
     }, 3500);
   }
 }
 
-let app;
+laissez l'application ;
 document.addEventListener("DOMContentLoaded", () => {
-  app = new BatiLeadRealtimeFullStackApp();
+  application = nouvelle application BatiLeadRealtimeFullStack();
 });
