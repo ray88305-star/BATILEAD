@@ -77,16 +77,17 @@
         </div>
 
         <!-- Navigation Tabs -->
+        <!-- Navigation Tabs -->
         <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70 text-xs font-semibold">
           <button id="nav-tab-marketplace" class="soft-tab active" onclick="app.navigateTo('marketplace')">
             <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-            <span>Chantiers Disponibles</span>
+            <span>Tous les Projets</span>
             <span id="nav-count-available" class="soft-pill bg-white text-slate-700 shadow-sm">10</span>
           </button>
           <button id="nav-tab-crm" class="soft-tab" onclick="app.navigateTo('crm')">
-            <i data-lucide="folder-check" class="w-3.5 h-3.5"></i>
+            <i data-lucide="folder-check" class="w-3.5 h-3.5 text-emerald-600"></i>
             <span>Mes Chantiers Débloqués</span>
-            <span id="nav-count-purchased" class="soft-pill bg-sky-100 text-sky-800">0</span>
+            <span id="nav-count-purchased" class="soft-pill bg-emerald-100 text-emerald-800 font-bold">0</span>
           </button>
         </nav>
 
@@ -111,7 +112,7 @@
     <!-- Main Content Container -->
     <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
 
-      <!-- VIEW 1: MARKETPLACE / CHANTIERS DISPONIBLES -->
+      <!-- VIEW 1: MARKETPLACE / TOUS LES PROJETS -->
       <section id="view-marketplace" class="view-section active space-y-8">
         
         <!-- HERO BANNER -->
@@ -134,11 +135,14 @@
                 </p>
 
                 <div class="pt-2 flex flex-wrap items-center gap-3">
-                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2" onclick="app.navigateTo('marketplace')">
-                    <i data-lucide="layout-grid" class="w-4 h-4"></i> Voir les 10 chantiers
+                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2 shadow-sm" onclick="app.navigateTo('marketplace')">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i> Voir tous les projets
                   </button>
-                  <button class="btn-sky-secondary text-xs py-2.5 px-4 font-bold flex items-center gap-2 border-slate-300" onclick="app.openModal('mobileAppModal')">
-                    <i data-lucide="smartphone" class="w-4 h-4 text-sky-600"></i> 📱 Télécharger pour Smartphone
+                  <button class="btn-sky-secondary text-xs py-2.5 px-4 font-bold flex items-center gap-2 border-emerald-300 bg-emerald-50/50 text-emerald-900 hover:bg-emerald-100/70" onclick="app.navigateTo('crm')">
+                    <i data-lucide="folder-check" class="w-4 h-4 text-emerald-600"></i> Voir mes chantiers débloqués
+                  </button>
+                  <button class="btn-sky-secondary text-xs py-2.5 px-3.5 font-bold flex items-center gap-1.5 border-slate-300" onclick="app.openModal('mobileAppModal')">
+                    <i data-lucide="smartphone" class="w-4 h-4 text-sky-600"></i> App Smartphone
                   </button>
                 </div>
               </div>
@@ -149,14 +153,14 @@
                   <div class="w-7 h-7 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
                     <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
                   </div>
-                  <span>Contacts Vérifiés</span>
+                  <span class="font-bold">Contacts Vérifiés</span>
                 </div>
 
-                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
+                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 text-xs text-emerald-950 font-medium">
                   <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                    <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
                   </div>
-                  <span>Clé de Licence</span>
+                  <span class="font-semibold leading-tight">Recevez votre clé de licence par mail et effectuez votre paiement</span>
                 </div>
 
                 <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
@@ -240,17 +244,20 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
             <div class="space-y-1">
               <div class="flex items-center gap-2.5">
-                <h1 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-900">Mon CRM Personnel</h1>
+                <h1 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-900 flex items-center gap-2">
+                  <i data-lucide="folder-check" class="w-6 h-6 text-emerald-600"></i>
+                  <span>Mes Chantiers Débloqués</span>
+                </h1>
                 <span id="crm-user-badge" class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full"></span>
               </div>
-              <p class="text-xs text-slate-500">Chantiers débloqués, coordonnées complètes et suivi de vos opportunités.</p>
+              <p class="text-xs text-slate-500 font-medium">Suivi de vos chantiers débloqués, coordonnées directes et gestion de vos contrats.</p>
             </div>
             <div class="flex items-center gap-2.5">
               <button class="btn-sky-secondary text-xs py-2 px-3.5 flex items-center gap-1.5" onclick="app.exportMyLeadsCsv()">
                 <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-600"></i> Exporter CSV
               </button>
-              <button class="btn-sky-primary text-xs py-2 px-4 flex items-center gap-1.5" onclick="app.navigateTo('marketplace')">
-                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Débloquer un autre chantier
+              <button class="btn-sky-primary text-xs py-2 px-4 flex items-center gap-1.5 shadow-sm" onclick="app.navigateTo('marketplace')">
+                <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Voir tous les projets
               </button>
             </div>
           </div>
@@ -560,7 +567,57 @@
 
         <div id="purchase-lead-details" class="py-3 space-y-2.5 text-xs"></div>
 
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 mt-2">
+        <!-- BLOC PAIEMENT & LOGOS MOBILE MONEY (4000 FCFA) -->
+        <div class="bg-gradient-to-br from-sky-50 via-white to-emerald-50/70 p-4 rounded-2xl border border-sky-200/90 space-y-3.5 shadow-sm">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-sky-800 tracking-wider">Tarif Clé de Déblocage</span>
+              <div class="text-lg font-heading font-extrabold text-slate-900 flex items-center gap-1.5">
+                <span>4 000 FCFA</span>
+                <span class="text-[11px] font-normal text-slate-500">/ contact complet</span>
+              </div>
+            </div>
+
+            <!-- Logos Opérateurs Mobile Money -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <!-- Wave Logo & Badge -->
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#1DC4FF]/15 border border-[#1DC4FF]/40 text-[#0284c7] text-[11px] font-black shadow-2xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#1DC4FF] inline-block"></span>
+                <span>Wave</span>
+              </div>
+              <!-- Orange Money Logo & Badge -->
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FF7900]/15 border border-[#FF7900]/40 text-[#ea580c] text-[11px] font-black shadow-2xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FF7900] inline-block"></span>
+                <span>Orange</span>
+              </div>
+              <!-- MTN MoMo Logo & Badge -->
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FFCC00]/25 border border-[#FFCC00]/60 text-slate-900 text-[11px] font-black shadow-2xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FFCC00] inline-block"></span>
+                <span>MTN</span>
+              </div>
+              <!-- Moov Money Logo & Badge -->
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#0066B3]/15 border border-[#0066B3]/40 text-[#0284c7] text-[11px] font-black shadow-2xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#0066B3] inline-block"></span>
+                <span>Moov</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bouton Effectuer le paiement -->
+          <button class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer" onclick="app.openPaymentModal()">
+            <i data-lucide="credit-card" class="w-4 h-4 text-amber-300"></i>
+            <span>Effectuer le paiement — Obtenir ma clé à 4 000 FCFA</span>
+          </button>
+        </div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-200"></div>
+          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">OU avec votre clé reçue</span>
+          <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <!-- ZONE SAISIE CLÉ DE LICENCE -->
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
           <label class="font-bold text-xs text-slate-900 block">Entrez votre Clé de Licence :</label>
           <input type="text" id="checkout-license-key" class="soft-input text-base font-mono font-extrabold uppercase tracking-widest text-center py-3 bg-white border-2 border-slate-300 focus:border-emerald-500 rounded-xl" placeholder="EX: 8788, 5467, 4344..." />
 
@@ -568,13 +625,109 @@
             Clés de licence valides : <strong class="text-slate-800 font-mono">8788</strong> • <strong class="text-slate-800 font-mono">5467</strong> • <strong class="text-slate-800 font-mono">4344</strong> • <strong class="text-slate-800 font-mono">34344</strong> • <strong class="text-slate-800 font-mono">3434</strong> • <strong class="text-slate-800 font-mono">45453</strong>
           </p>
 
-          <button class="btn-sky-primary w-full py-3.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-sm rounded-xl" onclick="app.activateWithLicenseKey()">
+          <button class="btn-sky-primary w-full py-3.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-sm rounded-xl cursor-pointer" onclick="app.activateWithLicenseKey()">
             <i data-lucide="unlock" class="w-4 h-4"></i> 🔓 Débloquer le Contact Immédiatement
           </button>
           <p class="text-[11px] text-slate-500 text-center font-medium pt-1">
             Débloquez votre contact et recevez la clé de licence via votre adresse email.
           </p>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal Paiement Mobile Money (Wave, Orange, MTN, Moov) -->
+    <div id="paymentModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-md max-h-[90vh] overflow-y-auto p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-emerald-500/20">
+              💳
+            </div>
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-900">Paiement Mobile Money</h3>
+              <p class="text-[11px] text-slate-500">Obtenez votre clé de licence à 4 000 FCFA</p>
+            </div>
+          </div>
+          <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-1.5 text-xs">
+          <div class="flex items-center justify-between font-bold text-slate-900">
+            <span>Montant du déblocage :</span>
+            <span class="text-emerald-700 font-extrabold text-base font-mono">4 000 FCFA</span>
+          </div>
+          <p class="text-[11px] text-slate-500 leading-snug">
+            La clé de licence vous sera transmise par email et insérée automatiquement pour débloquer votre contact immédiatement.
+          </p>
+        </div>
+
+        <!-- Sélection de l'opérateur Mobile Money -->
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-slate-900 block">1. Choisissez votre opérateur :</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <!-- Wave -->
+            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-sky-400 bg-sky-50/60 cursor-pointer hover:bg-sky-50 transition-all">
+              <input type="radio" name="payment_provider" value="wave" checked class="text-sky-600 accent-sky-600" />
+              <div>
+                <div class="font-black text-xs text-[#0284c7] flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-[#1DC4FF]"></span> Wave
+                </div>
+                <span class="text-[10px] text-slate-500 font-medium">Côte d'Ivoire & Sénégal</span>
+              </div>
+            </label>
+
+            <!-- Orange Money -->
+            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-orange-200 bg-white cursor-pointer hover:bg-orange-50/50 transition-all">
+              <input type="radio" name="payment_provider" value="orange" class="text-orange-500 accent-orange-500" />
+              <div>
+                <div class="font-black text-xs text-[#ea580c] flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-[#FF7900]"></span> Orange
+                </div>
+                <span class="text-[10px] text-slate-500 font-medium">Orange Money</span>
+              </div>
+            </label>
+
+            <!-- MTN MoMo -->
+            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-amber-200 bg-white cursor-pointer hover:bg-amber-50/50 transition-all">
+              <input type="radio" name="payment_provider" value="mtn" class="text-amber-500 accent-amber-500" />
+              <div>
+                <div class="font-black text-xs text-slate-900 flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-[#FFCC00]"></span> MTN
+                </div>
+                <span class="text-[10px] text-slate-500 font-medium">MTN MoMo</span>
+              </div>
+            </label>
+
+            <!-- Moov Money -->
+            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-blue-200 bg-white cursor-pointer hover:bg-blue-50/50 transition-all">
+              <input type="radio" name="payment_provider" value="moov" class="text-blue-600 accent-blue-600" />
+              <div>
+                <div class="font-black text-xs text-[#0284c7] flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-[#0066B3]"></span> Moov
+                </div>
+                <span class="text-[10px] text-slate-500 font-medium">Moov Money</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Numéro de téléphone Mobile Money -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-slate-900 block">2. Votre numéro Mobile Money :</label>
+          <input type="tel" id="payment-phone-input" class="soft-input py-2.5 px-3 text-sm font-mono font-bold" placeholder="Ex: +225 07 89 12 34 56" />
+        </div>
+
+        <!-- Bouton Valider Paiement -->
+        <button class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer" onclick="app.processPaymentSubmission()">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-200"></i>
+          <span>Payer 4 000 FCFA & Recevoir ma Clé</span>
+        </button>
+
+        <p class="text-[10.5px] text-slate-400 text-center font-medium">
+          🔒 Paiement 100% sécurisé et confirmation instantanée par SMS / Email.
+        </p>
       </div>
     </div>
 
@@ -1311,6 +1464,47 @@
         setTimeout(() => {
           document.getElementById("checkout-license-key")?.focus();
         }, 150);
+      }
+
+      openPaymentModal() {
+        if (!this.currentUser) {
+          this.closeModal("purchaseModal");
+          this.openModal("authModal");
+          this.showToast("🔐 Connectez-vous avant d'effectuer votre paiement.");
+          return;
+        }
+        this.closeModal("purchaseModal");
+        this.openModal("paymentModal");
+      }
+
+      processPaymentSubmission() {
+        const selectedProviderEl = document.querySelector('input[name="payment_provider"]:checked');
+        const provider = selectedProviderEl ? selectedProviderEl.value : "wave";
+
+        const providerNames = {
+          wave: "Wave",
+          orange: "Orange Money",
+          mtn: "MTN MoMo",
+          moov: "Moov Money"
+        };
+
+        const chosenKey = OFFICIAL_LICENSE_KEYS[Math.floor(Math.random() * OFFICIAL_LICENSE_KEYS.length)] || "8788";
+
+        this.closeModal("paymentModal");
+        this.openModal("purchaseModal");
+
+        const keyInput = document.getElementById("checkout-license-key");
+        if (keyInput) {
+          keyInput.value = chosenKey;
+        }
+
+        if (window.confetti) confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        this.showToast(`✅ Paiement 4 000 FCFA (${providerNames[provider] || 'Mobile Money'}) validé ! Clé envoyée : ${chosenKey}`);
+
+        // Déverrouille automatiquement le chantier en 1 seconde pour une expérience fluide
+        setTimeout(() => {
+          this.activateWithLicenseKey();
+        }, 1000);
       }
 
       activateWithLicenseKey() {
