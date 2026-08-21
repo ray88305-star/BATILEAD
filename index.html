@@ -38,6 +38,166 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="images_data.js"></script>
 
+  <style>
+    /* Bati'O Styles Intégrés */
+    :root {
+      --primary-sky: #0ea5e9;
+      --primary-sky-hover: #0284c7;
+      --primary-sky-light: #f0f9ff;
+      --primary-sky-border: #bae6fd;
+      --slate-dark: #0f172a;
+      --slate-body: #334155;
+      --slate-muted: #64748b;
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --border-soft: #e2e8f0;
+    }
+    body {
+      background-color: var(--bg-page);
+      color: var(--slate-body);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.01em;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    .soft-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 0.875rem;
+      color: var(--slate-muted);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .soft-tab:hover {
+      color: var(--slate-dark);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+    .soft-tab.active {
+      color: #0284c7;
+      background-color: #ffffff;
+      border-color: #e0f2fe;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+    .soft-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      line-height: 1;
+    }
+    .btn-sky-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.625rem 1.15rem;
+      border-radius: 0.875rem;
+      box-shadow: 0 2px 8px -1px rgba(14, 165, 233, 0.35);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-sky-primary:hover {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      box-shadow: 0 4px 12px -1px rgba(14, 165, 233, 0.45);
+      transform: translateY(-1px);
+    }
+    .btn-sky-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: #ffffff;
+      color: #334155;
+      font-weight: 600;
+      padding: 0.625rem 1.15rem;
+      border-radius: 0.875rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-sky-secondary:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    .soft-lead-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1.5rem;
+      transition: all 0.25s ease;
+    }
+    .soft-lead-card:hover {
+      border-color: #93c5fd;
+      box-shadow: 0 8px 24px -4px rgba(14, 165, 233, 0.12);
+      transform: translateY(-2px);
+    }
+    .soft-input {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border-radius: 0.875rem;
+      border: 1.5px solid #e2e8f0;
+      background-color: #ffffff;
+      color: #0f172a;
+      font-size: 0.8125rem;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .soft-input:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .soft-modal-card {
+      background-color: #ffffff;
+      border-radius: 1.5rem;
+      width: 100%;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+      border: 1px solid #f1f5f9;
+    }
+    .soft-crm-column {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 1rem;
+      min-height: 480px;
+    }
+    .soft-toast {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background-color: #0f172a;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      border: 1px solid #334155;
+    }
+  </style>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-[#F8FAFC] text-slate-800 min-h-screen font-sans antialiased flex flex-col selection:bg-sky-100 selection:text-sky-900">
@@ -67,16 +227,11 @@
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20 font-bold shrink-0">
             <i data-lucide="building" class="w-5 h-5"></i>
           </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">Bati<span class="text-sky-600">'O</span></span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200/60">Projets Vérifiés</span>
-            </div>
-            <p class="text-[11px] text-slate-500 font-medium leading-none mt-0.5">Place de Marché des Chantiers & Professionnels du Bâtiment</p>
+          <div class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">
+            Bati<span class="text-sky-600">'O</span>
           </div>
         </div>
 
-        <!-- Navigation Tabs -->
         <!-- Navigation Tabs -->
         <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/70 text-xs font-semibold">
           <button id="nav-tab-marketplace" class="soft-tab active" onclick="app.navigateTo('marketplace')">
@@ -93,10 +248,9 @@
 
         <!-- Right User Actions -->
         <div class="flex items-center gap-2.5">
-          <button class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm" onclick="app.openModal('mobileAppModal')">
-            <i data-lucide="smartphone" class="w-3.5 h-3.5 text-sky-400"></i>
-            <span class="hidden sm:inline">📱 App Smartphone</span>
-            <span class="sm:hidden">App</span>
+          <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm cursor-pointer" onclick="app.openModal('mobileAppModal')">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i>
+            <span>Télécharger Bati'O</span>
           </button>
 
           <div id="auth-header-container">
@@ -119,7 +273,7 @@
         <div class="rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm bg-white">
           <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             
-            <div class="p-6 sm:p-10 lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div class="p-6 sm:p-10 lg:col-span-7 flex flex-col justify-center space-y-6">
               <div class="space-y-4">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200/70 text-sky-800 text-xs font-semibold">
                   <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
@@ -135,39 +289,12 @@
                 </p>
 
                 <div class="pt-2 flex flex-wrap items-center gap-3">
-                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2 shadow-sm" onclick="app.navigateTo('marketplace')">
+                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2 shadow-sm cursor-pointer" onclick="app.navigateTo('marketplace')">
                     <i data-lucide="layout-grid" class="w-4 h-4"></i> Voir tous les projets
                   </button>
-                  <button class="btn-sky-secondary text-xs py-2.5 px-4 font-bold flex items-center gap-2 border-emerald-300 bg-emerald-50/50 text-emerald-900 hover:bg-emerald-100/70" onclick="app.navigateTo('crm')">
+                  <button class="btn-sky-secondary text-xs py-2.5 px-4 font-bold flex items-center gap-2 border-emerald-300 bg-emerald-50/50 text-emerald-900 hover:bg-emerald-100/70 cursor-pointer" onclick="app.navigateTo('crm')">
                     <i data-lucide="folder-check" class="w-4 h-4 text-emerald-600"></i> Voir mes chantiers débloqués
                   </button>
-                  <button class="btn-sky-secondary text-xs py-2.5 px-3.5 font-bold flex items-center gap-1.5 border-slate-300" onclick="app.openModal('mobileAppModal')">
-                    <i data-lucide="smartphone" class="w-4 h-4 text-sky-600"></i> App Smartphone
-                  </button>
-                </div>
-              </div>
-
-              <!-- Value Points -->
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
-                  <div class="w-7 h-7 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-                  </div>
-                  <span class="font-bold">Contacts Vérifiés</span>
-                </div>
-
-                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 text-xs text-emerald-950 font-medium">
-                  <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                    <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
-                  </div>
-                  <span class="font-semibold leading-tight">Recevez votre clé de licence par mail et effectuez votre paiement</span>
-                </div>
-
-                <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-800 font-medium">
-                  <div class="w-7 h-7 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-                  </div>
-                  <span>Fiche Technique PDF</span>
                 </div>
               </div>
             </div>
@@ -178,21 +305,21 @@
                 <img 
                   id="carousel-img-0"
                   src="images/construction-pro-1.jpg" 
-                  onerror="if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[0]) this.src=window.HERO_SLIDES_IMAGES[0]"
+                  onerror="this.onerror=null; if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[0]) { this.src=window.HERO_SLIDES_IMAGES[0]; } else { this.src='https://images.unsplash.com/photo-1541888946425-d0fbb18615f3?auto=format&fit=crop&w=1200&q=80'; }"
                   alt="Professionnel BTP Construction" 
                   class="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-1000 opacity-100" 
                 />
                 <img 
                   id="carousel-img-1"
                   src="images/renovation-pro-2.jpg" 
-                  onerror="if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[1]) this.src=window.HERO_SLIDES_IMAGES[1]"
+                  onerror="this.onerror=null; if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[1]) { this.src=window.HERO_SLIDES_IMAGES[1]; } else { this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80'; }"
                   alt="Artisan Rénovation BTP" 
                   class="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-1000 opacity-0" 
                 />
                 <img 
                   id="carousel-img-2"
                   src="images/construction-pro-3.jpg" 
-                  onerror="if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[2]) this.src=window.HERO_SLIDES_IMAGES[2]"
+                  onerror="this.onerror=null; if(window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[2]) { this.src=window.HERO_SLIDES_IMAGES[2]; } else { this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80'; }"
                   alt="Ingénieur Construction BTP" 
                   class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-0" 
                 />
@@ -221,6 +348,42 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- 3 CARTES HORIZONTALES SOUS LE DIAPORAMA -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Carte 1 -->
+          <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
+            <div class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="font-bold text-sm text-slate-900">Contact vérifié</div>
+              <div class="text-[11px] text-slate-500 font-medium">Maîtres d'ouvrage authentifiés</div>
+            </div>
+          </div>
+
+          <!-- Carte 2 -->
+          <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-xs">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+              <i data-lucide="credit-card" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-emerald-950 leading-snug">Recevez votre clé de licence par mail et effectuez votre paiement</div>
+              <div class="text-[11px] text-emerald-700 font-medium mt-0.5">Wave, Orange, MTN, Moov</div>
+            </div>
+          </div>
+
+          <!-- Carte 3 -->
+          <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
+            <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="font-bold text-sm text-slate-900">Contact vérifié</div>
+              <div class="text-[11px] text-slate-500 font-medium">Accès direct et coordonnées complètes</div>
+            </div>
           </div>
         </div>
 
@@ -317,7 +480,7 @@
             <i data-lucide="smartphone" class="w-3.5 h-3.5 text-sky-600"></i>
             Application Mobile & PWA
           </div>
-          <h3 class="font-heading font-extrabold text-2xl text-slate-900 leading-tight">Installer Bati'O sur Smartphone</h3>
+          <h3 class="font-heading font-extrabold text-2xl text-slate-900 leading-tight">Télécharger Bati'O</h3>
           <p class="text-xs text-slate-500">Accédez à vos chantiers et contactez vos clients directement depuis votre téléphone.</p>
         </div>
 
@@ -1115,14 +1278,33 @@
         ];
 
         // Charger directement les images intégrées pour affichage 100% garanti sur Vercel
+        const fallbackUrls = [
+          "https://images.unsplash.com/photo-1541888946425-d0fbb18615f3?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+        ];
+
+        const img0 = document.getElementById("carousel-img-0");
+        const img1 = document.getElementById("carousel-img-1");
+        const img2 = document.getElementById("carousel-img-2");
+
         if (window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES.length >= 3) {
-          const img0 = document.getElementById("carousel-img-0");
-          const img1 = document.getElementById("carousel-img-1");
-          const img2 = document.getElementById("carousel-img-2");
           if (img0) img0.src = window.HERO_SLIDES_IMAGES[0];
           if (img1) img1.src = window.HERO_SLIDES_IMAGES[1];
           if (img2) img2.src = window.HERO_SLIDES_IMAGES[2];
         }
+
+        [img0, img1, img2].forEach((img, idx) => {
+          if (img) {
+            img.onerror = () => {
+              if (window.HERO_SLIDES_IMAGES && window.HERO_SLIDES_IMAGES[idx]) {
+                img.src = window.HERO_SLIDES_IMAGES[idx];
+              } else {
+                img.src = fallbackUrls[idx];
+              }
+            };
+          }
+        });
 
         if (this.carouselInterval) clearInterval(this.carouselInterval);
 
