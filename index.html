@@ -758,8 +758,8 @@
 
         <div id="purchase-lead-details" class="py-3 space-y-2.5 text-xs"></div>
 
-        <!-- BLOC PAIEMENT & LOGOS MOBILE MONEY (4000 FCFA) -->
-        <div class="bg-gradient-to-br from-sky-50 via-white to-emerald-50/70 p-4 rounded-2xl border border-sky-200/90 space-y-3.5 shadow-sm">
+        <!-- BLOC PAIEMENT (4000 FCFA) -->
+        <div class="bg-gradient-to-br from-sky-50 via-white to-emerald-50/70 p-4 rounded-2xl border border-sky-200/90 space-y-3 shadow-sm">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <div>
               <span class="text-[10px] uppercase font-bold text-sky-800 tracking-wider">Tarif Clé de Déblocage</span>
@@ -768,31 +768,14 @@
                 <span class="text-[11px] font-normal text-slate-500">/ contact complet</span>
               </div>
             </div>
-
-            <!-- Logos Opérateurs Mobile Money -->
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <!-- Wave Logo & Badge -->
-              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#1DC4FF]/15 border border-[#1DC4FF]/40 text-[#0284c7] text-[11px] font-black shadow-2xs">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#1DC4FF] inline-block"></span>
-                <span>Wave</span>
-              </div>
-              <!-- Orange Money Logo & Badge -->
-              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FF7900]/15 border border-[#FF7900]/40 text-[#ea580c] text-[11px] font-black shadow-2xs">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FF7900] inline-block"></span>
-                <span>Orange</span>
-              </div>
-              <!-- MTN MoMo Logo & Badge -->
-              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FFCC00]/25 border border-[#FFCC00]/60 text-slate-900 text-[11px] font-black shadow-2xs">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#FFCC00] inline-block"></span>
-                <span>MTN</span>
-              </div>
-              <!-- Moov Money Logo & Badge -->
-              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#0066B3]/15 border border-[#0066B3]/40 text-[#0284c7] text-[11px] font-black shadow-2xs">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#0066B3] inline-block"></span>
-                <span>Moov</span>
-              </div>
+            <div class="text-right">
+              <span class="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">⚡ Clé Unique</span>
             </div>
           </div>
+
+          <p class="text-xs text-slate-600 font-medium leading-relaxed">
+            Effectuez votre paiement et recevez votre clé de licence par mail.
+          </p>
 
           <!-- Bouton Effectuer le paiement -->
           <button class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer" onclick="app.openPaymentModal()">
@@ -803,18 +786,14 @@
 
         <div class="relative flex py-1 items-center">
           <div class="flex-grow border-t border-slate-200"></div>
-          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">OU avec votre clé reçue</span>
+          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">OU avec votre clé reçue par email</span>
           <div class="flex-grow border-t border-slate-200"></div>
         </div>
 
         <!-- ZONE SAISIE CLÉ DE LICENCE -->
         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
           <label class="font-bold text-xs text-slate-900 block">Entrez votre Clé de Licence :</label>
-          <input type="text" id="checkout-license-key" class="soft-input text-base font-mono font-extrabold uppercase tracking-widest text-center py-3 bg-white border-2 border-slate-300 focus:border-emerald-500 rounded-xl" placeholder="EX: 8788, 5467, 4344..." />
-
-          <p class="text-[10px] text-slate-500 text-center">
-            Clés de licence valides : <strong class="text-slate-800 font-mono">8788</strong> • <strong class="text-slate-800 font-mono">5467</strong> • <strong class="text-slate-800 font-mono">4344</strong> • <strong class="text-slate-800 font-mono">34344</strong> • <strong class="text-slate-800 font-mono">3434</strong> • <strong class="text-slate-800 font-mono">45453</strong>
-          </p>
+          <input type="text" id="checkout-license-key" class="soft-input text-base font-mono font-extrabold uppercase tracking-widest text-center py-3 bg-white border-2 border-slate-300 focus:border-emerald-500 rounded-xl" placeholder="Entrez la clé reçue par email" />
 
           <button class="btn-sky-primary w-full py-3.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-sm rounded-xl cursor-pointer" onclick="app.activateWithLicenseKey()">
             <i data-lucide="unlock" class="w-4 h-4"></i> 🔓 Débloquer le Contact Immédiatement
@@ -826,7 +805,7 @@
       </div>
     </div>
 
-    <!-- Modal Paiement Mobile Money (Wave, Orange, MTN, Moov) -->
+    <!-- Modal Paiement Mobile Money -->
     <div id="paymentModal" class="modal-overlay hidden">
       <div class="soft-modal-card max-w-md max-h-[90vh] overflow-y-auto p-5 sm:p-6 space-y-4">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -835,8 +814,8 @@
               💳
             </div>
             <div>
-              <h3 class="font-heading font-extrabold text-base text-slate-900">Paiement Mobile Money</h3>
-              <p class="text-[11px] text-slate-500">Obtenez votre clé de licence à 4 000 FCFA</p>
+              <h3 class="font-heading font-extrabold text-base text-slate-900">Effectuer votre Paiement</h3>
+              <p class="text-[11px] text-slate-500">Recevez votre clé de licence unique à 4 000 FCFA</p>
             </div>
           </div>
           <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
@@ -844,80 +823,33 @@
           </button>
         </div>
 
-        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-1.5 text-xs">
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
           <div class="flex items-center justify-between font-bold text-slate-900">
-            <span>Montant du déblocage :</span>
+            <span>Montant à régler :</span>
             <span class="text-emerald-700 font-extrabold text-base font-mono">4 000 FCFA</span>
           </div>
-          <p class="text-[11px] text-slate-500 leading-snug">
-            La clé de licence vous sera transmise par email et insérée automatiquement pour débloquer votre contact immédiatement.
+          <p class="text-xs text-slate-600 leading-snug font-medium">
+            Effectuez votre paiement et recevez votre clé de licence par mail.
           </p>
         </div>
 
-        <!-- Sélection de l'opérateur Mobile Money -->
-        <div class="space-y-2">
-          <label class="text-xs font-bold text-slate-900 block">1. Choisissez votre opérateur :</label>
-          <div class="grid grid-cols-2 gap-2.5">
-            <!-- Wave -->
-            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-sky-400 bg-sky-50/60 cursor-pointer hover:bg-sky-50 transition-all">
-              <input type="radio" name="payment_provider" value="wave" checked class="text-sky-600 accent-sky-600" />
-              <div>
-                <div class="font-black text-xs text-[#0284c7] flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-[#1DC4FF]"></span> Wave
-                </div>
-                <span class="text-[10px] text-slate-500 font-medium">Côte d'Ivoire & Sénégal</span>
-              </div>
-            </label>
-
-            <!-- Orange Money -->
-            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-orange-200 bg-white cursor-pointer hover:bg-orange-50/50 transition-all">
-              <input type="radio" name="payment_provider" value="orange" class="text-orange-500 accent-orange-500" />
-              <div>
-                <div class="font-black text-xs text-[#ea580c] flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-[#FF7900]"></span> Orange
-                </div>
-                <span class="text-[10px] text-slate-500 font-medium">Orange Money</span>
-              </div>
-            </label>
-
-            <!-- MTN MoMo -->
-            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-amber-200 bg-white cursor-pointer hover:bg-amber-50/50 transition-all">
-              <input type="radio" name="payment_provider" value="mtn" class="text-amber-500 accent-amber-500" />
-              <div>
-                <div class="font-black text-xs text-slate-900 flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-[#FFCC00]"></span> MTN
-                </div>
-                <span class="text-[10px] text-slate-500 font-medium">MTN MoMo</span>
-              </div>
-            </label>
-
-            <!-- Moov Money -->
-            <label class="flex items-center gap-2.5 p-3 rounded-2xl border-2 border-blue-200 bg-white cursor-pointer hover:bg-blue-50/50 transition-all">
-              <input type="radio" name="payment_provider" value="moov" class="text-blue-600 accent-blue-600" />
-              <div>
-                <div class="font-black text-xs text-[#0284c7] flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-[#0066B3]"></span> Moov
-                </div>
-                <span class="text-[10px] text-slate-500 font-medium">Moov Money</span>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Numéro de téléphone Mobile Money -->
+        <!-- Numéro de téléphone pour le paiement -->
         <div class="space-y-1.5">
-          <label class="text-xs font-bold text-slate-900 block">2. Votre numéro Mobile Money :</label>
+          <label class="text-xs font-bold text-slate-900 block">Votre numéro de téléphone :</label>
           <input type="tel" id="payment-phone-input" class="soft-input py-2.5 px-3 text-sm font-mono font-bold" placeholder="Ex: +225 07 89 12 34 56" />
         </div>
 
         <!-- Bouton Valider Paiement -->
         <button class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer" onclick="app.processPaymentSubmission()">
           <i data-lucide="check-circle" class="w-4 h-4 text-emerald-200"></i>
-          <span>Payer 4 000 FCFA & Recevoir ma Clé</span>
+          <span>Confirmer le paiement de 4 000 FCFA & Recevoir ma Clé</span>
         </button>
 
         <p class="text-[10.5px] text-slate-400 text-center font-medium">
-          🔒 Paiement 100% sécurisé et confirmation instantanée par SMS / Email.
+          🔒 Paiement sécurisé. Votre clé secrète à usage unique vous sera transmise immédiatement.
+        </p>
+      </div>
+    </div>
         </p>
       </div>
     </div>
@@ -1482,7 +1414,6 @@
         this.closeModal("authModal");
         this.closeModal("googleAccountChooserModal");
 
-        if (window.confetti) confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
         this.showToast(`✅ Connecté avec Google : ${cleanEmail} (${userName}) !`);
 
         this.renderMarketplace();
@@ -1709,33 +1640,32 @@
       }
 
       processPaymentSubmission() {
-        const selectedProviderEl = document.querySelector('input[name="payment_provider"]:checked');
-        const provider = selectedProviderEl ? selectedProviderEl.value : "wave";
-
-        const providerNames = {
-          wave: "Wave",
-          orange: "Orange Money",
-          mtn: "MTN MoMo",
-          moov: "Moov Money"
-        };
-
-        const chosenKey = OFFICIAL_LICENSE_KEYS[Math.floor(Math.random() * OFFICIAL_LICENSE_KEYS.length)] || "8788";
-
         this.closeModal("paymentModal");
         this.openModal("purchaseModal");
+
+        // Récupérer les clés déjà utilisées
+        const usedKeys = JSON.parse(localStorage.getItem("batilead_used_license_keys") || "[]");
+        const availableKeys = OFFICIAL_LICENSE_KEYS.filter(k => !usedKeys.includes(k));
+
+        let chosenKey;
+        if (availableKeys.length > 0) {
+          chosenKey = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+        } else {
+          chosenKey = "BATI-" + Math.floor(1000 + Math.random() * 9000);
+          OFFICIAL_LICENSE_KEYS.push(chosenKey);
+        }
 
         const keyInput = document.getElementById("checkout-license-key");
         if (keyInput) {
           keyInput.value = chosenKey;
         }
 
-        if (window.confetti) confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-        this.showToast(`✅ Paiement 4 000 FCFA (${providerNames[provider] || 'Mobile Money'}) validé ! Clé envoyée : ${chosenKey}`);
+        this.showToast(`✅ Paiement de 4 000 FCFA validé ! Clé secrète générée : ${chosenKey}`);
 
         // Déverrouille automatiquement le chantier en 1 seconde pour une expérience fluide
         setTimeout(() => {
           this.activateWithLicenseKey();
-        }, 1000);
+        }, 900);
       }
 
       activateWithLicenseKey() {
@@ -1758,11 +1688,23 @@
           return;
         }
 
-        const isValid = OFFICIAL_LICENSE_KEYS.includes(key) || key.length >= 4;
-        if (!isValid) {
-          this.showToast("Clé de licence invalide. Utilisez : 8788, 5467, 4344, 34344, 3434 ou 45453.");
+        // 1. Vérification : La clé a-t-elle déjà été utilisée ?
+        const usedKeys = JSON.parse(localStorage.getItem("batilead_used_license_keys") || "[]");
+        if (usedKeys.includes(key)) {
+          this.showToast("⚠️ Cette clé de licence a déjà été utilisée. Chaque clé ne débloque qu'un seul client.");
           return;
         }
+
+        // 2. Vérification : La clé est-elle valide ?
+        const isValid = OFFICIAL_LICENSE_KEYS.includes(key);
+        if (!isValid) {
+          this.showToast("⚠️ Clé de licence invalide. Veuillez vérifier la clé reçue par email après votre paiement.");
+          return;
+        }
+
+        // 3. Enregistrer la clé comme utilisée (Usage Unique)
+        usedKeys.push(key);
+        localStorage.setItem("batilead_used_license_keys", JSON.stringify(usedKeys));
 
         const userEmail = this.currentUser.email.toLowerCase().trim();
         if (!this.purchasesMap[userEmail]) {
@@ -1781,7 +1723,9 @@
         }
 
         this.closeModal("purchaseModal");
-        if (window.confetti) confetti({ particleCount: 75, spread: 75, origin: { y: 0.6 } });
+
+        // Effet de confettis uniquement au moment où l'utilisateur passe à l'action et débloque
+        if (window.confetti) confetti({ particleCount: 85, spread: 75, origin: { y: 0.6 } });
 
         this.showToast(`🎉 Chantier #${lead.id} débloqué avec succès pour ${this.currentUser.email} !`);
         this.renderMarketplace();
