@@ -6,6 +6,13 @@
   <title>Bati'O | La Marketplace des Chantiers BTP</title>
   <meta name="description" content="Bati'O : Plateforme de mise en relation directe pour professionnels du BTP. Chantiers qualifiés et déblocage instantané." />
   
+  <link rel="manifest" href="manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Bati'O" />
+  <meta name="theme-color" content="#0284c7" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -248,7 +255,7 @@
 
         <!-- Right User Actions -->
         <div class="flex items-center gap-2.5">
-          <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm cursor-pointer" onclick="app.openModal('mobileAppModal')">
+          <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm cursor-pointer" onclick="app.handleDownloadClick()">
             <i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i>
             <span>Télécharger Bati'O</span>
           </button>
@@ -461,6 +468,27 @@
           </div>
         </div>
       </section>
+
+      <!-- Quick Install Banner for Smartphones (Flottant en bas sur mobile) -->
+      <div id="mobile-install-banner" class="hidden fixed bottom-4 left-4 right-4 sm:hidden z-40 bg-slate-950/95 text-white p-3.5 rounded-2xl shadow-2xl border border-sky-500/40 flex items-center justify-between gap-3 backdrop-blur-md">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center font-bold text-white shadow-sm shrink-0">
+            <i data-lucide="building" class="w-5 h-5"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="font-extrabold text-xs text-white truncate">Installer l'application Bati'O</div>
+            <div class="text-[10px] text-sky-300">Raccourci direct sur votre écran</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-sm cursor-pointer" onclick="app.handleDownloadClick()">
+            Installer
+          </button>
+          <button class="text-slate-400 hover:text-white p-1 text-xs" onclick="document.getElementById('mobile-install-banner').remove()">
+            ✕
+          </button>
+        </div>
+      </div>
 
     </main>
 
@@ -1347,6 +1375,7 @@
       }
 
       init() {
+        this.initPwa();
         this.checkForOAuthCallback();
         this.initGoogleIdentityServices();
         this.updateAuthUi();
@@ -1354,6 +1383,26 @@
         this.renderCrm();
         this.startHeroCarousel();
         if (window.lucide) lucide.createIcons();
+      }
+
+      initPwa() {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPwaPrompt = e;
+          const banner = document.getElementById('mobile-install-banner');
+          if (banner) banner.classList.remove('hidden');
+        });
+
+        window.addEventListener('appinstalled', () => {
+          this.deferredPwaPrompt = null;
+          this.showToast("🎉 Application Bati'O ajoutée à votre écran d'accueil !");
+          const banner = document.getElementById('mobile-install-banner');
+          if (banner) banner.remove();
+        });
       }
 
       initGoogleIdentityServices() {
@@ -1928,18 +1977,29 @@
         if (window.lucide) lucide.createIcons();
       }
 
-      triggerNativePwaInstall() {
+      handleDownloadClick() {
         if (this.deferredPwaPrompt) {
+          // Déclenche DIRECTEMENT le popup système natif sur le téléphone pour créer le raccourci
           this.deferredPwaPrompt.prompt();
           this.deferredPwaPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
-              this.showToast("🎉 Application Bati'O installée avec succès !");
+              this.showToast("🎉 Raccourci Bati'O ajouté directement sur votre écran d'accueil !");
             }
             this.deferredPwaPrompt = null;
           });
         } else {
-          this.showToast("📲 Sur Android : Appuyez sur les 3 points ⋮ en haut > 'Installer l'application'");
+          const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+          if (isIos) {
+            this.showToast("🍏 Sur iPhone : Appuyez sur Partager ⎋ en bas > 'Sur l'écran d'accueil ➕'");
+          } else {
+            this.openModal("mobileAppModal");
+          }
         }
+      }
+
+      triggerNativePwaInstall() {
+        this.closeModal("mobileAppModal");
+        this.handleDownloadClick();
       }
 
       showIosGuideToast() {

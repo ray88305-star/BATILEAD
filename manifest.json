@@ -1,0 +1,19 @@
+﻿{
+  "name": "Bati'O â€” Chantiers BTP & RÃ©novation",
+  "short_name": "Bati'O",
+  "description": "Place de MarchÃ© des Chantiers BTP et RÃ©novation. Chantiers qualifiÃ©s et dÃ©blocage direct.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%230284c7'/><path d='M136 376V168c0-13.3 10.7-24 24-24h192c13.3 0 24 10.7 24 24v208c0 13.3-10.7 24-24 24H160c-13.3 0-24-10.7-24-24z' fill='none' stroke='white' stroke-width='32' stroke-linecap='round' stroke-linejoin='round'/><path d='M192 208h48v48h-48zm80 0h48v48h-48zm-80 80h48v48h-48zm80 0h48v48h-48z' fill='white'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
