@@ -45,6 +45,10 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="images_data.js"></script>
 
+  <!-- Chariow Widget Resources -->
+  <link rel="stylesheet" href="https://js.chariowcdn.com/v1/widget.min.css" />
+  <script src="https://js.chariowcdn.com/v1/widget.min.js" async defer></script>
+
   <style>
     /* Bati'O Styles Intégrés */
     :root {
@@ -805,9 +809,9 @@
       </div>
     </div>
 
-    <!-- Modal Paiement Mobile Money -->
+    <!-- Modal Paiement Chariow -->
     <div id="paymentModal" class="modal-overlay hidden">
-      <div class="soft-modal-card max-w-md max-h-[90vh] overflow-y-auto p-5 sm:p-6 space-y-4">
+      <div class="soft-modal-card max-w-lg max-h-[90vh] overflow-y-auto p-5 sm:p-6 space-y-4">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div class="flex items-center gap-2.5">
             <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-emerald-500/20">
@@ -815,7 +819,7 @@
             </div>
             <div>
               <h3 class="font-heading font-extrabold text-base text-slate-900">Effectuer votre Paiement</h3>
-              <p class="text-[11px] text-slate-500">Recevez votre clé de licence unique à 4 000 FCFA</p>
+              <p class="text-[11px] text-slate-500">Paiement sécurisé — Obtenez votre clé de licence à 4 000 FCFA</p>
             </div>
           </div>
           <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
@@ -823,33 +827,37 @@
           </button>
         </div>
 
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
-          <div class="flex items-center justify-between font-bold text-slate-900">
-            <span>Montant à régler :</span>
-            <span class="text-emerald-700 font-extrabold text-base font-mono">4 000 FCFA</span>
-          </div>
-          <p class="text-xs text-slate-600 leading-snug font-medium">
+        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-1 text-xs text-center">
+          <p class="text-xs text-slate-800 font-bold">
             Effectuez votre paiement et recevez votre clé de licence par mail.
+          </p>
+          <p class="text-[11px] text-slate-500">
+            Dès validation de votre paiement, insérez votre clé de licence pour débloquer votre chantier.
           </p>
         </div>
 
-        <!-- Numéro de téléphone pour le paiement -->
-        <div class="space-y-1.5">
-          <label class="text-xs font-bold text-slate-900 block">Votre numéro de téléphone :</label>
-          <input type="tel" id="payment-phone-input" class="soft-input py-2.5 px-3 text-sm font-mono font-bold" placeholder="Ex: +225 07 89 12 34 56" />
+        <!-- Chariow Widget -->
+        <div class="w-full flex justify-center items-center py-2 min-h-[380px]" id="chariow-widget-container">
+          <div id="chariow-widget" 
+              data-product-id="prd_yc7zfyho"
+              data-store-domain="qtqwwegd.mychariow.shop"
+              data-style="frame"
+              data-border-style="rounded"
+              data-cta-width="xs"
+              data-cta-animation="none"
+              data-locale="fr"
+              data-primary-color="#ffcc00"
+              data-background-color="#FFFFFF"></div>
         </div>
 
-        <!-- Bouton Valider Paiement -->
-        <button class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer" onclick="app.processPaymentSubmission()">
-          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-200"></i>
-          <span>Confirmer le paiement de 4 000 FCFA & Recevoir ma Clé</span>
-        </button>
+        <div class="text-center pt-2 border-t border-slate-100">
+          <button class="btn-sky-secondary text-xs py-2 px-4 font-bold cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-amber-500"></i> J'ai déjà payé / Entrer ma clé reçue
+          </button>
+        </div>
 
         <p class="text-[10.5px] text-slate-400 text-center font-medium">
-          🔒 Paiement sécurisé. Votre clé secrète à usage unique vous sera transmise immédiatement.
-        </p>
-      </div>
-    </div>
+          🔒 Paiement 100% sécurisé via Chariow. Votre clé de licence vous sera envoyée par email.
         </p>
       </div>
     </div>
@@ -1637,6 +1645,11 @@
         }
         this.closeModal("purchaseModal");
         this.openModal("paymentModal");
+
+        // Réinitialisation du widget Chariow
+        if (window.Chariow && typeof window.Chariow.init === 'function') {
+          try { window.Chariow.init(); } catch(e) {}
+        }
       }
 
       processPaymentSubmission() {
