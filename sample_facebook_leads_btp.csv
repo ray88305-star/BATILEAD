@@ -1,6 +1,17 @@
-full_name,phone_number,email,city,zip_code,project_type,estimated_budget,description
-Jean-Claude VANDAMME,0612345678,jc.vandamme@gmail.com,Lyon,69002,Renovation complete maison,75000 EUR,Renovation totale d'un etage de 120m2 avec parquet et plomberie neuve
-Beatrice LAROCHE,0698765432,b.laroche@outlook.fr,Bordeaux,33000,Extension maison bois,45000 EUR,Creation d'une extension bois de 35m2 pour suite parentale avec vue sur jardin
-Christian MENDES,0645127890,c.mendes@orange.fr,Marseille,13008,Pose pompe a chaleur et climatisation,22000 EUR,Remplacement chaudiere fioul par PAC air-eau et clim gainable pour 5 pieces
-Isabelle BERTRAND,0633445566,isabelle.bertrand@free.fr,Nantes,44000,Isolation thermique par l'exterieur,32000 EUR,Isolation ITE 180m2 de facade en polystyreene graphitee avec finition crepi lisse
-Francois MOREL,0688776655,f.morel@gmail.com,Toulouse,31000,Refection toiture et charpente,28000 EUR,Remplacement des tuiles anciennes sur 160m2 avec ecran sous-toiture et zinguerie
+full_name,phone_number,email,city,project_type,estimated_budget,status,description
+Bohou Felix Jules Cesar,+2250748488623,f.bohou@gmail.com,Grand-Bassam,Construction Duplex,10 a 20 Millions FCFA,DISPONIBLE,Projet de construction d'un duplex a Grand-Bassam.
+Christian POUTE,+2250709381604,c.poute@gmail.com,Abidjan,Villa Moderne,10 a 20 Millions FCFA,DISPONIBLE,Projet de construction d'une villa moderne neuve a Abidjan.
+Gabriel KOUTOUA,+2250708119536,g.koutoua@gmail.com,Songon,Villa Contemporaine,10 a 20 Millions FCFA,DISPONIBLE,Projet de construction d'une villa familiale a Songon.
+Wilfried Saiwey KOUAME,+2250707091391,w.kouame@gmail.com,Bonoua,Construction Duplex,20 a 40 Millions FCFA,DISPONIBLE,Projet de construction neuve d'un duplex contemporain a Bonoua.
+Guia GHISLAIN,+2250749794420,g.ghislain@gmail.com,Songon M'brathe,Construction Duplex,20 a 40 Millions FCFA,DISPONIBLE,Projet de construction d'un duplex moderne a Songon M'brathe.
+Franck NIAMKEY,+2250749242096,f.niamkey@yahoo.fr,Songon,Construction Duplex,20 a 40 Millions FCFA,DISPONIBLE,Realisation d'un duplex familial a Songon.
+Youssef CHARAFEDDINE,+2250707654096,y.charafeddine@gmail.com,Dabou,Grande Villa Duplex,+100 Millions FCFA,DISPONIBLE,Construction d'une villa duplex haut standing a Dabou (+100M).
+Adama SYLLA,+2250703484815,a.sylla@gmail.com,Bingerville,Immeuble Residentiel,60 a 100 Millions FCFA,DISPONIBLE,Construction d'un immeuble R+3 / R+4 a Bingerville (Diaspora).
+Amadou BAKAYOKO,+2250700000000,a.bakayoko@btp.ci,Grand-Bassam,Villa Moderne R+1,45 Millions FCFA,DEBLOQUE,Debloque par Entreprise BTP Horizon SARL
+Mamadou TOURE,+2250500000000,m.toure@btp.ci,Cocody Angre,Immeuble R+2 Standing,85 Millions FCFA,DEBLOQUE,Debloque par Ivoire Batisseurs Pro
+Awa KONE,+2250100000000,a.kone@btp.ci,Marcory Zone 4,Renovation Villa Duplex,35 Millions FCFA,DEBLOQUE,Debloque par Alpha Construction CI
+Seydou DIABATE,+2250700000000,s.diabate@btp.ci,Assinie Mafia,Residence de Luxe Assinie,120 Millions FCFA,DEBLOQUE,Debloque par Cabinet Ingenierie BTP
+Salif OUATTARA,+2250700000000,s.ouattara@btp.ci,Yamoussoukro,Duplex Contemporain,38 Millions FCFA,DEBLOQUE,Debloque par Entreprise Generale K.
+Bakary CISSE,+2250500000000,b.cisse@btp.ci,San-Pedro,Batiment Commercial,55 Millions FCFA,DEBLOQUE,Debloque par Societe Africaine BTP
+Drissa TRAORE,+2250700000000,d.traore@btp.ci,Bingerville Feh Kesse,Villa Duplex avec Piscine,50 Millions FCFA,DEBLOQUE,Debloque par Bati Plus Cote d'Ivoire
+

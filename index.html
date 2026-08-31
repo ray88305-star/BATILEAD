@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bati'O | La Marketplace des Chantiers BTP</title>
-  <meta name="description" content="Bati'O : Plateforme de mise en relation directe pour professionnels du BTP. Chantiers qualifiés et déblocage instantané." />
+  <title>Bativo | La Marketplace des Chantiers BTP</title>
+  <meta name="description" content="Bativo : Plateforme de mise en relation directe pour professionnels du BTP. Chantiers qualifiés et déblocage exclusif." />
   
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
   <link rel="manifest" href="manifest.json" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Bati'O" />
+  <meta name="apple-mobile-web-app-title" content="Bativo" />
   <meta name="theme-color" content="#0284c7" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,6 +210,33 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       border: 1px solid #334155;
     }
+    /* Mobile App Bottom Navigation Bar */
+    .mobile-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 1rem;
+      color: #64748b;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    .mobile-nav-btn:active {
+      transform: scale(0.92);
+    }
+    .mobile-nav-btn.active {
+      color: #0284c7;
+      font-weight: 800;
+    }
+    .mobile-nav-btn.active svg {
+      stroke: #0284c7;
+      stroke-width: 2.3;
+    }
   </style>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -219,12 +248,12 @@
       <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-          <span><strong>Bati'O :</strong> Marketplace officielle des opportunités et chantiers BTP vérifiés</span>
+          <span><strong>Bativo :</strong> Marketplace officielle des opportunités et chantiers BTP vérifiés</span>
         </div>
         <div class="flex items-center gap-4 text-slate-300 text-[11px]">
           <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-sky-400"></i> Particuliers 100% Vérifiés</span>
-          <span class="flex items-center gap-1.5"><i data-lucide="key" class="w-3.5 h-3.5 text-emerald-400"></i> Clés de Licence Actives</span>
-          <span class="flex items-center gap-1.5"><i data-lucide="file-check" class="w-3.5 h-3.5 text-blue-400"></i> Dossier Technique PDF</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i> 1 Chantier = 1 Seul Entrepreneur</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-amber-400"></i> Réception Immédiate par Email</span>
         </div>
       </div>
     </div>
@@ -233,13 +262,11 @@
     <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         
-        <!-- Logo Bati'O -->
+        <!-- Logo Bativo avec logo officiel -->
         <div class="flex items-center gap-3 cursor-pointer" onclick="app.navigateTo('marketplace')">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20 font-bold shrink-0">
-            <i data-lucide="building" class="w-5 h-5"></i>
-          </div>
-          <div class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight">
-            Bati<span class="text-sky-600">'O</span>
+          <img src="logo.png" alt="Logo Bativo" class="w-10 h-10 object-contain drop-shadow-sm shrink-0" />
+          <div class="font-heading font-black text-2xl text-slate-900 tracking-tight">
+            Bati<span class="text-sky-600">vo</span>
           </div>
         </div>
 
@@ -248,7 +275,7 @@
           <button id="nav-tab-marketplace" class="soft-tab active" onclick="app.navigateTo('marketplace')">
             <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
             <span>Tous les Projets</span>
-            <span id="nav-count-available" class="soft-pill bg-white text-slate-700 shadow-sm">10</span>
+            <span id="nav-count-available" class="soft-pill bg-white text-slate-700 shadow-sm">8</span>
           </button>
           <button id="nav-tab-crm" class="soft-tab" onclick="app.navigateTo('crm')">
             <i data-lucide="folder-check" class="w-3.5 h-3.5 text-emerald-600"></i>
@@ -261,7 +288,7 @@
         <div class="flex items-center gap-2.5">
           <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-sm cursor-pointer" onclick="app.handleDownloadClick()">
             <i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i>
-            <span>Télécharger Bati'O</span>
+            <span>Télécharger Bativo</span>
           </button>
 
           <div id="auth-header-container">
@@ -275,7 +302,7 @@
     </header>
 
     <!-- Main Content Container -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-28 md:pb-8 flex-1 w-full space-y-8">
 
       <!-- VIEW 1: MARKETPLACE / TOUS LES PROJETS -->
       <section id="view-marketplace" class="view-section active space-y-8">
@@ -292,11 +319,11 @@
                 </div>
                 
                 <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900 leading-[1.2]">
-                  Trouvez des chantiers qualifiés sur <span class="text-sky-600">Bati'O</span>.
+                  Trouvez des chantiers qualifiés sur <span class="text-sky-600">Bativo</span>.
                 </h1>
                 
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
-                  Accédez directement aux coordonnées de maîtres d'ouvrage vérifiés. Débloquez les contacts instantanément avec vos clés de licence.
+                  Accédez directement aux coordonnées de maîtres d'ouvrage vérifiés. Payez par Wave, Orange, MTN ou Moov et recevez instantanément votre code d'accès par email.
                 </p>
 
                 <div class="pt-2 flex flex-wrap items-center gap-3">
@@ -306,6 +333,25 @@
                   <button class="btn-sky-secondary text-xs py-2.5 px-4 font-bold flex items-center gap-2 border-emerald-300 bg-emerald-50/50 text-emerald-900 hover:bg-emerald-100/70 cursor-pointer" onclick="app.navigateTo('crm')">
                     <i data-lucide="folder-check" class="w-4 h-4 text-emerald-600"></i> Voir mes chantiers débloqués
                   </button>
+                </div>
+
+                <!-- Preuve Sociale : 203 Entrepreneurs & Entreprises Africains -->
+                <div class="pt-2 flex items-center gap-3 border-t border-slate-100">
+                  <div class="flex -space-x-2 overflow-hidden">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=120&q=80" alt="Entrepreneur Africain BTP">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" alt="Architecte Africaine">
+                    <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=120&q=80" alt="Ingénieur Africain BTP">
+                    <div class="inline-flex h-8 w-8 rounded-full ring-2 ring-white bg-gradient-to-br from-sky-500 to-sky-600 text-white font-extrabold text-[10px] items-center justify-center shadow-2xs">
+                      +
+                    </div>
+                  </div>
+                  <div class="text-xs">
+                    <div class="flex items-center gap-1.5 leading-tight">
+                      <span class="text-slate-900 font-extrabold text-sm"><strong id="hero-contractor-count" class="text-sky-600 text-base font-black">203</strong> <span class="font-bold text-slate-800">entrepreneurs & entreprises</span></span>
+                      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </div>
+                    <span class="text-[11px] text-slate-500 font-medium block">utilisateurs actifs sur Bativo</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -364,52 +410,79 @@
 
         <!-- 3 CARTES HORIZONTALES SOUS LE DIAPORAMA -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Carte 1 -->
+          <!-- Carte 1 : Exclusivité garantie -->
           <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <div class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200/60">
+              <i data-lucide="lock" class="w-5 h-5"></i>
             </div>
             <div>
-              <div class="font-bold text-sm text-slate-900">Contact vérifié</div>
-              <div class="text-[11px] text-slate-500 font-medium">Maîtres d'ouvrage authentifiés</div>
+              <div class="font-bold text-sm text-slate-900">Exclusivité garantie</div>
+              <div class="text-[11px] text-slate-500 font-medium">1 chantier = 1 seul entrepreneur</div>
             </div>
           </div>
 
-          <!-- Carte 2 -->
+          <!-- Carte 2 : Paiement Mobile Money -->
           <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-xs">
             <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
               <i data-lucide="credit-card" class="w-5 h-5"></i>
             </div>
             <div>
-              <div class="font-bold text-xs text-emerald-950 leading-snug">Recevez votre clé de licence par mail et effectuez votre paiement</div>
-              <div class="text-[11px] text-emerald-700 font-medium mt-0.5">Wave, Orange, MTN, Moov</div>
+              <div class="font-bold text-xs text-emerald-950 leading-snug">Paiement Mobile Money</div>
+              <div class="text-[11px] text-emerald-700 font-medium mt-0.5">Payez par Wave, Orange, MTN ou Moov et recevez votre code par email</div>
             </div>
           </div>
 
-          <!-- Carte 3 -->
+          <!-- Carte 3 : Coordonnées complètes -->
           <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-            <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            <div class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 border border-sky-200/60">
+              <i data-lucide="phone-call" class="w-5 h-5"></i>
             </div>
             <div>
-              <div class="font-bold text-sm text-slate-900">Contact vérifié</div>
-              <div class="text-[11px] text-slate-500 font-medium">Accès direct et coordonnées complètes</div>
+              <div class="font-bold text-sm text-slate-900">Coordonnées complètes</div>
+              <div class="text-[11px] text-slate-500 font-medium">Accès direct téléphone & WhatsApp</div>
             </div>
           </div>
         </div>
 
-        <!-- Toolbar Count -->
-        <div class="flex items-center justify-between px-1 pt-1">
+        <!-- Toolbar Count & Live Social Proof -->
+        <div class="flex flex-wrap items-center justify-between gap-3 px-1 pt-1">
           <div class="flex items-center gap-2">
             <h2 class="text-base font-heading font-bold text-slate-900">Projets disponibles actuellement</h2>
             <span id="results-count-badge" class="font-bold text-xs text-slate-700 bg-white px-3 py-1 rounded-full border border-slate-200/80 shadow-sm">
-              10 projets disponibles
+              <span class="text-sky-700 font-extrabold">8 chantiers exclusifs disponibles</span> <span class="text-slate-300 mx-1">•</span> <span class="text-emerald-700 font-bold">7 chantiers récemment débloqués</span>
+            </span>
+          </div>
+
+          <!-- Badge Utilisateurs Instantanés -->
+          <div class="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-xs">
+            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span class="text-xs text-slate-600 font-medium">
+              <strong id="toolbar-contractor-count" class="text-sky-600 font-black text-sm">203</strong> <strong class="font-bold text-slate-800">entrepreneurs & entreprises</strong> connectés
             </span>
           </div>
         </div>
 
         <!-- Leads Grid -->
         <div id="leads-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+
+        <!-- BANNIÈRE ASSISTANCE & SUPPORT EN BAS DE PAGE -->
+        <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-sky-950 text-white p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6 mt-6">
+          <div class="space-y-1.5 text-center sm:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-[11px] font-bold border border-sky-400/30">
+              <i data-lucide="headphones" class="w-3.5 h-3.5 text-sky-400"></i> Support & Accompagnement Dédié
+            </div>
+            <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-white">Besoin d'aide ou d'un renseignement ?</h3>
+            <p class="text-xs text-slate-300 max-w-xl">
+              Notre équipe d'assistance est joignable 7j/7 pour répondre à vos questions sur les chantiers, vos codes d'accès et vos paiements.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 shrink-0 flex-wrap justify-center">
+            <button class="py-3.5 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/30 transition-all cursor-pointer" onclick="app.openModal('supportModal')">
+              <i data-lucide="headphones" class="w-4 h-4"></i>
+              <span>Contacter l'Assistance</span>
+            </button>
+          </div>
+        </div>
       </section>
 
       <!-- VIEW 2: MES CHANTIERS DÉBLOQUÉS (CRM PERSONNEL) -->
@@ -476,11 +549,9 @@
       <!-- Quick Install Banner for Smartphones (Flottant en bas sur mobile) -->
       <div id="mobile-install-banner" class="hidden fixed bottom-4 left-4 right-4 sm:hidden z-40 bg-slate-950/95 text-white p-3.5 rounded-2xl shadow-2xl border border-sky-500/40 flex items-center justify-between gap-3 backdrop-blur-md">
         <div class="flex items-center gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center font-bold text-white shadow-sm shrink-0">
-            <i data-lucide="building" class="w-5 h-5"></i>
-          </div>
+          <img src="logo.png" alt="Logo Bativo" class="w-10 h-10 object-contain shrink-0 drop-shadow-sm" />
           <div class="min-w-0">
-            <div class="font-extrabold text-xs text-white truncate">Installer l'application Bati'O</div>
+            <div class="font-extrabold text-xs text-white truncate">Installer l'application Bativo</div>
             <div class="text-[10px] text-sky-300">Raccourci direct sur votre écran</div>
           </div>
         </div>
@@ -512,7 +583,7 @@
             <i data-lucide="smartphone" class="w-3.5 h-3.5 text-sky-600"></i>
             Application Mobile & PWA
           </div>
-          <h3 class="font-heading font-extrabold text-2xl text-slate-900 leading-tight">Télécharger Bati'O</h3>
+          <h3 class="font-heading font-extrabold text-2xl text-slate-900 leading-tight">Télécharger Bativo</h3>
           <p class="text-xs text-slate-500">Accédez à vos chantiers et contactez vos clients directement depuis votre téléphone.</p>
         </div>
 
@@ -562,7 +633,7 @@
         <!-- QR Code pour ouvrir sur Smartphone -->
         <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-100 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left mb-6">
           <div class="bg-white p-2 rounded-xl border border-sky-200 shadow-sm shrink-0">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://batilead.vercel.app" alt="QR Code Bati'O Mobile" class="w-20 h-20" />
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://bativo.vercel.app" alt="QR Code Bativo Mobile" class="w-20 h-20" />
           </div>
           <div class="space-y-1">
             <h4 class="font-bold text-xs text-slate-900 flex items-center justify-center sm:justify-start gap-1.5">
@@ -601,51 +672,31 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
 
-        <div class="text-left space-y-1 mb-6">
-          <span class="text-xs font-semibold text-sky-600 tracking-wide uppercase">Accès Professionnel</span>
-          <h3 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 leading-tight" id="auth-modal-heading">Connexion à Bati'O</h3>
-          <p class="text-xs text-slate-500">Connectez-vous avec votre compte pour débloquer les chantiers.</p>
+        <div class="text-center space-y-2 mb-6">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-sky-50 border border-sky-100 mb-2 shadow-xs">
+            <img src="logo.png" alt="Logo Bativo" class="w-9 h-9 object-contain drop-shadow-xs" />
+          </div>
+          <h3 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 leading-tight" id="auth-modal-heading">Connexion à Bativo</h3>
+          <p class="text-xs text-slate-500 max-w-xs mx-auto">Connectez-vous en un clic avec votre compte Google pour débloquer vos chantiers.</p>
         </div>
 
         <div class="space-y-4">
           <!-- BOUTON OFFICIEL GOOGLE -->
-          <button type="button" id="btn-google-oauth-trigger" class="w-full py-3.5 px-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 font-bold text-slate-800 flex items-center justify-center gap-3 transition-all shadow-sm text-sm" onclick="app.signInWithRealGoogleOAuth()">
-            <svg class="w-5 h-5" viewBox="0 0 24 24">
+          <button type="button" id="btn-google-oauth-trigger" class="w-full py-4 px-5 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 font-bold text-slate-800 flex items-center justify-center gap-3.5 transition-all shadow-sm hover:shadow text-sm cursor-pointer" onclick="app.signInWithRealGoogleOAuth()">
+            <svg class="w-6 h-6" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
             </svg>
-            <span>Continuer avec Google</span>
+            <span class="text-sm font-bold">Continuer avec Google</span>
           </button>
 
-          <!-- SEPARATEUR -->
-          <div class="relative flex items-center justify-center py-1">
-            <div class="border-t border-slate-200 w-full"></div>
-            <span class="bg-white px-3 text-[11px] font-medium text-slate-400 uppercase tracking-wider relative">ou par email</span>
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+            <p class="text-[11px] text-slate-500 font-medium leading-relaxed">
+              🔒 Authentification 100% sécurisée via Google OAuth. Vos chantiers débloqués restent synchronisés et sauvegardés sur votre compte.
+            </p>
           </div>
-
-          <!-- FORMULAIRE EMAIL STANDARD -->
-          <form id="auth-form" class="space-y-3.5" onsubmit="app.handleAuthSubmit(event)">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Votre Nom ou Entreprise</label>
-              <input type="text" id="auth-name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 outline-none text-sm text-slate-900 placeholder:text-slate-400 transition-all" placeholder="Nom ou Entreprise" />
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Adresse Email</label>
-              <input type="email" id="auth-email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 outline-none text-sm text-slate-900 placeholder:text-slate-400 transition-all" placeholder="ex: votre.compte@gmail.com" required />
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Mot de passe</label>
-              <input type="password" id="auth-password" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 outline-none text-sm text-slate-900 placeholder:text-slate-400 transition-all" placeholder="••••••••" value="123456" required />
-            </div>
-
-            <button type="submit" id="auth-submit-btn" class="w-full py-3.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
-              <i data-lucide="log-in" class="w-4 h-4"></i> Se connecter
-            </button>
-          </form>
         </div>
       </div>
     </div>
@@ -668,13 +719,11 @@
           <span>Se connecter avec Google</span>
         </div>
 
-        <!-- Logo App & Titre -->
+        <!-- Logo App Officiel & Titre -->
         <div class="space-y-1.5 mb-6">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-600 text-white font-extrabold flex items-center justify-center shadow-md text-base mb-3">
-            B
-          </div>
+          <img src="logo.png" alt="Logo Officiel Bativo" class="w-12 h-12 object-contain drop-shadow-sm mb-3" />
           <h2 class="font-heading font-extrabold text-2xl text-slate-900 leading-tight">Sélectionnez un compte</h2>
-          <p class="text-xs text-slate-500">Accéder à l'application <span class="text-blue-600 font-semibold">Bati'O</span></p>
+          <p class="text-xs text-slate-500">Accéder à l'application <span class="text-blue-600 font-bold">Bativo</span></p>
         </div>
 
         <!-- Liste des comptes Google réels -->
@@ -737,7 +786,7 @@
         </div>
 
         <div class="text-[11px] text-slate-400 text-center leading-relaxed">
-          Pour continuer, Google partagera votre nom, votre adresse e-mail et votre photo de profil avec <strong>Bati'O</strong>.
+          Pour continuer, Google partagera votre nom, votre adresse e-mail et votre photo de profil avec <strong>Bativo</strong>.
         </div>
       </div>
     </div>
@@ -751,60 +800,68 @@
               🔑
             </div>
             <div>
-              <h3 class="font-heading font-bold text-base text-slate-900">Débloquer ce Chantier</h3>
-              <p class="text-[11px] text-slate-500 font-medium">Entrez la clé de licence pour obtenir les coordonnées reçues par mail.</p>
+              <h3 class="font-heading font-bold text-base text-slate-900">Débloquer ce Chantier Exclusif</h3>
+              <p class="text-[11px] text-slate-500 font-medium">1 Chantier = 1 Seul Entrepreneur. Coordonnées directes vérifiées.</p>
             </div>
           </div>
-          <button class="text-slate-400 hover:text-slate-600 p-1" onclick="app.closeModal('purchaseModal')">
+          <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('purchaseModal')">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
         <div id="purchase-lead-details" class="py-3 space-y-2.5 text-xs"></div>
 
-        <!-- BLOC PAIEMENT (4000 FCFA) -->
+        <!-- BLOC PAIEMENT (7000 FCFA) -->
         <div class="bg-gradient-to-br from-sky-50 via-white to-emerald-50/70 p-4 rounded-2xl border border-sky-200/90 space-y-3 shadow-sm">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <div>
-              <span class="text-[10px] uppercase font-bold text-sky-800 tracking-wider">Tarif Clé de Déblocage</span>
+              <span class="text-[10px] uppercase font-bold text-sky-800 tracking-wider">Tarif Déblocage Exclusif</span>
               <div class="text-lg font-heading font-extrabold text-slate-900 flex items-center gap-1.5">
-                <span>4 000 FCFA</span>
+                <span>7 000 FCFA</span>
                 <span class="text-[11px] font-normal text-slate-500">/ contact complet</span>
               </div>
             </div>
             <div class="text-right">
-              <span class="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">⚡ Clé Unique</span>
+              <span class="text-[11px] font-bold text-amber-900 bg-amber-100 px-2.5 py-1 rounded-full border border-amber-200">🔒 1 Seul Acheteur</span>
             </div>
           </div>
 
-          <p class="text-xs text-slate-600 font-medium leading-relaxed">
-            Effectuez votre paiement et recevez votre clé de licence par mail.
+          <p class="text-xs text-slate-700 font-medium leading-relaxed">
+            Payez par Wave, Orange, MTN ou Moov et recevez instantanément votre code d'accès par email.
           </p>
 
           <!-- Bouton Effectuer le paiement -->
           <button class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer" onclick="app.openPaymentModal()">
             <i data-lucide="credit-card" class="w-4 h-4 text-amber-300"></i>
-            <span>Effectuer le paiement — Obtenir ma clé à 4 000 FCFA</span>
+            <span>Effectuer le paiement — Obtenir mon accès (7 000 FCFA)</span>
           </button>
         </div>
 
         <div class="relative flex py-1 items-center">
           <div class="flex-grow border-t border-slate-200"></div>
-          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">OU avec votre clé reçue par email</span>
+          <span class="flex-shrink mx-3 text-slate-400 text-[10px] uppercase font-bold tracking-wider">OU avec votre code d'accès reçu par email</span>
           <div class="flex-grow border-t border-slate-200"></div>
         </div>
 
         <!-- ZONE SAISIE CLÉ DE LICENCE -->
         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-          <label class="font-bold text-xs text-slate-900 block">Entrez votre Clé de Licence :</label>
-          <input type="text" id="checkout-license-key" class="soft-input text-base font-mono font-extrabold uppercase tracking-widest text-center py-3 bg-white border-2 border-slate-300 focus:border-emerald-500 rounded-xl" placeholder="Entrez la clé reçue par email" />
+          <label class="font-bold text-xs text-slate-900 block">Entrez votre Code d'Accès :</label>
+          <input type="text" id="checkout-license-key" class="soft-input text-base font-mono font-extrabold uppercase tracking-widest text-center py-3 bg-white border-2 border-slate-300 focus:border-emerald-500 rounded-xl" placeholder="Entrez le code reçu par email" />
 
           <button class="btn-sky-primary w-full py-3.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold flex items-center justify-center gap-2 shadow-sm rounded-xl cursor-pointer" onclick="app.activateWithLicenseKey()">
             <i data-lucide="unlock" class="w-4 h-4"></i> 🔓 Débloquer le Contact Immédiatement
           </button>
           <p class="text-[11px] text-slate-500 text-center font-medium pt-1">
-            Débloquez votre contact et recevez la clé de licence via votre adresse email.
+            Dès le déblocage, vous êtes le seul et unique professionnel à obtenir les coordonnées directes du client.
           </p>
+        </div>
+
+        <!-- Bouton Contacter l'Assistance dans la modale -->
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-center">
+          <button class="text-xs text-sky-700 hover:text-sky-800 font-bold inline-flex items-center gap-1.5 py-1.5 px-3 rounded-xl hover:bg-sky-50 transition-all cursor-pointer" onclick="app.openModal('supportModal')">
+            <i data-lucide="headphones" class="w-4 h-4 text-sky-600"></i>
+            <span>Besoin d'aide ? Contacter l'assistance</span>
+          </button>
         </div>
       </div>
     </div>
@@ -819,7 +876,7 @@
             </div>
             <div>
               <h3 class="font-heading font-extrabold text-base text-slate-900">Effectuer votre Paiement</h3>
-              <p class="text-[11px] text-slate-500">Paiement sécurisé — Obtenez votre clé de licence à 4 000 FCFA</p>
+              <p class="text-[11px] text-slate-500">Paiement sécurisé — Obtenez votre code d'accès à 7 000 FCFA</p>
             </div>
           </div>
           <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
@@ -829,36 +886,120 @@
 
         <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-1 text-xs text-center">
           <p class="text-xs text-slate-800 font-bold">
-            Effectuez votre paiement et recevez votre clé de licence par mail.
+            Effectuez votre paiement et recevez votre code d'accès par email.
           </p>
           <p class="text-[11px] text-slate-500">
-            Dès validation de votre paiement, insérez votre clé de licence pour débloquer votre chantier.
+            Dès validation de votre paiement, insérez votre code d'accès pour débloquer votre chantier.
           </p>
         </div>
 
         <!-- Chariow Widget -->
-        <div class="w-full flex justify-center items-center py-2 min-h-[380px]" id="chariow-widget-container">
-          <div id="chariow-widget" 
-              data-product-id="prd_yc7zfyho"
-              data-store-domain="qtqwwegd.mychariow.shop"
+        <div class="w-full flex flex-col justify-center items-center py-2 min-h-[480px]" id="chariow-widget-container">
+          <div id="chariow-widget" data-product-id="prd_y728zymq"
+              data-store-domain="maitre-kone.com"
               data-style="frame"
               data-border-style="rounded"
               data-cta-width="xs"
-              data-cta-animation="none"
-              data-locale="fr"
+              data-cta-animation="bounce_rotate"
+              data-locale="en"
               data-primary-color="#ffcc00"
-              data-background-color="#FFFFFF"></div>
+              data-background-color="#FFFFFF">
+            <iframe src="https://maitre-kone.com/widget/prd_y728zymq/checkout?primary_color=%23ffcc00&background_color=%23FFFFFF&border_style=rounded&cta_animation=bounce_rotate&locale=en"
+                    class="w-full border-0 rounded-2xl shadow-xs"
+                    style="min-height: 520px; width: 100%; border: none;"
+                    title="Paiement Sécurisé Chariow"
+                    loading="lazy"></iframe>
+          </div>
         </div>
+        <script>
+        (function() {
+          var script = document.createElement('script');
+          script.src = 'https://js.chariowcdn.com/v1/widget.min.js';
+          script.async = true;
+          document.head.appendChild(script);
 
-        <div class="text-center pt-2 border-t border-slate-100">
+          var link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://js.chariowcdn.com/v1/widget.min.css';
+          document.head.appendChild(link);
+        })();
+        </script>
+
+        <div class="flex items-center justify-center gap-3 pt-2 border-t border-slate-100 flex-wrap">
           <button class="btn-sky-secondary text-xs py-2 px-4 font-bold cursor-pointer" onclick="app.closeModal('paymentModal'); app.openModal('purchaseModal');">
-            <i data-lucide="key" class="w-3.5 h-3.5 text-amber-500"></i> J'ai déjà payé / Entrer ma clé reçue
+            <i data-lucide="key" class="w-3.5 h-3.5 text-amber-500"></i> J'ai déjà payé / Entrer mon code reçu
+          </button>
+          <button class="text-xs text-slate-600 hover:text-sky-700 font-bold inline-flex items-center gap-1.5 py-2 px-3 rounded-xl hover:bg-slate-100 transition-all cursor-pointer" onclick="app.openModal('supportModal')">
+            <i data-lucide="headphones" class="w-3.5 h-3.5 text-sky-600"></i> Contacter l'assistance
           </button>
         </div>
 
         <p class="text-[10.5px] text-slate-400 text-center font-medium">
-          🔒 Paiement 100% sécurisé via Chariow. Votre clé de licence vous sera envoyée par email.
+          🔒 Paiement 100% sécurisé via Chariow. Votre code d'accès vous sera envoyé par email.
         </p>
+      </div>
+    </div>
+
+    <!-- Modal Assistance & Support 7j/7 -->
+    <div id="supportModal" class="modal-overlay hidden">
+      <div class="soft-modal-card max-w-md max-h-[90vh] overflow-y-auto p-6 space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-sky-500/20">
+              <i data-lucide="headphones" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-900">Assistance & Support Bativo</h3>
+              <p class="text-[11px] text-slate-500">Notre équipe est disponible 7j/7 pour vous aider</p>
+            </div>
+          </div>
+          <button class="text-slate-400 hover:text-slate-600 p-1 cursor-pointer" onclick="app.closeModal('supportModal')">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="bg-sky-50/80 p-3.5 rounded-2xl border border-sky-100 text-xs text-sky-900 space-y-1">
+          <p class="font-bold">Vous avez une question sur un chantier ou votre paiement ?</p>
+          <p class="text-[11px] text-sky-800">Cliquez ci-dessous pour discuter directement avec nous sur WhatsApp ou nous écrire par email.</p>
+        </div>
+
+        <div class="space-y-3">
+          <!-- WhatsApp Support Direct -->
+          <a href="https://wa.me/2250142547824?text=Bonjour%20Bativo%2C%20j%27ai%20besoin%20d%27assistance%20concernant%20un%20chantier" target="_blank" class="w-full p-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-between shadow-lg shadow-emerald-500/25 transition-all cursor-pointer no-underline group hover:scale-[1.01]">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
+              </div>
+              <div class="text-left">
+                <div class="font-extrabold text-sm flex items-center gap-1.5">
+                  <span>Contacter via WhatsApp</span>
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                </div>
+                <div class="text-xs text-emerald-100 font-mono font-bold">+225 01 42 54 78 24</div>
+                <div class="text-[10px] text-emerald-100">Discutez en direct avec l'assistance 7j/7</div>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 text-white/80 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <!-- Email Support -->
+          <a href="mailto:contact@bativo.com?subject=Demande%20d%27assistance%20Bativo" class="w-full p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-sky-500 text-slate-800 font-bold text-xs flex items-center justify-between shadow-xs transition-all cursor-pointer no-underline">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="mail" class="w-5 h-5 text-sky-600"></i>
+              <div class="text-left">
+                <div class="font-extrabold text-xs text-slate-900">Envoyer un Email</div>
+                <div class="text-[10px] text-slate-500">contact@bativo.com</div>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+          </a>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+          <p class="text-[10.5px] text-slate-500 font-medium">
+            ⏱️ Assistance disponible 7j/7 de 7h30 à 21h00 GMT
+          </p>
+        </div>
       </div>
     </div>
 
@@ -875,8 +1016,62 @@
       </div>
     </div>
 
+    <!-- Floating Assistance Button 7j/7 (Desktop uniquement) -->
+    <button class="hidden md:flex fixed bottom-5 left-5 z-40 bg-gradient-to-r from-slate-900 to-sky-950 hover:from-black hover:to-slate-900 text-white px-4 py-2.5 rounded-full font-bold text-xs shadow-xl border border-sky-400/40 items-center gap-2 transition-all hover:scale-105 cursor-pointer backdrop-blur-md" onclick="app.openModal('supportModal')" title="Contacter le support Bativo">
+      <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+      <i data-lucide="headphones" class="w-3.5 h-3.5 text-sky-300"></i>
+      <span>Assistance 7j/7</span>
+    </button>
+
+    <!-- BARRE DE NAVIGATION MOBILE NATIVE (App Bar Bottom) -->
+    <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-t border-slate-200/90 py-1.5 px-3 flex md:hidden items-center justify-around shadow-[0_-8px_25px_rgba(0,0,0,0.08)] pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+      
+      <!-- Tab 1: Projets -->
+      <button id="mobile-tab-marketplace" class="mobile-nav-btn active" onclick="app.navigateTo('marketplace')">
+        <div class="relative">
+          <i data-lucide="layout-grid" class="w-5 h-5"></i>
+          <span class="absolute -top-1.5 -right-2 bg-sky-600 text-white text-[9px] font-extrabold px-1.5 py-0.2 rounded-full shadow-xs">8</span>
+        </div>
+        <span class="text-[10px]">Projets</span>
+      </button>
+
+      <!-- Tab 2: Mes Chantiers -->
+      <button id="mobile-tab-crm" class="mobile-nav-btn" onclick="app.navigateTo('crm')">
+        <div class="relative">
+          <i data-lucide="folder-check" class="w-5 h-5"></i>
+          <span id="mobile-count-purchased" class="hidden absolute -top-1.5 -right-2 bg-emerald-600 text-white text-[9px] font-extrabold px-1.5 py-0.2 rounded-full shadow-xs">0</span>
+        </div>
+        <span class="text-[10px]">Débloqués</span>
+      </button>
+
+      <!-- Tab 3: Télécharger / Install -->
+      <button class="mobile-nav-btn" onclick="app.handleDownloadClick()">
+        <div class="w-10 h-10 -mt-5 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 text-white flex items-center justify-center shadow-lg shadow-sky-500/35 border-2 border-white">
+          <i data-lucide="download" class="w-5 h-5"></i>
+        </div>
+        <span class="text-[10px] font-extrabold text-sky-700">App</span>
+      </button>
+
+      <!-- Tab 4: Assistance -->
+      <button class="mobile-nav-btn" onclick="app.openModal('supportModal')">
+        <div class="relative">
+          <i data-lucide="headphones" class="w-5 h-5"></i>
+          <span class="w-2 h-2 rounded-full bg-emerald-500 absolute -top-0.5 -right-0.5 border border-white"></span>
+        </div>
+        <span class="text-[10px]">Assistance</span>
+      </button>
+
+      <!-- Tab 5: Compte -->
+      <button id="mobile-tab-auth" class="mobile-nav-btn" onclick="app.handleMobileAccountClick()">
+        <div id="mobile-nav-avatar">
+          <i data-lucide="user" class="w-5 h-5"></i>
+        </div>
+        <span id="mobile-nav-auth-label" class="text-[10px]">Connexion</span>
+      </button>
+    </nav>
+
     <!-- Toast Notification -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-xs pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-20 md:bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-xs pointer-events-none"></div>
 
   </div>
 
@@ -894,155 +1089,282 @@
     ];
 
     const DEFAULT_LEADS_FR = [
+      // ==========================================
+      // 8 CHANTIERS RÉELS DISPONIBLES (7 000 FCFA)
+      // ==========================================
       {
-        id: "LEAD-CI-001",
+        id: "LEAD-CI-017",
         category: "construction",
-        categoryLabel: "Construction Neuve",
-        title: "Construction villa moderne avec piscine",
-        description: "Construction complète R+2 gros œuvre et finitions haut standing avec terrasse et piscine à débordement.",
-        budget: "85 000 000 FCFA",
-        surface: "380 m²",
-        horizon: "Urgent (< 1 mois)",
-        city: "Abidjan, Cocody (Côte d'Ivoire)",
-        fullName: "Ibrahim BAKAYOKO",
-        phone: "+225 07 89 12 34 56",
-        email: "i.bakayoko@gmail.com",
-        address: "Cocody Riviera Golf, Abidjan"
-      },
-      {
-        id: "LEAD-BF-002",
-        category: "construction",
-        categoryLabel: "Construction Gros Œuvre",
-        title: "Construction immeuble commercial et appartements",
-        description: "Gros œuvre maçonnerie, dalles béton armé et second œuvre pour immeuble de 6 logements et commerces.",
-        budget: "120 000 000 FCFA",
-        surface: "550 m²",
-        horizon: "Sous 1 mois",
-        city: "Ouagadougou, Ouaga 2000 (Burkina Faso)",
-        fullName: "Moussa OUEDRAOGO",
-        phone: "+226 70 23 45 67",
-        email: "m.ouedraogo@fasonet.bf",
-        address: "Zone Ouaga 2000, Ouagadougou"
-      },
-      {
-        id: "LEAD-FR-003",
-        category: "renovation",
-        categoryLabel: "Rénovation Complète",
-        title: "Rénovation complète maison bourgeoise",
-        description: "Rénovation totale d'un étage de 140m² avec parquet massif, plomberie neuve et menuiseries double vitrage.",
-        budget: "75 000 EUR",
-        surface: "140 m²",
-        horizon: "Urgent (< 1 mois)",
-        city: "Lyon (69002, France)",
-        fullName: "Jean-Claude VANDAMME",
-        phone: "+33 6 12 34 56 78",
-        email: "jc.vandamme@gmail.com",
-        address: "Place Bellecour, 69002 Lyon"
-      },
-      {
-        id: "LEAD-SN-004",
-        category: "construction",
-        categoryLabel: "Construction Résidence",
-        title: "Construction résidence de standing vue mer",
-        description: "Édification d'une villa contemporaine de 450m² sur 2 niveaux avec toiture-terrasse et salon panoramique.",
-        budget: "110 000 000 FCFA",
-        surface: "450 m²",
-        horizon: "Sous 1 à 2 mois",
-        city: "Dakar, Almadies (Sénégal)",
-        fullName: "Abdoulaye DIOP",
-        phone: "+221 77 654 32 10",
-        email: "a.diop@orange.sn",
-        address: "Route des Almadies, Dakar"
-      },
-      {
-        id: "LEAD-FR-005",
-        category: "renovation",
-        categoryLabel: "Rénovation Standing",
-        title: "Rénovation complète appartement Haussmannien",
-        description: "Réfection totale 95m² avec cuisine sur mesure, verrière style atelier, parquets poncés et électricité aux normes.",
-        budget: "68 000 EUR",
-        surface: "95 m²",
-        horizon: "Urgent (< 1 mois)",
-        city: "Paris (75016, France)",
-        fullName: "Alexandre DUPONT",
-        phone: "+33 6 55 44 33 22",
-        email: "alex.dupont@gmail.com",
-        address: "Avenue Victor Hugo, 75016 Paris"
-      },
-      {
-        id: "LEAD-CI-006",
-        category: "renovation",
-        categoryLabel: "Rénovation & Extension",
-        title: "Rénovation globale et surélévation toiture",
-        description: "Modernisation complète, carrelage grand format, faux-plafonds lumineux LED et extension cuisine ouverte.",
-        budget: "42 000 000 FCFA",
+        categoryLabel: "Construction Duplex",
+        title: "Construction d'un duplex contemporain à Grand-Bassam",
+        description: "Projet de construction d'un duplex à Grand-Bassam. Terrain disponible, maître d'ouvrage réactif recherchant un entrepreneur BTP sérieux pour devis et exécution.",
+        budget: "10 à 20 Millions FCFA",
         surface: "220 m²",
         horizon: "Urgent (< 1 mois)",
-        city: "Abidjan, Marcory (Côte d'Ivoire)",
-        fullName: "Kouamé KONAN",
-        phone: "+225 05 44 33 22 11",
-        email: "k.konan@afnet.net",
-        address: "Marcory Zone 4, Abidjan"
+        city: "Grand-Bassam (Côte d'Ivoire)",
+        fullName: "Bohou Félix Jules César",
+        phone: "+225 07 48 48 86 23",
+        email: "f.bohou@gmail.com",
+        address: "Grand-Bassam Résidentiel",
+        publishedAt: "Publié il y a 10 min",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
       },
       {
-        id: "LEAD-BF-007",
+        id: "LEAD-CI-018",
         category: "construction",
-        categoryLabel: "Construction Bureaux",
-        title: "Construction bâtiment administratif et bureaux",
-        description: "Gros œuvre en béton armé, fondations spéciales, cloisons amovibles et installation réseau câblé.",
-        budget: "95 000 000 FCFA",
-        surface: "480 m²",
-        horizon: "Sous 2 mois",
-        city: "Bobo-Dioulasso (Burkina Faso)",
-        fullName: "Alassane SAWADOGO",
-        phone: "+226 76 11 22 33",
-        email: "a.sawadogo@gmail.com",
-        address: "Secteur 5, Bobo-Dioulasso"
-      },
-      {
-        id: "LEAD-CM-008",
-        category: "construction",
-        categoryLabel: "Construction Moderne",
-        title: "Construction villa de standing avec dépendance",
-        description: "Bâtiment moderne 320m², 5 chambres avec salles de bain privatives, terrasse couverte et clôture sécurisée.",
-        budget: "78 000 000 FCFA",
-        surface: "320 m²",
+        categoryLabel: "Villa Moderne",
+        title: "Construction d'une villa moderne neuve à Abidjan",
+        description: "Projet de construction d'une villa moderne à Abidjan. Gros œuvre, élévation et finitions, prêt pour échange direct avec une entreprise BTP qualifiée.",
+        budget: "10 à 20 Millions FCFA",
+        surface: "190 m²",
         horizon: "Sous 1 mois",
-        city: "Douala, Bonapriso (Cameroun)",
-        fullName: "Samuel MBARGA",
-        phone: "+237 699 88 77 66",
-        email: "s.mbarga@camnet.cm",
-        address: "Quartier Bonapriso, Douala"
+        city: "Abidjan (Côte d'Ivoire)",
+        fullName: "Christian POUTÉ",
+        phone: "+225 07 09 38 16 04",
+        email: "c.poute@gmail.com",
+        address: "Abidjan Commune",
+        publishedAt: "Publié il y a 17 min",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
       },
       {
-        id: "LEAD-BJ-009",
-        category: "renovation",
-        categoryLabel: "Rénovation Façade",
-        title: "Rénovation façade, toiture et plomberie générale",
-        description: "Ravalement de façade étanche, reprise étanchéité terrasse et réfection complète des colonnes d'eau.",
-        budget: "35 000 000 FCFA",
-        surface: "310 m²",
-        horizon: "Sous 2 mois",
-        city: "Cotonou, Haie Vive (Bénin)",
-        fullName: "Patrice DOSSOU",
-        phone: "+229 97 12 34 56",
-        email: "p.dossou@yahoo.fr",
-        address: "Quartier Haie Vive, Cotonou"
-      },
-      {
-        id: "LEAD-FR-010",
-        category: "renovation",
-        categoryLabel: "Rénovation Thermique",
-        title: "Extension ossature bois et rénovation thermique",
-        description: "Création d'une extension bois de 45m² pour suite parentale et isolation thermique par l'extérieur.",
-        budget: "55 000 EUR",
-        surface: "160 m²",
+        id: "LEAD-CI-019",
+        category: "construction",
+        categoryLabel: "Villa Contemporaine",
+        title: "Construction d'une villa familiale à Songon",
+        description: "Projet de construction d'une villa contemporaine à Songon. Terrain prêt, maître d'ouvrage disponible pour échange immédiat et étude de devis.",
+        budget: "10 à 20 Millions FCFA",
+        surface: "200 m²",
         horizon: "Urgent (< 1 mois)",
-        city: "Bordeaux (33000, France)",
-        fullName: "Béatrice LAROCHE",
-        phone: "+33 6 98 76 54 32",
-        email: "b.laroche@outlook.fr",
-        address: "Cours de l'Intendance, 33000 Bordeaux"
+        city: "Songon (Côte d'Ivoire)",
+        fullName: "Gabriel KOUTOUA",
+        phone: "+225 07 08 11 95 36",
+        email: "g.koutoua@gmail.com",
+        address: "Songon, Abidjan",
+        publishedAt: "Publié il y a 25 min",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+      {
+        id: "LEAD-CI-011",
+        category: "construction",
+        categoryLabel: "Construction Duplex",
+        title: "Construction d'un duplex de standing à Bonoua",
+        description: "Projet de construction neuve d'un duplex contemporain à Bonoua. Maître d'ouvrage à l'écoute d'entrepreneurs généraux ou entreprises BTP pour devis et réalisation.",
+        budget: "20 à 40 Millions FCFA",
+        surface: "280 m²",
+        horizon: "Urgent (< 1 mois)",
+        city: "Bonoua (Côte d'Ivoire)",
+        fullName: "Wilfried Saiwey KOUAME",
+        phone: "+225 07 07 09 13 91",
+        email: "w.kouame@gmail.com",
+        address: "Quartier Résidentiel, Bonoua",
+        publishedAt: "Publié il y a 25 min",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+      {
+        id: "LEAD-CI-012",
+        category: "construction",
+        categoryLabel: "Construction Duplex",
+        title: "Construction d'un duplex moderne à Songon M'brathé",
+        description: "Projet de construction d'un duplex moderne à Songon M'brathé. Gros œuvre et second œuvre, terrain disponible, démarrage rapide.",
+        budget: "20 à 40 Millions FCFA",
+        surface: "260 m²",
+        horizon: "Sous 1 mois",
+        city: "Songon M'brathé (Côte d'Ivoire)",
+        fullName: "Guia GHISLAIN",
+        phone: "+225 07 49 79 44 20",
+        email: "g.ghislain@gmail.com",
+        address: "Songon M'brathé, Abidjan",
+        publishedAt: "Publié il y a 1h",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+      {
+        id: "LEAD-CI-013",
+        category: "construction",
+        categoryLabel: "Construction Duplex",
+        title: "Réalisation d'un duplex familial à Songon",
+        description: "Construction complète d'un duplex à Songon. Client prêt pour étude de plans, devis estimatif et démarrage rapide des fondations.",
+        budget: "20 à 40 Millions FCFA",
+        surface: "250 m²",
+        horizon: "Urgent (< 1 mois)",
+        city: "Songon (Côte d'Ivoire)",
+        fullName: "Franck NIAMKEY",
+        phone: "+225 07 49 24 20 96",
+        email: "f.niamkey@yahoo.fr",
+        address: "Songon Cité, Abidjan",
+        publishedAt: "Publié il y a 1h45",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+      {
+        id: "LEAD-CI-014",
+        category: "construction",
+        categoryLabel: "Grande Villa Duplex",
+        title: "Construction d'une villa duplex haut standing (+100M)",
+        description: "Projet d'envergure de villa duplex de luxe à Dabou avec matériaux et finitions haut de gamme. Budget conséquent (+100M FCFA), recherche d'une entreprise BTP de référence.",
+        budget: "+100 Millions FCFA",
+        surface: "520 m²",
+        horizon: "Sous 1 mois",
+        city: "Dabou (Côte d'Ivoire)",
+        fullName: "Youssef CHARAFEDDINE",
+        phone: "+225 07 07 65 40 96",
+        email: "y.charafeddine@gmail.com",
+        address: "Zone Résidentielle, Dabou",
+        publishedAt: "Publié il y a 2h30",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+      {
+        id: "LEAD-CI-016",
+        category: "construction",
+        categoryLabel: "Immeuble Résidentiel",
+        title: "Construction d'un immeuble R+3 / R+4 à Bingerville (Diaspora)",
+        description: "Investissement immobilier de la diaspora (budget 60M à 100M FCFA) pour la construction d'un immeuble résidentiel à Bingerville. Terrain sécurisé, recherche d'un constructeur BTP sérieux.",
+        budget: "60 à 100 Millions FCFA",
+        surface: "650 m²",
+        horizon: "Urgent (< 1 mois)",
+        city: "Bingerville (Côte d'Ivoire)",
+        fullName: "Adama SYLLA",
+        phone: "+225 07 03 48 48 15",
+        email: "a.sylla@gmail.com",
+        address: "Bingerville Nouveau Quartier",
+        publishedAt: "Aujourd'hui à 02:16",
+        unlockPrice: "7 000 FCFA",
+        isSoldOut: false
+      },
+
+      // =========================================================================
+      // 7 CHANTIERS RÉCEMMENT DÉBLOQUÉS PAR D'AUTRES ENTREPRENEURS (PREUVE SOCIALE)
+      // =========================================================================
+      {
+        id: "LEAD-CI-SOLD-001",
+        category: "construction",
+        categoryLabel: "Villa Moderne R+1",
+        title: "Construction d'une villa contemporaine R+1 avec jardin",
+        description: "Édification complète d'une villa 5 pièces avec garage et terrasse couverte. Gros œuvre et finitions carrelage grand format.",
+        budget: "45 000 000 FCFA",
+        surface: "320 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Grand-Bassam (Côte d'Ivoire)",
+        fullName: "Amadou BAKAYOKO",
+        phone: "+225 07 •• •• •• ••",
+        email: "a.bakayoko@••••.ci",
+        address: "Quartier Rosiers, Grand-Bassam",
+        publishedAt: "Débloqué il y a 14 min",
+        buyerInfo: "Débloqué par Entreprise BTP Horizon SARL",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-002",
+        category: "construction",
+        categoryLabel: "Immeuble R+2 Standing",
+        title: "Construction d'un immeuble locatif R+2 (6 appartements)",
+        description: "Bâtiment de rapport moderne avec dalles béton armé et canalisations encastrées. Maçonnerie générale et menuiseries aluminium.",
+        budget: "85 000 000 FCFA",
+        surface: "450 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Abidjan, Cocody Angré 8e Tranche",
+        fullName: "Mamadou TOURE",
+        phone: "+225 05 •• •• •• ••",
+        email: "m.toure@••••.com",
+        address: "Angré 8ème Tranche, Abidjan",
+        publishedAt: "Débloqué il y a 28 min",
+        buyerInfo: "Débloqué par Ivoire Bâtisseurs Pro",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-003",
+        category: "renovation",
+        categoryLabel: "Rénovation Villa Duplex",
+        title: "Rénovation complète villa duplex & étanchéité toiture",
+        description: "Modernisation intégrale : réfection électrique aux normes, plomberie multicouche, peinture intérieure et pose sanitaires suspendus.",
+        budget: "35 000 000 FCFA",
+        surface: "240 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Abidjan, Marcory Zone 4",
+        fullName: "Awa KONE",
+        phone: "+225 01 •• •• •• ••",
+        email: "a.kone@••••.net",
+        address: "Zone 4C, Marcory",
+        publishedAt: "Débloqué il y a 45 min",
+        buyerInfo: "Débloqué par Alpha Construction CI",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-004",
+        category: "construction",
+        categoryLabel: "Résidence de Luxe Assinie",
+        title: "Construction résidence de vacances bord lagunaire",
+        description: "Villa d'architecte haut standing avec piscine à débordement et ponton privatif. Fondations renforcées et toiture bac acier isolée.",
+        budget: "120 000 000 FCFA",
+        surface: "500 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Assinie Mafia (Côte d'Ivoire)",
+        fullName: "Seydou DIABATE",
+        phone: "+225 07 •• •• •• ••",
+        email: "s.diabate@••••.com",
+        address: "Bord Lagunaire, Assinie",
+        publishedAt: "Débloqué il y a 1h15",
+        buyerInfo: "Débloqué par Cabinet Ingénierie BTP",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-005",
+        category: "construction",
+        categoryLabel: "Duplex Contemporain",
+        title: "Construction duplex standing 5 pièces à Yamoussoukro",
+        description: "Réalisation d'une villa duplex moderne avec salon cathédrale et suite parentale. Gros œuvre et second œuvre soigné.",
+        budget: "38 000 000 FCFA",
+        surface: "290 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Yamoussoukro (Côte d'Ivoire)",
+        fullName: "Salif OUATTARA",
+        phone: "+225 07 •• •• •• ••",
+        email: "s.ouattara@••••.ci",
+        address: "Quartier Millionnaire, Yamoussoukro",
+        publishedAt: "Débloqué il y a 1h50",
+        buyerInfo: "Débloqué par Entreprise Générale K.",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-006",
+        category: "construction",
+        categoryLabel: "Bâtiment Commercial",
+        title: "Aménagement et gros œuvre bâtiment commercial & bureaux",
+        description: "Construction d'un centre d'affaires R+1 avec open space, rideaux métalliques motorisés et parking extérieur pavé.",
+        budget: "55 000 000 FCFA",
+        surface: "380 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "San-Pédro (Côte d'Ivoire)",
+        fullName: "Bakary CISSE",
+        phone: "+225 05 •• •• •• ••",
+        email: "b.cisse@••••.com",
+        address: "Zone Portuaire, San-Pédro",
+        publishedAt: "Débloqué il y a 2h25",
+        buyerInfo: "Débloqué par Société Africaine BTP",
+        isSoldOut: true
+      },
+      {
+        id: "LEAD-CI-SOLD-007",
+        category: "construction",
+        categoryLabel: "Villa Duplex avec Piscine",
+        title: "Construction d'une villa duplex contemporaine à Feh Kessé",
+        description: "Édification d'une villa de standing 6 pièces avec piscine et dépendance gardien. Matériaux nobles et vitrages anti-effraction.",
+        budget: "50 000 000 FCFA",
+        surface: "310 m²",
+        horizon: "Exclusivité Débloquée",
+        city: "Bingerville, Feh Kessé (Côte d'Ivoire)",
+        fullName: "Drissa TRAORE",
+        phone: "+225 07 •• •• •• ••",
+        email: "d.traore@••••.net",
+        address: "Feh Kessé Cité Verte, Bingerville",
+        publishedAt: "Débloqué il y a 3h10",
+        buyerInfo: "Débloqué par Bâti Plus Côte d'Ivoire",
+        isSoldOut: true
       }
     ];
 
@@ -1057,11 +1379,37 @@
         this.currentView = "marketplace";
         this.googleTokenClient = null;
         this.deferredPwaPrompt = null;
+        this.contractorCount = this.loadContractorCount();
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           this.deferredPwaPrompt = e;
         });
         this.init();
+      }
+
+      loadContractorCount() {
+        try {
+          const c = localStorage.getItem("bativo_contractor_count");
+          return c ? parseInt(c, 10) : 203;
+        } catch(e) {
+          return 203;
+        }
+      }
+
+      incrementContractorCount() {
+        this.contractorCount++;
+        try {
+          localStorage.setItem("bativo_contractor_count", this.contractorCount.toString());
+        } catch(e) {}
+        this.updateContractorCountUi();
+      }
+
+      updateContractorCountUi() {
+        const countStr = this.contractorCount.toString();
+        const heroEl = document.getElementById("hero-contractor-count");
+        if (heroEl) heroEl.textContent = countStr;
+        const toolbarEl = document.getElementById("toolbar-contractor-count");
+        if (toolbarEl) toolbarEl.textContent = countStr;
       }
 
       loadUser() {
@@ -1319,6 +1667,7 @@
         this.checkForOAuthCallback();
         this.initGoogleIdentityServices();
         this.updateAuthUi();
+        this.updateContractorCountUi();
         this.renderMarketplace();
         this.renderCrm();
         this.startHeroCarousel();
@@ -1339,7 +1688,7 @@
 
         window.addEventListener('appinstalled', () => {
           this.deferredPwaPrompt = null;
-          this.showToast("🎉 Application Bati'O ajoutée à votre écran d'accueil !");
+          this.showToast("🎉 Application Bativo ajoutée à votre écran d'accueil !");
           const banner = document.getElementById('mobile-install-banner');
           if (banner) banner.remove();
         });
@@ -1419,6 +1768,7 @@
         const u = { name: userName, email: cleanEmail, avatar: profile.picture || "" };
 
         this.saveUser(u);
+        this.incrementContractorCount();
         this.closeModal("authModal");
         this.closeModal("googleAccountChooserModal");
 
@@ -1435,34 +1785,57 @@
 
       updateAuthUi() {
         const c = document.getElementById("auth-header-container");
-        if (!c) return;
+        const mobileLabel = document.getElementById("mobile-nav-auth-label");
+        const mobileAvatar = document.getElementById("mobile-nav-avatar");
 
         if (this.currentUser) {
           const avatarHtml = this.currentUser.avatar
             ? `<img src="${this.currentUser.avatar}" alt="${this.currentUser.name}" class="w-8 h-8 rounded-xl object-cover shadow-sm border border-sky-200" />`
             : `<div class="w-8 h-8 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">${this.currentUser.name.charAt(0).toUpperCase()}</div>`;
 
-          c.innerHTML = `
-            <div class="flex items-center gap-2.5 bg-sky-50 border border-sky-200/80 px-3.5 py-1.5 rounded-2xl cursor-pointer" onclick="app.navigateTo('crm')">
-              ${avatarHtml}
-              <div class="text-left hidden sm:block">
-                <span class="text-slate-900 font-bold text-xs block leading-tight">${this.currentUser.name}</span>
-                <span class="text-[10px] text-sky-700 font-mono">${this.currentUser.email}</span>
+          if (c) {
+            c.innerHTML = `
+              <div class="flex items-center gap-2.5 bg-sky-50 border border-sky-200/80 px-3.5 py-1.5 rounded-2xl cursor-pointer" onclick="app.navigateTo('crm')">
+                ${avatarHtml}
+                <div class="text-left hidden sm:block">
+                  <span class="text-slate-900 font-bold text-xs block leading-tight">${this.currentUser.name}</span>
+                  <span class="text-[10px] text-sky-700 font-mono">${this.currentUser.email}</span>
+                </div>
+                <button class="text-slate-400 hover:text-rose-600 p-1 ml-1" title="Se déconnecter" onclick="event.stopPropagation(); app.logout()">
+                  <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
-              <button class="text-slate-400 hover:text-rose-600 p-1 ml-1" title="Se déconnecter" onclick="event.stopPropagation(); app.logout()">
-                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          `;
+            `;
+          }
+
+          if (mobileLabel) mobileLabel.textContent = this.currentUser.name.split(" ")[0];
+          if (mobileAvatar) {
+            mobileAvatar.innerHTML = this.currentUser.avatar
+              ? `<img src="${this.currentUser.avatar}" alt="${this.currentUser.name}" class="w-5 h-5 rounded-full object-cover border border-sky-300" />`
+              : `<div class="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold text-[10px]">${this.currentUser.name.charAt(0).toUpperCase()}</div>`;
+          }
         } else {
-          c.innerHTML = `
-            <button class="btn-sky-primary text-xs py-2 px-4 flex items-center gap-2" onclick="app.openModal('authModal')">
-              <i data-lucide="user" class="w-4 h-4"></i>
-              <span>Connexion</span>
-            </button>
-          `;
+          if (c) {
+            c.innerHTML = `
+              <button class="btn-sky-primary text-xs py-2 px-4 flex items-center gap-2" onclick="app.openModal('authModal')">
+                <i data-lucide="user" class="w-4 h-4"></i>
+                <span>Connexion</span>
+              </button>
+            `;
+          }
+
+          if (mobileLabel) mobileLabel.textContent = "Connexion";
+          if (mobileAvatar) mobileAvatar.innerHTML = `<i data-lucide="user" class="w-5 h-5"></i>`;
         }
         if (window.lucide) lucide.createIcons();
+      }
+
+      handleMobileAccountClick() {
+        if (this.currentUser) {
+          this.navigateTo('crm');
+        } else {
+          this.openModal('authModal');
+        }
       }
 
       logout() {
@@ -1498,6 +1871,10 @@
         document.querySelectorAll(".soft-tab").forEach(t => t.classList.remove("active"));
         document.getElementById(`nav-tab-${view}`)?.classList.add("active");
 
+        // Mise à jour de la barre de navigation mobile
+        document.querySelectorAll(".mobile-nav-btn").forEach(b => b.classList.remove("active"));
+        document.getElementById(`mobile-tab-${view}`)?.classList.add("active");
+
         document.querySelectorAll(".view-section").forEach(s => {
           s.classList.remove("active");
           s.classList.add("hidden");
@@ -1521,25 +1898,27 @@
         grid.innerHTML = DEFAULT_LEADS_FR.map(lead => {
           const isUnlocked = this.isLeadUnlockedByMe(lead.id);
           const country = this.getCountryInfo(lead.phone, lead.city);
+          const isSoldOut = lead.isSoldOut === true;
 
           return `
-            <div class="soft-lead-card p-5 sm:p-6 flex flex-col justify-between ${isUnlocked ? 'border-emerald-300 bg-emerald-50/20' : 'bg-white'}">
+            <div class="soft-lead-card p-5 sm:p-6 flex flex-col justify-between ${isUnlocked ? 'border-emerald-300 bg-emerald-50/20' : (isSoldOut ? 'border-slate-200/90 bg-slate-50/70 opacity-95' : 'bg-white border-slate-200/80 hover:border-sky-300 shadow-sm')}">
               <div class="space-y-4">
                 <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
                   <div>
                     <h3 class="font-heading font-bold text-sm text-slate-900 flex items-center gap-2">
                       <span class="text-base shrink-0" title="${country.name}">${country.flag}</span>
-                      <span>${isUnlocked ? '<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block mr-1"></span> ' + lead.fullName : 'M. ' + lead.fullName.split(' ')[0] + ' ••••••••• (Client Vérifié)'}</span>
+                      <span>${isUnlocked ? '<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block mr-1"></span> ' + lead.fullName : (isSoldOut ? 'M. ' + lead.fullName.split(' ')[0] + ' ••••••••• <span class="text-[10px] font-bold text-slate-400 font-sans ml-1">(Exclusivité Attribuée)</span>' : 'M. ' + lead.fullName.split(' ')[0] + ' ••••••••• (Client Vérifié)')}</span>
                     </h3>
-                    <div class="flex items-center gap-2.5 text-[11px] text-slate-500 mt-1.5 flex-wrap">
+                    <div class="flex items-center gap-2 text-[11px] text-slate-500 mt-1.5 flex-wrap">
                       <span class="font-mono text-slate-700 font-semibold">${isUnlocked ? lead.phone : '•• •• •• ••'}</span>
                       <span class="font-medium text-slate-700">📍 ${lead.city}</span>
                       <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200/60">${country.flag} ${country.name}</span>
+                      <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md ${isSoldOut ? 'bg-amber-50 text-amber-900 border border-amber-200/80 font-bold' : 'bg-sky-50 text-sky-800 border border-sky-200/70'} flex items-center gap-1">🕒 ${lead.publishedAt || 'Publié récemment'}</span>
                     </div>
                   </div>
 
                   <div class="text-right shrink-0">
-                    <span class="text-xs font-bold px-2.5 py-1 rounded-full ${lead.category === 'construction' ? 'bg-sky-50 text-sky-800 border border-sky-200' : 'bg-blue-50 text-blue-800 border border-blue-200'}">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full ${isSoldOut ? 'bg-slate-200/70 text-slate-700 border border-slate-300/60' : (lead.category === 'construction' ? 'bg-sky-50 text-sky-800 border border-sky-200' : 'bg-blue-50 text-blue-800 border border-blue-200')}">
                       ${lead.categoryLabel}
                     </span>
                   </div>
@@ -1549,45 +1928,75 @@
                   <h4 class="font-bold text-xs text-slate-900 leading-snug">${lead.title}</h4>
                   <p class="text-xs text-slate-600 leading-relaxed">${lead.description}</p>
 
-                  <div class="grid grid-cols-3 gap-2 pt-1 text-[11px]">
-                    <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                      <span class="text-slate-400 block text-[9px] uppercase font-bold">Budget</span>
-                      <span class="font-bold text-slate-900">${lead.budget}</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                      <span class="text-slate-400 block text-[9px] uppercase font-bold">Délai</span>
-                      <span class="font-semibold text-slate-700">${lead.horizon}</span>
-                    </div>
-                    <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                      <span class="text-slate-400 block text-[9px] uppercase font-bold">Surface</span>
-                      <span class="font-semibold text-slate-700">${lead.surface}</span>
+                  <div class="pt-1 text-xs">
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100/90 flex items-center justify-between">
+                      <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider">Budget Prévisionnel</span>
+                      <span class="font-extrabold text-slate-900 text-xs">${lead.budget}</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 mt-4">
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full ${isUnlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}">
-                  ${isUnlocked ? '✅ Chantier Débloqué' : '⚡ Disponible'}
-                </span>
+              <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 mt-4">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  ${isUnlocked ? `
+                    <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
+                      ✅ Chantier Débloqué
+                    </span>
+                  ` : (isSoldOut ? `
+                    <span class="text-[10.5px] font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/90 flex items-center gap-1.5 shadow-2xs">
+                      <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> ${lead.buyerInfo}
+                    </span>
+                  ` : `
+                    <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      ⚡ Disponible
+                    </span>
+                    <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 flex items-center gap-1 shadow-2xs">
+                      🔒 Lead Exclusif (1 seul acheteur)
+                    </span>
+                  `)}
+                </div>
 
                 ${isUnlocked ? `
-                  <button class="btn-sky-secondary text-xs py-2 px-3.5 font-bold flex items-center gap-1.5" onclick="app.openLeadDetailModal('${lead.id}')">
+                  <button class="btn-sky-secondary text-xs py-2 px-3.5 font-bold flex items-center gap-1.5 cursor-pointer" onclick="app.openLeadDetailModal('${lead.id}')">
                     <i data-lucide="eye" class="w-3.5 h-3.5 text-emerald-600"></i> Voir Coordonnées
                   </button>
-                ` : `
-                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2 shadow-sm" onclick="app.openPurchaseModal('${lead.id}')">
-                    <i data-lucide="key" class="w-3.5 h-3.5 text-amber-300"></i> Débloquer ce chantier
+                ` : (isSoldOut ? `
+                  <button class="px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-400 font-bold text-xs flex items-center gap-1.5 cursor-not-allowed select-none opacity-80" disabled title="Ce chantier a déjà été attribué et débloqué par un confrère entrepreneur">
+                    <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> Exclusivité Verrouillée
                   </button>
-                `}
+                ` : `
+                  <button class="btn-sky-primary text-xs py-2.5 px-4 font-bold flex items-center gap-2 shadow-sm cursor-pointer" onclick="app.openPurchaseModal('${lead.id}')">
+                    <i data-lucide="key" class="w-3.5 h-3.5 text-amber-300"></i> Débloquer ce chantier (${lead.unlockPrice || '7 000 FCFA'})
+                  </button>
+                `)}
               </div>
             </div>
           `;
         }).join("");
 
+        const countAvailable = DEFAULT_LEADS_FR.filter(l => !l.isSoldOut).length;
+        const navAvailable = document.getElementById("nav-count-available");
+        if (navAvailable) navAvailable.textContent = countAvailable;
+        const resultsBadge = document.getElementById("results-count-badge");
+        if (resultsBadge) {
+          resultsBadge.innerHTML = `<span class="text-sky-700 font-extrabold">${countAvailable} chantiers exclusifs disponibles</span> <span class="text-slate-300 mx-1">•</span> <span class="text-emerald-700 font-bold">7 chantiers récemment débloqués</span>`;
+        }
+        const mobileMarketplaceCount = document.querySelector("#mobile-tab-marketplace .font-extrabold");
+        if (mobileMarketplaceCount) mobileMarketplaceCount.textContent = countAvailable;
+
         const countPurchased = this.getMyUnlockedLeadIds().length;
         const navPurchased = document.getElementById("nav-count-purchased");
         if (navPurchased) navPurchased.textContent = countPurchased;
+        const mobilePurchased = document.getElementById("mobile-count-purchased");
+        if (mobilePurchased) {
+          mobilePurchased.textContent = countPurchased;
+          if (countPurchased > 0) {
+            mobilePurchased.classList.remove("hidden");
+          } else {
+            mobilePurchased.classList.add("hidden");
+          }
+        }
 
         if (window.lucide) lucide.createIcons();
       }
@@ -1615,13 +2024,13 @@
               </div>
               <h4 class="font-bold text-slate-900 text-sm leading-snug">${lead.title}</h4>
               <p class="text-slate-600 text-xs">${lead.description}</p>
-              <div class="flex items-center justify-between border-t border-slate-200/80 pt-2 text-[11px] text-slate-600 font-medium">
-                <span>Budget : <strong class="text-slate-900">${lead.budget}</strong></span>
-                <span>Délai : <strong class="text-slate-900">${lead.horizon}</strong></span>
+              <div class="flex items-center justify-between border-t border-slate-200/80 pt-2 text-xs text-slate-700 font-medium">
+                <span>Budget Prévisionnel : <strong class="text-slate-900 font-extrabold">${lead.budget}</strong></span>
+                <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md font-bold border border-emerald-200/70">⚡ 1 Seul Acheteur</span>
               </div>
-              <div class="text-[11px] text-sky-800 bg-sky-50/90 p-2.5 rounded-xl border border-sky-200 flex items-center gap-2 font-medium">
-                <i data-lucide="mail-check" class="w-4 h-4 text-sky-600 shrink-0"></i>
-                <span>Débloquez votre contact immédiatement et obtenez la clé de licence par mail.</span>
+              <div class="text-[11px] text-amber-900 bg-amber-50 p-2.5 rounded-xl border border-amber-200 flex items-center gap-2 font-medium">
+                <i data-lucide="lock" class="w-4 h-4 text-amber-700 shrink-0"></i>
+                <span><strong>Lead 100% Exclusif :</strong> 1 chantier = 1 seul entrepreneur. Dès votre déblocage, ce contact est retiré du marché.</span>
               </div>
             </div>
           `;
@@ -1646,7 +2055,13 @@
         this.closeModal("purchaseModal");
         this.openModal("paymentModal");
 
-        // Réinitialisation du widget Chariow
+        // Assurer le rendu dynamique et propre du widget Chariow
+        const iframe = document.querySelector("#chariow-widget iframe");
+        if (iframe) {
+          if (!iframe.src || iframe.src === "about:blank") {
+            iframe.src = "https://maitre-kone.com/widget/prd_y728zymq/checkout?primary_color=%23ffcc00&background_color=%23FFFFFF&border_style=rounded&cta_animation=bounce_rotate&locale=en";
+          }
+        }
         if (window.Chariow && typeof window.Chariow.init === 'function') {
           try { window.Chariow.init(); } catch(e) {}
         }
@@ -1853,6 +2268,8 @@
 
           const navPurchased = document.getElementById("nav-count-purchased");
           if (navPurchased) navPurchased.textContent = "0";
+          const mobilePurchased = document.getElementById("mobile-count-purchased");
+          if (mobilePurchased) mobilePurchased.classList.add("hidden");
           return;
         }
 
@@ -1863,6 +2280,15 @@
 
         const navPurchased = document.getElementById("nav-count-purchased");
         if (navPurchased) navPurchased.textContent = myLeads.length;
+        const mobilePurchased = document.getElementById("mobile-count-purchased");
+        if (mobilePurchased) {
+          mobilePurchased.textContent = myLeads.length;
+          if (myLeads.length > 0) {
+            mobilePurchased.classList.remove("hidden");
+          } else {
+            mobilePurchased.classList.add("hidden");
+          }
+        }
 
         const columns = {
           new: myLeads.filter(l => this.getLeadStatus(l.id) === "new"),
@@ -1940,7 +2366,7 @@
           this.deferredPwaPrompt.prompt();
           this.deferredPwaPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
-              this.showToast("🎉 Raccourci Bati'O ajouté directement sur votre écran d'accueil !");
+              this.showToast("🎉 Raccourci Bativo ajouté directement sur votre écran d'accueil !");
             }
             this.deferredPwaPrompt = null;
           });

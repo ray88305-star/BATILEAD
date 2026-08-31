@@ -1,9 +1,13 @@
-﻿const CACHE_NAME = 'batilead-v1';
+const CACHE_NAME = 'bativo-v3';
 const URLS_TO_CACHE = [
   './',
   './index.html',
   './style.css',
-  './manifest.json'
+  './manifest.json',
+  './logo.png',
+  './favicon.png',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', event => {
