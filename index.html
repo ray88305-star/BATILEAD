@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClimPro CRM — Gestion d'Apport d'Affaires Climatisation</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Style personnalisé -->
+  <link rel="stylesheet" href="style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#0A1424',
+              900: '#0F1E36',
+              800: '#172A46',
+              700: '#223B5F'
+            },
+            brand: {
+              blue: '#0284C7',
+              sky: '#38BDF8',
+              cyan: '#0EA5E9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col">
+
+  <!-- ========================================================================= -->
+  <!-- 1. ÉCRAN DE VERROUILLAGE / CONNEXION ADMINISTRATEUR PRIVÉ -->
+  <!-- ========================================================================= -->
+  <div id="admin-lock-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/95 backdrop-blur-md">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 text-center space-y-6">
+      
+      <!-- Logo & Icône -->
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 text-white shadow-lg shadow-sky-500/30 mx-auto">
+        <i data-lucide="snowflake" class="w-9 h-9"></i>
+      </div>
+
+      <div class="space-y-1.5">
+        <h1 class="text-2xl font-extrabold text-navy-900 tracking-tight">ClimPro CRM</h1>
+        <p class="text-xs text-slate-500">Gestion d'activité d'apport d'affaires en climatisation</p>
+      </div>
+
+      <div class="bg-sky-50 p-3.5 rounded-2xl border border-sky-100 text-left flex items-start gap-3">
+        <i data-lucide="shield-check" class="w-5 h-5 text-sky-600 shrink-0 mt-0.5"></i>
+        <div class="text-[11px] text-sky-950 leading-relaxed">
+          <strong>Accès Administrateur Unique</strong><br>
+          Entrez votre code PIN pour accéder à votre tableau de bord et vos finances.
+          <span class="block mt-1 text-slate-500 font-mono">Code PIN par défaut : <strong>1234</strong></span>
+        </div>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 text-left">Code PIN Administrateur</label>
+          <input 
+            type="password" 
+            id="admin-pin-input" 
+            class="w-full px-4 py-3 text-center text-xl font-mono tracking-widest rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all" 
+            placeholder="••••" 
+            maxlength="8" 
+            required 
+            autofocus
+          />
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 rounded-xl btn-primary font-bold text-sm flex items-center justify-center gap-2 cursor-pointer">
+          <i data-lucide="lock-open" class="w-4 h-4"></i> Déverrouiller l'Espace Admin
+        </button>
+      </form>
+
+      <div class="text-[11px] text-slate-400">
+        Côte d'Ivoire (Abidjan) • Modèle 10 000 F / 4 000 F FCFA
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. APPLICATION PRINCIPALE (SIDEBAR + TOPBAR + VUES) -->
+  <!-- ========================================================================= -->
+  <div id="main-app-container" class="flex-1 flex overflow-hidden hidden">
+
+    <!-- SIDEBAR DESKTOP (Bleu Foncé) -->
+    <aside class="hidden lg:flex lg:flex-col w-64 bg-navy-900 border-r border-navy-800 text-white shrink-0 justify-between select-none">
+      
+      <!-- Brand & Header -->
+      <div class="p-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-sky-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
+            <i data-lucide="snowflake" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="font-extrabold text-base tracking-tight text-white">ClimPro CRM</div>
+            <div class="text-[10px] text-sky-400 font-bold uppercase tracking-wider">Apporteur d'Affaires</div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-navy-800">
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-2 px-2">Navigation</span>
+          <nav class="space-y-1">
+            <button data-nav-target="dashboard" class="nav-tab-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Tableau de bord
+            </button>
+            <button data-nav-target="clients" class="nav-tab-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="users" class="w-4 h-4"></i> Clients
+            </button>
+            <button data-nav-target="techniciens" class="nav-tab-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="wrench" class="w-4 h-4"></i> Techniciens
+            </button>
+            <button data-nav-target="rendezvous" class="nav-tab-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="calendar" class="w-4 h-4"></i> Rendez-vous
+            </button>
+            <button data-nav-target="interventions" class="nav-tab-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="check-square" class="w-4 h-4"></i> Interventions
+            </button>
+            <button data-nav-target="finances" class="nav-tab-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-navy-800/60 transition-colors">
+              <i data-lucide="banknote" class="w-4 h-4"></i> Finances & Marge
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Bas de Sidebar : Actions Rapides & Profil -->
+      <div class="p-4 border-t border-navy-800 space-y-3 bg-navy-950/40">
+        <!-- Badge Économique -->
+        <div class="p-2.5 rounded-xl bg-navy-800/80 border border-navy-700/60 text-[11px] space-y-1">
+          <div class="flex items-center justify-between text-slate-400">
+            <span>Prix Client :</span>
+            <strong class="text-white font-mono">10 000 F</strong>
+          </div>
+          <div class="flex items-center justify-between text-sky-400 font-bold">
+            <span>Votre Marge :</span>
+            <span class="font-mono text-emerald-400 font-extrabold">+4 000 F</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <button onclick="app.exportDataJson()" class="p-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-slate-300 hover:text-white text-xs flex items-center gap-1.5 transition-colors" title="Télécharger une sauvegarde JSON">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Sauvegarde
+          </button>
+          <button onclick="app.logout()" class="p-2 rounded-lg bg-navy-800 hover:bg-rose-900/50 text-slate-300 hover:text-rose-400 text-xs flex items-center gap-1.5 transition-colors" title="Verrouiller la session">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Quitter
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- DRAWER MOBILE -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs hidden lg:hidden"></div>
+    <div id="mobile-drawer" class="fixed inset-y-0 left-0 z-50 w-72 bg-navy-900 text-white transform -translate-x-full transition-transform duration-200 ease-in-out lg:hidden flex flex-col justify-between">
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-navy-800">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-sky-600 text-white flex items-center justify-center">
+              <i data-lucide="snowflake" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="font-bold text-sm text-white">ClimPro CRM</div>
+              <div class="text-[10px] text-sky-400 font-bold">Apporteur d'Affaires</div>
+            </div>
+          </div>
+          <button id="btn-close-mobile-drawer" class="p-1 rounded-lg hover:bg-navy-800 text-slate-400">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-1.5 mt-6">
+          <button data-nav-target="dashboard" class="nav-tab-item active w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Tableau de bord
+          </button>
+          <button data-nav-target="clients" class="nav-tab-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="users" class="w-4 h-4"></i> Clients
+          </button>
+          <button data-nav-target="techniciens" class="nav-tab-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="wrench" class="w-4 h-4"></i> Techniciens
+          </button>
+          <button data-nav-target="rendezvous" class="nav-tab-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="calendar" class="w-4 h-4"></i> Rendez-vous
+          </button>
+          <button data-nav-target="interventions" class="nav-tab-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="check-square" class="w-4 h-4"></i> Interventions
+          </button>
+          <button data-nav-target="finances" class="nav-tab-item w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold text-slate-300 hover:text-white">
+            <i data-lucide="banknote" class="w-4 h-4"></i> Finances & Marge
+          </button>
+        </nav>
+      </div>
+
+      <div class="p-4 border-t border-navy-800 bg-navy-950/60 flex items-center justify-between">
+        <button onclick="app.exportDataJson()" class="px-3 py-2 rounded-lg bg-navy-800 text-xs text-slate-300 flex items-center gap-1.5">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> Sauvegarde
+        </button>
+        <button onclick="app.logout()" class="px-3 py-2 rounded-lg bg-rose-950/80 text-xs text-rose-300 flex items-center gap-1.5">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Quitter
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+      <!-- TOP BAR HEADER -->
+      <header class="bg-white border-b border-slate-200/80 px-4 sm:px-8 py-3.5 sticky top-0 z-30 flex items-center justify-between gap-4 shadow-2xs">
+        <div class="flex items-center gap-3">
+          <button id="btn-open-mobile-drawer" class="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+          <div>
+            <h2 class="text-base sm:text-lg font-extrabold text-navy-900 tracking-tight flex items-center gap-2">
+              <span>ClimPro CRM</span>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 hidden sm:inline-block">En Ligne • FCFA</span>
+            </h2>
+            <p class="text-[11px] text-slate-500 hidden sm:block">Entretien & Nettoyage de climatiseurs à domicile</p>
+          </div>
+        </div>
+
+        <!-- Raccourcis d'actions rapides du Topbar -->
+        <div class="flex items-center gap-2">
+          <button onclick="app.openModalClient()" class="btn-secondary text-xs py-2 px-3 rounded-xl font-bold flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5 text-sky-600"></i>
+            <span class="hidden md:inline">Nouveau Client</span>
+          </button>
+          <button onclick="app.openModalRdv()" class="btn-primary text-xs py-2 px-3 rounded-xl font-bold flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Programmer RDV</span>
+          </button>
+          <button onclick="app.openModalIntervention()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm shadow-emerald-600/30 cursor-pointer">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Intervention</span>
+          </button>
+          <button onclick="app.openModalPaiement()" class="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs flex items-center gap-1" title="Encaisser un versement">
+            <i data-lucide="hand-coins" class="w-4 h-4 text-amber-700"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- CORPS DES VUES -->
+      <main class="flex-1 p-4 sm:p-8 space-y-6">
+
+        <!-- ================================================================= -->
+        <!-- VUE 1 : TABLEAU DE BORD (DASHBOARD) -->
+        <!-- ================================================================= -->
+        <section id="view-dashboard" class="view-section space-y-6">
+          
+          <!-- Bandeau Modèle Économique & Bienvenue -->
+          <div class="bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 rounded-3xl p-6 sm:p-7 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-navy-700">
+            <div class="space-y-1.5 max-w-xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-[11px] font-bold border border-sky-400/30">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Pilotage d'Activité en Temps Réel
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white">Apport d'Affaires Climatisation Abidjan</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Le client paie <strong>10 000 FCFA</strong> par climatiseur nettoyé. Le technicien vous reverse <strong>4 000 FCFA</strong> (votre marge nette).
+              </p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0 flex-wrap">
+              <button onclick="app.openModalRdv()" class="py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-sky-500/30">
+                <i data-lucide="calendar-plus" class="w-4 h-4"></i> Nouveau RDV
+              </button>
+              <button onclick="app.openModalIntervention()" class="py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-500/30">
+                <i data-lucide="check-circle" class="w-4 h-4"></i> Clôturer Job
+              </button>
+            </div>
+          </div>
+
+          <!-- FILTRE PAR DATE DU TABLEAU DE BORD -->
+          <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
+                <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-xs font-extrabold text-navy-900">Filtrer par Période :</span>
+              <span id="dashboard-date-range-badge" class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">Toutes les dates</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <!-- Sélecteur Date Début / Fin -->
+              <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="text-[11px] font-semibold text-slate-500">Du</span>
+                <input 
+                  type="date" 
+                  id="dashboard-date-start" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.setDashboardDateRange(this.value, document.getElementById('dashboard-date-end').value)"
+                />
+                <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+                <input 
+                  type="date" 
+                  id="dashboard-date-end" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.setDashboardDateRange(document.getElementById('dashboard-date-start').value, this.value)"
+                />
+                <button 
+                  onclick="app.resetDashboardDateRange()" 
+                  class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                  title="Réinitialiser la période"
+                >
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <!-- Raccourcis Rapides -->
+              <div class="flex items-center gap-1">
+                <button onclick="app.setDashboardPreset('today')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-sky-700 bg-slate-100 hover:bg-sky-50 rounded-lg transition-colors cursor-pointer">Aujourd'hui</button>
+                <button onclick="app.setDashboardPreset('week')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-sky-700 bg-slate-100 hover:bg-sky-50 rounded-lg transition-colors cursor-pointer">Cette Semaine</button>
+                <button onclick="app.setDashboardPreset('month')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-sky-700 bg-slate-100 hover:bg-sky-50 rounded-lg transition-colors cursor-pointer">Ce Mois</button>
+                <button onclick="app.resetDashboardDateRange()" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-500 hover:text-slate-800 bg-slate-100 rounded-lg transition-colors cursor-pointer">Tout</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- GRILLE DES 8 CARTES KPI ESSENTIELLES -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- 1. Total Clients -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Clients</span>
+                <div class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-clients-count" class="text-2xl font-extrabold text-navy-900 font-mono">0</div>
+                <span class="text-[11px] text-slate-400">Prospects & clients</span>
+              </div>
+            </div>
+
+            <!-- 2. Total Techniciens -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Techniciens</span>
+                <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+                  <i data-lucide="wrench" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-techs-count" class="text-2xl font-extrabold text-navy-900 font-mono">0</div>
+                <span class="text-[11px] text-slate-400">Partenaires actifs</span>
+              </div>
+            </div>
+
+            <!-- 3. RDV à venir -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">RDV à Venir</span>
+                <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-rdv-count" class="text-2xl font-extrabold text-blue-700 font-mono">0</div>
+                <span class="text-[11px] text-slate-400">Planifiés & confirmés</span>
+              </div>
+            </div>
+
+            <!-- 4. Interventions réalisées -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Interventions</span>
+                <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <i data-lucide="check-check" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-interventions-count" class="text-2xl font-extrabold text-emerald-700 font-mono">0</div>
+                <span class="text-[11px] text-slate-400">Climatiseurs nettoyés</span>
+              </div>
+            </div>
+
+            <!-- 5. Interventions en attente -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">En Attente</span>
+                <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                  <i data-lucide="clock" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-attente-count" class="text-2xl font-extrabold text-amber-600 font-mono">0</div>
+                <span class="text-[11px] text-slate-400">À effectuer sous peu</span>
+              </div>
+            </div>
+
+            <!-- 6. Commissions reçues -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Commissions Reçues</span>
+                <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <i data-lucide="wallet" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-commissions-recues" class="text-lg sm:text-xl font-extrabold text-emerald-700 font-mono">0 FCFA</div>
+                <span class="text-[11px] text-slate-400">Déjà encaissées</span>
+              </div>
+            </div>
+
+            <!-- 7. Commissions restant à recevoir -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Reste à Encaisser</span>
+                <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+                  <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-commissions-restantes" class="text-lg sm:text-xl font-extrabold text-rose-600 font-mono">0 FCFA</div>
+                <span class="text-[11px] text-slate-400">Dû par les techniciens</span>
+              </div>
+            </div>
+
+            <!-- 8. Bénéfice total -->
+            <div class="kpi-card p-4 sm:p-5 flex flex-col justify-between bg-gradient-to-br from-navy-900 to-navy-800 text-white border-navy-700">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-sky-300 uppercase tracking-wider">Bénéfice Total</span>
+                <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center">
+                  <i data-lucide="trending-up" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div id="kpi-benefice-total" class="text-lg sm:text-xl font-extrabold text-emerald-400 font-mono">0 FCFA</div>
+                <span class="text-[11px] text-slate-300">Votre marge perçue</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECTION WIDGETS : PROCHAINS RDV & DERNIÈRES INTERVENTIONS -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Prochains RDV -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 p-5 space-y-4 shadow-sm">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-2">
+                  <i data-lucide="calendar" class="w-4 h-4 text-sky-600"></i> Prochains Rendez-vous
+                </h4>
+                <button onclick="app.navigateTo('rendezvous')" class="text-xs font-bold text-sky-600 hover:text-sky-700">
+                  Voir tout &rarr;
+                </button>
+              </div>
+              <div id="dashboard-upcoming-rdv-list" class="space-y-2.5"></div>
+            </div>
+
+            <!-- Dernières Interventions & Commissions -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 p-5 space-y-4 shadow-sm">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Dernières Interventions Réalisées
+                </h4>
+                <button onclick="app.navigateTo('interventions')" class="text-xs font-bold text-sky-600 hover:text-sky-700">
+                  Voir tout &rarr;
+                </button>
+              </div>
+              <div id="dashboard-recent-interventions-list" class="space-y-2.5"></div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VUE 2 : GESTION DES CLIENTS -->
+        <!-- ================================================================= -->
+        <section id="view-clients" class="view-section space-y-5 hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-lg font-extrabold text-navy-900">Clients & Prospects</h3>
+                <span id="clients-count-badge" class="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold text-xs border border-sky-200">0 client</span>
+              </div>
+              <p class="text-xs text-slate-500">Gérez les demandes de nettoyage et les coordonnées de vos clients</p>
+            </div>
+            <button onclick="app.openModalClient()" class="btn-primary text-xs py-2.5 px-4 rounded-xl font-bold flex items-center gap-2 cursor-pointer self-start sm:self-auto">
+              <i data-lucide="user-plus" class="w-4 h-4"></i> Ajouter un Client
+            </button>
+          </div>
+
+          <!-- Barre de Recherche & Filtres -->
+          <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center gap-3">
+            <div class="relative flex-1 min-w-[200px]">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input 
+                type="text" 
+                id="filter-client-search" 
+                placeholder="Rechercher par nom, téléphone, quartier..." 
+                class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                oninput="app.filters.clients.search = this.value; app.renderClients();"
+              />
+            </div>
+
+            <!-- Filtre Statut -->
+            <select 
+              id="filter-client-statut" 
+              class="text-xs py-2 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+              onchange="app.filters.clients.statut = this.value; app.renderClients();"
+            >
+              <option value="all">Tous les statuts</option>
+              <option value="nouveau">Nouveau</option>
+              <option value="intéressé">Intéressé</option>
+              <option value="confirmé">Confirmé</option>
+              <option value="terminé">Terminé</option>
+              <option value="annulé">Annulé</option>
+            </select>
+
+            <!-- Filtre Commune -->
+            <select 
+              id="filter-client-commune" 
+              class="text-xs py-2 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+              onchange="app.filters.clients.commune = this.value; app.renderClients();"
+            >
+              <option value="all">Toutes les communes</option>
+              <option value="Cocody">Cocody</option>
+              <option value="Marcory">Marcory</option>
+              <option value="Yopougon">Yopougon</option>
+              <option value="Koumassi">Koumassi</option>
+              <option value="Bingerville">Bingerville</option>
+              <option value="Port-Bouët">Port-Bouët</option>
+              <option value="Abobo">Abobo</option>
+              <option value="Plateau">Plateau</option>
+            </select>
+
+            <!-- Filtre Date Contact -->
+            <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span class="text-[11px] font-semibold text-slate-500">Du</span>
+              <input 
+                type="date" 
+                id="filter-client-date-start" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.clients.dateStart = this.value; app.renderClients();"
+              />
+              <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+              <input 
+                type="date" 
+                id="filter-client-date-end" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.clients.dateEnd = this.value; app.renderClients();"
+              />
+              <button 
+                onclick="document.getElementById('filter-client-date-start').value=''; document.getElementById('filter-client-date-end').value=''; app.filters.clients.dateStart=''; app.filters.clients.dateEnd=''; app.renderClients();" 
+                class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                title="Effacer le filtre date"
+              >
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tableau des Clients -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                    <th class="py-3 px-4">Client</th>
+                    <th class="py-3 px-4">Téléphone</th>
+                    <th class="py-3 px-4">Commune / Quartier</th>
+                    <th class="py-3 px-4">Adresse</th>
+                    <th class="py-3 px-4 text-center">Clims</th>
+                    <th class="py-3 px-4">Statut</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="clients-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VUE 3 : GESTION DES TECHNICIENS -->
+        <!-- ================================================================= -->
+        <section id="view-techniciens" class="view-section space-y-5 hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-lg font-extrabold text-navy-900">Techniciens Partenaires</h3>
+                <span id="techniciens-count-badge" class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200">0 technicien</span>
+              </div>
+              <p class="text-xs text-slate-500">Suivi des artisans BTP / Frigoristes partenaires et de leurs reversements</p>
+            </div>
+            <button onclick="app.openModalTechnicien()" class="btn-primary text-xs py-2.5 px-4 rounded-xl font-bold flex items-center gap-2 cursor-pointer self-start sm:self-auto">
+              <i data-lucide="wrench" class="w-4 h-4"></i> Ajouter un Technicien
+            </button>
+          </div>
+
+          <!-- Barre de Recherche & Filtres -->
+          <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center gap-3">
+            <div class="relative flex-1 min-w-[200px]">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input 
+                type="text" 
+                placeholder="Rechercher par nom, commune, zone..." 
+                class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                oninput="app.filters.techniciens.search = this.value; app.renderTechniciens();"
+              />
+            </div>
+
+            <select 
+              class="text-xs py-2 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+              onchange="app.filters.techniciens.statut = this.value; app.renderTechniciens();"
+            >
+              <option value="all">Tous les statuts</option>
+              <option value="disponible">Disponible</option>
+              <option value="indisponible">Indisponible</option>
+            </select>
+
+            <!-- Filtre Période Techniciens -->
+            <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span class="text-[11px] font-semibold text-slate-500">Période du</span>
+              <input 
+                type="date" 
+                id="filter-tech-date-start" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.techniciens.dateStart = this.value; app.renderTechniciens();"
+              />
+              <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+              <input 
+                type="date" 
+                id="filter-tech-date-end" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.techniciens.dateEnd = this.value; app.renderTechniciens();"
+              />
+              <button 
+                onclick="document.getElementById('filter-tech-date-start').value=''; document.getElementById('filter-tech-date-end').value=''; app.filters.techniciens.dateStart=''; app.filters.techniciens.dateEnd=''; app.renderTechniciens();" 
+                class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                title="Effacer le filtre période"
+              >
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tableau des Techniciens -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                    <th class="py-3 px-4">Technicien</th>
+                    <th class="py-3 px-4">Contact</th>
+                    <th class="py-3 px-4">Zone d'Intervention</th>
+                    <th class="py-3 px-4">Disponibilité</th>
+                    <th class="py-3 px-4 text-center">Interventions</th>
+                    <th class="py-3 px-4 text-right">Commissions Dues / Reversées</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="techniciens-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VUE 4 : GESTION DES RENDEZ-VOUS (LISTE + CALENDRIER) -->
+        <!-- ================================================================= -->
+        <section id="view-rendezvous" class="view-section space-y-5 hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-lg font-extrabold text-navy-900">Rendez-vous & Planning</h3>
+                <span id="rdv-count-badge" class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs border border-blue-200">0 RDV</span>
+              </div>
+              <p class="text-xs text-slate-500">Planifiez et affectez les interventions aux techniciens</p>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <!-- Switch Vue Liste / Calendrier -->
+              <div class="bg-slate-200/80 p-1 rounded-xl flex items-center text-xs font-bold">
+                <button id="btn-rdv-toggle-list" onclick="app.setRdvViewMode('list')" class="px-3 py-1.5 rounded-lg bg-white shadow-xs text-sky-700 flex items-center gap-1.5 transition-all">
+                  <i data-lucide="list" class="w-3.5 h-3.5"></i> Liste
+                </button>
+                <button id="btn-rdv-toggle-calendar" onclick="app.setRdvViewMode('calendar')" class="px-3 py-1.5 rounded-lg text-slate-600 flex items-center gap-1.5 hover:text-slate-900 transition-all">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Calendrier
+                </button>
+              </div>
+
+              <button onclick="app.openModalRdv()" class="btn-primary text-xs py-2.5 px-4 rounded-xl font-bold flex items-center gap-2 cursor-pointer">
+                <i data-lucide="calendar-plus" class="w-4 h-4"></i> Programmer un RDV
+              </button>
+            </div>
+          </div>
+
+          <!-- SOUS-VUE : LISTE DES RENDEZ-VOUS -->
+          <div id="rdv-view-list" class="space-y-4">
+            
+            <!-- Filtres -->
+            <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center gap-3">
+              <div class="relative flex-1 min-w-[200px]">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                <input 
+                  type="text" 
+                  placeholder="Rechercher par client, technicien, adresse..." 
+                  class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  oninput="app.filters.rendezvous.search = this.value; app.renderRdvTable();"
+                />
+              </div>
+
+              <select 
+                class="text-xs py-2 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+                onchange="app.filters.rendezvous.statut = this.value; app.renderRdvTable();"
+              >
+                <option value="all">Tous les statuts</option>
+                <option value="à programmer">À programmer</option>
+                <option value="programmé">Programmé</option>
+                <option value="confirmé">Confirmé</option>
+                <option value="intervention effectuée">Intervention effectuée</option>
+                <option value="reporté">Reporté</option>
+                <option value="annulé">Annulé</option>
+              </select>
+
+              <!-- Filtre Date Rendez-vous -->
+              <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="text-[11px] font-semibold text-slate-500">Du</span>
+                <input 
+                  type="date" 
+                  id="filter-rdv-date-start" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.filters.rendezvous.dateStart = this.value; app.renderRdvTable();"
+                />
+                <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+                <input 
+                  type="date" 
+                  id="filter-rdv-date-end" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.filters.rendezvous.dateEnd = this.value; app.renderRdvTable();"
+                />
+                <button 
+                  onclick="document.getElementById('filter-rdv-date-start').value=''; document.getElementById('filter-rdv-date-end').value=''; app.filters.rendezvous.dateStart=''; app.filters.rendezvous.dateEnd=''; app.renderRdvTable();" 
+                  class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                  title="Effacer le filtre date"
+                >
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tableau -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                      <th class="py-3 px-4">Date & Heure</th>
+                      <th class="py-3 px-4">Client</th>
+                      <th class="py-3 px-4">Adresse</th>
+                      <th class="py-3 px-4 text-center">Clims</th>
+                      <th class="py-3 px-4">Technicien Affecté</th>
+                      <th class="py-3 px-4">Statut RDV</th>
+                      <th class="py-3 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rdv-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SOUS-VUE : CALENDRIER INTERACTIF -->
+          <div id="rdv-view-calendar" class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4 hidden">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <button onclick="app.calendarPrevMonth()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <h4 id="calendar-month-title" class="font-extrabold text-base text-navy-900">Mois Année</h4>
+                <button onclick="app.calendarNextMonth()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="app.calendarToday()" class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50">
+                  Aujourd'hui
+                </button>
+                <span class="text-xs text-slate-400 hidden sm:inline">• Cliquez sur un jour pour voir ou programmer un RDV</span>
+              </div>
+            </div>
+
+            <!-- Jours de la semaine -->
+            <div class="grid grid-cols-7 gap-1 text-center font-bold text-[11px] text-slate-400 uppercase tracking-wider py-1">
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mer</div>
+              <div>Jeu</div>
+              <div>Ven</div>
+              <div>Sam</div>
+              <div>Dim</div>
+            </div>
+
+            <!-- Grille des jours -->
+            <div id="calendar-grid-days" class="grid grid-cols-7 gap-1"></div>
+          </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VUE 5 : GESTION DES INTERVENTIONS -->
+        <!-- ================================================================= -->
+        <section id="view-interventions" class="view-section space-y-5 hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-lg font-extrabold text-navy-900">Interventions & Réalisations</h3>
+                <span id="interventions-count-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-200">0 intervention</span>
+              </div>
+              <p class="text-xs text-slate-500">Clôture des chantiers avec le nombre réel de climatiseurs nettoyés</p>
+            </div>
+            <button onclick="app.openModalIntervention()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm shadow-emerald-600/30 cursor-pointer self-start sm:self-auto">
+              <i data-lucide="check-circle" class="w-4 h-4"></i> Enregistrer Intervention
+            </button>
+          </div>
+
+          <!-- Filtres -->
+          <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center gap-3">
+            <div class="relative flex-1 min-w-[200px]">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input 
+                type="text" 
+                placeholder="Rechercher par client, technicien, commentaire..." 
+                class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                oninput="app.filters.interventions.search = this.value; app.renderInterventions();"
+              />
+            </div>
+
+            <select 
+              class="text-xs py-2 px-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+              onchange="app.filters.interventions.statutPaiement = this.value; app.renderInterventions();"
+            >
+              <option value="all">Tous les règlements</option>
+              <option value="non payé">Non payé</option>
+              <option value="partiellement payé">Partiellement payé</option>
+              <option value="payé">Payé</option>
+            </select>
+
+            <!-- Filtre Date Intervention -->
+            <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span class="text-[11px] font-semibold text-slate-500">Du</span>
+              <input 
+                type="date" 
+                id="filter-inv-date-start" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.interventions.dateStart = this.value; app.renderInterventions();"
+              />
+              <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+              <input 
+                type="date" 
+                id="filter-inv-date-end" 
+                class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                onchange="app.filters.interventions.dateEnd = this.value; app.renderInterventions();"
+              />
+              <button 
+                onclick="document.getElementById('filter-inv-date-start').value=''; document.getElementById('filter-inv-date-end').value=''; app.filters.interventions.dateStart=''; app.filters.interventions.dateEnd=''; app.renderInterventions();" 
+                class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                title="Effacer le filtre date"
+              >
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tableau -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                    <th class="py-3 px-4">Date</th>
+                    <th class="py-3 px-4">Client</th>
+                    <th class="py-3 px-4">Technicien</th>
+                    <th class="py-3 px-4 text-center">Clims Réels</th>
+                    <th class="py-3 px-4">Montant Client</th>
+                    <th class="py-3 px-4">Commission Due</th>
+                    <th class="py-3 px-4">Reçu / Reste</th>
+                    <th class="py-3 px-4">Statut Paiement</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="interventions-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- VUE 6 : GESTION FINANCIÈRE & MARGE -->
+        <!-- ================================================================= -->
+        <section id="view-finances" class="view-section space-y-6 hidden">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-lg font-extrabold text-navy-900">Gestion Financière & Trésorerie</h3>
+              <p class="text-xs text-slate-500">Calcul automatique des commissions, suivi des versements et recouvrement</p>
+            </div>
+            <button onclick="app.openModalPaiement()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm shadow-emerald-600/30 cursor-pointer self-start sm:self-auto">
+              <i data-lucide="hand-coins" class="w-4 h-4"></i> Enregistrer un Versement
+            </button>
+          </div>
+
+          <!-- Encadré Modèle Économique -->
+          <div class="p-4 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-lg shrink-0">
+                %
+              </div>
+              <div>
+                <h4 class="font-extrabold text-xs text-sky-950 uppercase tracking-wider">Modèle Économique Automatique</h4>
+                <p class="text-xs text-sky-900">
+                  Client paie <strong>10 000 FCFA</strong>/clim • Part Technicien <strong>6 000 FCFA</strong> • Votre Marge Nette <strong>4 000 FCFA</strong>
+                </p>
+              </div>
+            </div>
+            <div class="text-[11px] font-mono text-sky-800 bg-white px-3 py-1.5 rounded-xl border border-sky-200">
+              Formule : Nb Clims × 4 000 FCFA = Marge Apporteur
+            </div>
+          </div>
+
+          <!-- FILTRE PÉRIODE FINANCIÈRE -->
+          <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <i data-lucide="calendar-range" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-xs font-extrabold text-navy-900">Période Financière :</span>
+              <span id="finances-date-badge" class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">Toutes les dates</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="text-[11px] font-semibold text-slate-500">Du</span>
+                <input 
+                  type="date" 
+                  id="filter-fin-date-start" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.setFinancesDateRange(this.value, document.getElementById('filter-fin-date-end').value)"
+                />
+                <span class="text-[11px] font-semibold text-slate-500 ml-1">Au</span>
+                <input 
+                  type="date" 
+                  id="filter-fin-date-end" 
+                  class="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
+                  onchange="app.setFinancesDateRange(document.getElementById('filter-fin-date-start').value, this.value)"
+                />
+                <button 
+                  onclick="app.resetFinancesDateRange()" 
+                  class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-white transition-colors" 
+                  title="Réinitialiser la période financière"
+                >
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <!-- Raccourcis Rapides -->
+              <div class="flex items-center gap-1">
+                <button onclick="app.setFinancesPreset('today')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-emerald-700 bg-slate-100 hover:bg-emerald-50 rounded-lg transition-colors cursor-pointer">Aujourd'hui</button>
+                <button onclick="app.setFinancesPreset('week')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-emerald-700 bg-slate-100 hover:bg-emerald-50 rounded-lg transition-colors cursor-pointer">Cette Semaine</button>
+                <button onclick="app.setFinancesPreset('month')" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-600 hover:text-emerald-700 bg-slate-100 hover:bg-emerald-50 rounded-lg transition-colors cursor-pointer">Ce Mois</button>
+                <button onclick="app.resetFinancesDateRange()" class="px-2.5 py-1.5 text-[11px] font-bold text-slate-500 hover:text-slate-800 bg-slate-100 rounded-lg transition-colors cursor-pointer">Tout</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grille des Chiffres Financiers Globaux -->
+          <div class="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
+            <div class="kpi-card p-4">
+              <span class="text-[11px] text-slate-500 font-bold uppercase block mb-1">CA Total Client</span>
+              <div id="fin-total-ca" class="text-lg font-extrabold text-navy-900 font-mono">0 FCFA</div>
+              <span class="text-[10px] text-slate-400">Total payé par clients</span>
+            </div>
+            <div class="kpi-card p-4">
+              <span class="text-[11px] text-slate-500 font-bold uppercase block mb-1">Part Techniciens</span>
+              <div id="fin-part-techs" class="text-lg font-extrabold text-slate-700 font-mono">0 FCFA</div>
+              <span class="text-[10px] text-slate-400">Main d'œuvre (60%)</span>
+            </div>
+            <div class="kpi-card p-4">
+              <span class="text-[11px] text-slate-500 font-bold uppercase block mb-1">Commissions Dues</span>
+              <div id="fin-commissions-dues" class="text-lg font-extrabold text-sky-700 font-mono">0 FCFA</div>
+              <span class="text-[10px] text-slate-400">Votre part totale (40%)</span>
+            </div>
+            <div class="kpi-card p-4">
+              <span class="text-[11px] text-slate-500 font-bold uppercase block mb-1">Commissions Reçues</span>
+              <div id="fin-commissions-recues" class="text-lg font-extrabold text-emerald-700 font-mono">0 FCFA</div>
+              <span class="text-[10px] text-slate-400">Déjà en poche</span>
+            </div>
+            <div class="kpi-card p-4 bg-amber-50/50 border-amber-200 col-span-2 lg:col-span-1">
+              <span class="text-[11px] text-amber-900 font-bold uppercase block mb-1">Reste à Recouvrer</span>
+              <div id="fin-solde-restant" class="text-lg font-extrabold text-amber-700 font-mono">0 FCFA</div>
+              <span class="text-[10px] text-amber-800">À réclamer aux techniciens</span>
+            </div>
+          </div>
+
+          <!-- Section 1 : Suivi des Commissions par Technicien -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-2">
+                <i data-lucide="user-check" class="w-4 h-4 text-sky-600"></i> Suivi des Soldes par Technicien
+              </h4>
+              <span class="text-xs text-slate-400">Relancez facilement sur WhatsApp</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[10px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                    <th class="py-2.5 px-3">Technicien</th>
+                    <th class="py-2.5 px-3 text-center">Interventions</th>
+                    <th class="py-2.5 px-3 text-right">Commissions Dues</th>
+                    <th class="py-2.5 px-3 text-right">Commissions Reversées</th>
+                    <th class="py-2.5 px-3 text-right">Reste à Payer</th>
+                    <th class="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="finances-tech-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 2 : Journal des Versements Reçus -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-2">
+                <i data-lucide="receipt" class="w-4 h-4 text-emerald-600"></i> Journal des Versements Encaissés
+              </h4>
+              <button onclick="app.openModalPaiement()" class="text-xs font-bold text-sky-600 hover:text-sky-700">
+                + Ajouter un versement
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[10px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                    <th class="py-2.5 px-3">Date</th>
+                    <th class="py-2.5 px-3">Technicien</th>
+                    <th class="py-2.5 px-3 font-mono">Montant Encaissé</th>
+                    <th class="py-2.5 px-3">Mode</th>
+                    <th class="py-2.5 px-3">Notes & Réf</th>
+                    <th class="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="finances-journal-table-body" class="divide-y divide-slate-100 text-xs"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 3 : Sauvegarde & Sécurité -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 space-y-4">
+            <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-2 pb-2 border-b border-slate-100">
+              <i data-lucide="shield" class="w-4 h-4 text-slate-600"></i> Sauvegarde & Gestion de la Base de Données
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="app.exportDataJson()" class="p-3 rounded-xl border border-slate-200 hover:border-sky-300 text-left hover:bg-slate-50 transition-all flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-xs text-slate-900">Exporter Sauvegarde</div>
+                  <div class="text-[10px] text-slate-400">Télécharger fichier .JSON</div>
+                </div>
+              </button>
+
+              <label class="p-3 rounded-xl border border-slate-200 hover:border-sky-300 text-left hover:bg-slate-50 transition-all flex items-center gap-3 cursor-pointer">
+                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="upload" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-xs text-slate-900">Restaurer Sauvegarde</div>
+                  <div class="text-[10px] text-slate-400">Importer fichier .JSON</div>
+                </div>
+                <input type="file" accept=".json" class="hidden" onchange="app.importDataJson(event)" />
+              </label>
+
+              <button onclick="app.resetToSeedData()" class="p-3 rounded-xl border border-slate-200 hover:border-amber-300 text-left hover:bg-amber-50/40 transition-all flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-xs text-slate-900">Exemples d'Abidjan</div>
+                  <div class="text-[10px] text-slate-400">Réinitialiser données démo</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. MODALES DE GESTION (CLIENTS, TECHS, RDV, INTERVENTIONS, ENCAISSEMENTS) -->
+  <!-- ========================================================================= -->
+
+  <!-- MODALE CLIENT -->
+  <div id="modal-client" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content-card bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h4 id="modal-client-title" class="font-extrabold text-base text-navy-900">Nouveau Client</h4>
+        <button onclick="app.closeModal('modal-client')" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="form-client" onsubmit="app.saveClient(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="client-id-field" />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+            <input type="text" id="client-nom" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: KOUASSI" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+            <input type="text" id="client-prenom" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Jean-Luc" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Téléphone</label>
+            <input type="text" id="client-telephone" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: 0707123456" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Commune</label>
+            <input type="text" id="client-commune" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Cocody" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Quartier</label>
+            <input type="text" id="client-quartier" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Angré 8e Tranche" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de Climatiseurs</label>
+            <input type="number" id="client-nb-clims" min="1" max="50" value="1" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Adresse précise & repères</label>
+          <input type="text" id="client-adresse" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Villa 42, non loin du Terminus" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Date de Contact</label>
+            <input type="date" id="client-date-contact" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Statut Client</label>
+            <select id="client-statut" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500">
+              <option value="nouveau">Nouveau</option>
+              <option value="intéressé">Intéressé</option>
+              <option value="confirmé">Confirmé</option>
+              <option value="terminé">Terminé</option>
+              <option value="annulé">Annulé</option>
+            </select>
+          </div>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="app.closeModal('modal-client')" class="btn-secondary text-xs py-2 px-3.5 rounded-xl font-bold">Annuler</button>
+          <button type="submit" class="btn-primary text-xs py-2 px-4 rounded-xl font-bold">Enregistrer le Client</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE TECHNICIEN -->
+  <div id="modal-technicien" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content-card bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h4 id="modal-technicien-title" class="font-extrabold text-base text-navy-900">Nouveau Technicien Partenaire</h4>
+        <button onclick="app.closeModal('modal-technicien')" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="form-technicien" onsubmit="app.saveTechnicien(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="technicien-id-field" />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+            <input type="text" id="tech-nom" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: BAKAYOKO" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+            <input type="text" id="tech-prenom" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Amadou" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Téléphone</label>
+            <input type="text" id="tech-telephone" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: 0708991122" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Commune de base</label>
+            <input type="text" id="tech-commune" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Cocody" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Zones d'Intervention Couvertes</label>
+          <input type="text" id="tech-zone" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: Cocody, Riviera, Bingerville, Plateau" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Disponibilité</label>
+          <select id="tech-statut" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500">
+            <option value="disponible">Disponible</option>
+            <option value="indisponible">Indisponible</option>
+          </select>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="app.closeModal('modal-technicien')" class="btn-secondary text-xs py-2 px-3.5 rounded-xl font-bold">Annuler</button>
+          <button type="submit" class="btn-primary text-xs py-2 px-4 rounded-xl font-bold">Enregistrer le Technicien</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE RENDEZ-VOUS -->
+  <div id="modal-rdv" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content-card bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h4 id="modal-rdv-title" class="font-extrabold text-base text-navy-900">Programmer un Rendez-vous</h4>
+        <button onclick="app.closeModal('modal-rdv')" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="form-rdv" onsubmit="app.saveRdv(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="rdv-id-field" />
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Sélectionner le Client</label>
+          <select id="rdv-client-select" required onchange="app.onRdvClientSelected()" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 bg-white"></select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Téléphone de contact</label>
+            <input type="text" id="rdv-telephone" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de Clims prévu</label>
+            <input type="number" id="rdv-nb-clims" min="1" value="1" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Adresse de l'intervention</label>
+          <input type="text" id="rdv-adresse" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Date et Heure</label>
+            <input type="datetime-local" id="rdv-date-heure" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Technicien affecté</label>
+            <select id="rdv-technicien-select" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 bg-white"></select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Statut du RDV</label>
+            <select id="rdv-statut" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500">
+              <option value="à programmer">À programmer</option>
+              <option value="programmé">Programmé</option>
+              <option value="confirmé">Confirmé</option>
+              <option value="intervention effectuée">Intervention effectuée</option>
+              <option value="reporté">Reporté</option>
+              <option value="annulé">Annulé</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Notes / Instructions</label>
+            <input type="text" id="rdv-note" placeholder="Ex: Clims split salon" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="app.closeModal('modal-rdv')" class="btn-secondary text-xs py-2 px-3.5 rounded-xl font-bold">Annuler</button>
+          <button type="submit" class="btn-primary text-xs py-2 px-4 rounded-xl font-bold">Valider le Rendez-vous</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE INTERVENTION (AVEC CALCULS FINANCIERS AUTOMATIQUES) -->
+  <div id="modal-intervention" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content-card bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h4 id="modal-intervention-title" class="font-extrabold text-base text-navy-900">Enregistrer une Intervention Réalisée</h4>
+        <button onclick="app.closeModal('modal-intervention')" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="form-intervention" onsubmit="app.saveIntervention(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="inv-id-field" />
+        <input type="hidden" id="inv-rdv-id-field" />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Client</label>
+            <select id="inv-client-select" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 bg-white"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Technicien</label>
+            <select id="inv-technicien-select" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 bg-white"></select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombre Réel de Clims Nettoyés</label>
+            <input 
+              type="number" 
+              id="inv-nb-clims" 
+              min="1" 
+              value="1" 
+              required 
+              class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 font-bold" 
+              oninput="app.calculateInterventionFinancials()"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Date de Réalisation</label>
+            <input type="date" id="inv-date-realisation" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+
+        <!-- Encadré Automatique Financier -->
+        <div class="p-3.5 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-2">
+          <div class="text-[11px] font-extrabold uppercase text-slate-500 tracking-wider">Calculs Financiers Automatiques</div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] text-slate-600 font-semibold mb-0.5">Montant Payé Client (10k/clim)</label>
+              <div class="relative">
+                <input type="number" id="inv-montant-client" required class="w-full px-3 py-1.5 text-xs font-mono font-bold rounded-lg border border-slate-300" />
+                <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">FCFA</span>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] text-sky-800 font-bold mb-0.5">Commission Apporteur (4k/clim)</label>
+              <div class="relative">
+                <input type="number" id="inv-commission-due" required class="w-full px-3 py-1.5 text-xs font-mono font-extrabold rounded-lg border border-sky-300 text-sky-900 bg-sky-50/50" />
+                <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-sky-600">FCFA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-200/60">
+            <div>
+              <label class="block text-[11px] text-emerald-800 font-bold mb-0.5">Montant Déjà Reçu (FCFA)</label>
+              <input 
+                type="number" 
+                id="inv-montant-recu" 
+                value="0" 
+                min="0" 
+                class="w-full px-3 py-1.5 text-xs font-mono font-bold rounded-lg border border-emerald-300 bg-emerald-50/30 text-emerald-900" 
+                oninput="app.calculateInterventionFinancials()"
+              />
+            </div>
+            <div class="flex flex-col justify-end text-right">
+              <span class="text-[10px] text-slate-400">Solde Restant à Percevoir</span>
+              <span id="inv-solde-preview" class="text-sm font-mono font-extrabold text-amber-600">0 FCFA</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Commentaire / Remarques</label>
+          <input type="text" id="inv-commentaire" placeholder="Ex: Clims très encrassés, client satisfait" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="app.closeModal('modal-intervention')" class="btn-secondary text-xs py-2 px-3.5 rounded-xl font-bold">Annuler</button>
+          <button type="submit" class="btn-primary text-xs py-2 px-4 rounded-xl font-bold">Enregistrer l'Intervention</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE PAIEMENT (ENCAISSEMENT DES COMMISSIONS DU TECHNICIEN) -->
+  <div id="modal-paiement" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content-card bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h4 class="font-extrabold text-base text-navy-900 flex items-center gap-2">
+          <i data-lucide="hand-coins" class="w-5 h-5 text-emerald-600"></i> Encaisser un Versement
+        </h4>
+        <button onclick="app.closeModal('modal-paiement')" class="p-1 rounded-lg hover:bg-slate-100 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="form-paiement" onsubmit="app.savePaiement(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="pay-inv-id-field" />
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Technicien qui verse</label>
+          <select id="pay-technicien-select" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 bg-white"></select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Montant Reçu (FCFA)</label>
+            <input type="number" id="pay-montant" required min="100" class="w-full px-3 py-2 text-xs font-mono font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" placeholder="Ex: 8000" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Date</label>
+            <input type="date" id="pay-date" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Mode de Paiement</label>
+            <select id="pay-mode" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500">
+              <option value="Wave">Wave</option>
+              <option value="Orange Money">Orange Money</option>
+              <option value="MTN MoMo">MTN MoMo</option>
+              <option value="Moov Money">Moov Money</option>
+              <option value="Espèces">Espèces (Main à main)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Référence / Reçu</label>
+            <input type="text" id="pay-reference" placeholder="Ex: WAV-12345" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Notes complémentaires</label>
+          <input type="text" id="pay-note" placeholder="Ex: Versement commission 2 clims Cocody" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500" />
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="app.closeModal('modal-paiement')" class="btn-secondary text-xs py-2 px-3.5 rounded-xl font-bold">Annuler</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs">Valider l'Encaissement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTAINER DE NOTIFICATIONS TOAST -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
+
+  <!-- Application JS Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

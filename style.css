@@ -1,0 +1,171 @@
+/* ==========================================================================
+   CLIMPRO CRM — DESIGN SYSTEM & CUSTOM STYLES
+   Couleurs : Bleu Foncé (#0F1E36), Blanc (#FFFFFF), Bleu Clair (#0284C7 / #38BDF8)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+  --primary-navy: #0F1E36;
+  --navy-dark: #0A1424;
+  --navy-surface: #172A46;
+  --accent-blue: #0284C7;
+  --accent-cyan: #38BDF8;
+  --accent-emerald: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-rose: #EF4444;
+  --bg-slate: #F8FAFC;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-slate);
+  color: #1E293B;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mono-numbers {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar discrète */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Modales d'arrière-plan */
+.modal-overlay {
+  background-color: rgba(10, 20, 36, 0.7);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal-content-card {
+  transform: translateY(0);
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* Boutons personnalisés */
+.btn-primary {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  transition: all 0.15s ease-in-out;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0369A1 0%, #075985 100%);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-navy {
+  background-color: #0F1E36;
+  color: #FFFFFF;
+  transition: all 0.15s ease-in-out;
+}
+.btn-navy:hover {
+  background-color: #172A46;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  transition: all 0.15s ease-in-out;
+}
+.btn-secondary:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+
+/* Sidebar Active Tab */
+.nav-tab-item {
+  transition: all 0.15s ease;
+}
+.nav-tab-item.active {
+  background-color: rgba(56, 189, 248, 0.12);
+  color: #38BDF8;
+  font-weight: 700;
+  border-left: 3px solid #38BDF8;
+}
+
+/* Cartes KPI */
+.kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(15, 30, 54, 0.06), 0 8px 10px -6px rgba(15, 30, 54, 0.04);
+}
+
+/* Calendrier */
+.calendar-day-cell {
+  min-height: 90px;
+  transition: background-color 0.1s ease;
+}
+.calendar-day-cell:hover {
+  background-color: #F1F5F9;
+}
+.calendar-day-today {
+  background-color: #F0F9FF;
+  border-color: #BAE6FD !important;
+}
+
+/* Badges de statut */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+/* Toast Notifications */
+#toast-container {
+  pointer-events: none;
+}
+.toast-msg {
+  pointer-events: auto;
+  animation: toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Impression optimisée */
+@media print {
+  aside, header, #toast-container, .no-print {
+    display: none !important;
+  }
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
